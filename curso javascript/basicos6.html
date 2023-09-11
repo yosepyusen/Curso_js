@@ -14,30 +14,28 @@
         let nombre ="Jon";
         let apellido ="miakalifa";
         let saludo = new String("Hola munfo cruel"); //new: objeto nuevo
-        let lorem = "       Lorem ipsum dolor sit consectetur adipisicing elit. Quis saepe distinctio eum. Debitis, necessitatibus quis, non, iusto veritatis laborum minus perspiciatis doloremque ea saepe officia atque? Eligendi quod reprehenderit a?        "
+        let lorem = "       Lorem  ipsum dolor sit consectetur adipisicing elit. Quis saepe distinctio eum. Debitis, necessitatibus quis, non, iusto veritatis laborum minus perspiciatis doloremque ea saepe officia atque? Eligendi quod reprehenderit a?        "
 
         console.log(nombre,apellido,saludo);
         console.log(nombre.length,apellido.length,saludo.length,
             nombre.toUpperCase(), //con esto imprime todo a mayuscula
             apellido.toLowerCase(), //convierte una cadena de texto en letras minúsculas
             lorem.includes("ipsum"),//para que encuentra el valor >> amet, va salir true si encuentra en caso contrario es false
-            lorem, //con esto imprimos solo frase
-            lorem.trim(),//quita los espacios en blanco al inicio al final
-            lorem.split(" "),
-            lorem.split(",")
+            lorem + ":imprimi solo frase", //con esto imprimos solo frase
+            
+            lorem.trim(),//quita los espacios en blanco al inicio al final, pero no al de intermedio
+            lorem.split(" "),//con esto convertimos el texto en array incluyendo los espacios
+            lorem.split(",")//convertimos en array solo cuando encuentre una coma
         );
          let params;
-         let p;
+         
         function name(params) {
             //params1=params.trim(); .join("") split(" ")
-            params1=params.split(",").join("");
+            params1=params.split(",").join("");//convertimos en array y con join convertimos a una cadena
             //params2= params1.join("");
-            console.log((params1.replace(/\s+/g, '')));
+            console.log((params1.replace(/\s+/g, '')));//: /\s+/g, ''): esto en una expresion regular, con esto quitamos los espacios en blanco 
         }
-       
-        //trim():Quita los espacios iniciales, finales, intermedios...
-        //trim():elimina carateres repetidos del texto ejem:coma, deja junto todo una frase
-        
+        console.log("texto original: "+"a, b, c, d, e, f, g, h, i, j, k, l, m, n, ñ, o, p, q, r, s, t, u, v, w, x, y, z");
         name("a, b, c, d, e, f, g, h, i, j, k, l, m, n, ñ, o, p, q, r, s, t, u, v, w, x, y, z");
         
         console.log("------------ ejemplo con join() ------------");
@@ -49,13 +47,39 @@
         // Expected output: "FireAirWater"
         console.log(elements.join('-'));
         // Expected output: "Fire-Air-Water"
+
         console.log("------------ ejemplo con trim() ------------");
         var orig = "   foo  ";
         console.log(orig.trim()); // 'foo'
         // Otro ejemplo de .trim() eliminando el espacio en blanco sólo de un lado.
         var orig = "foo    ";
         console.log(orig.trim()); // 'foo'
+       
+        console.log("------------ ejemplo con split() ------------");
+        //split():divide un objeto de tipo String en un array (vector) de cadenas mediante la separación de la cadena en subcadenas.
+        function dividirCadena(cadenaADividir, separador) {
+        var arrayDeCadenas = cadenaADividir.split(separador);
+        document.write('<p>La cadena original es: "' + cadenaADividir + '"'); //document.write(), es para imprimir en html
+        document.write('<br>El separador es: "' + separador + '"');
+        document.write(
+            "<br>El array tiene " + arrayDeCadenas.length + " elementos: ",
+        );
 
+        for (var i = 0; i < arrayDeCadenas.length; i++) {
+            document.write(arrayDeCadenas[i] + " / ");//con esto añade en cada palabra un /
+            }
+        }
+
+        var cadenaVerso = "Oh brave new world that has such people in it.";
+        var cadenaMeses = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec";
+
+        var espacio = " ";
+        var coma = ",";
+
+        dividirCadena(cadenaVerso, espacio);
+        dividirCadena(cadenaVerso);
+        dividirCadena(cadenaMeses, coma);
+        console.log("Todo funcion de dividirCadena() imprimio en html");
     </script>
 </body>
 </html>

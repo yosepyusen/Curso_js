@@ -12,24 +12,26 @@
     <script>
         //operaciones de suma
        let a=2;
-       let b=new Number(1); 
+       let b=new Number(1); // esto es un contructor: Number(1)
        let c=7.19; 
        let d=9.54545555566; 
        let d1="5.6";
 
 
-       console.log(typeof c,typeof d1);//indica si es texto o numero
+       console.log("El valor c es un: "+ typeof c,"\nEl valor d1 es un: "+typeof d1);//indica si es texto o numero
        console.log(a,b); 
-       console.log(c.toFixed(1));  //redondea a mayor con un decimal
+       console.log(c.toFixed(1));  //redondea a mayor con un decimal= 7.2
        console.log(d.toFixed(5));//redondear con 5 decimal
        console.log(parseInt(d));//imprime la parte solo entera
        console.log(parseFloat(d));//con todo los decimales
+       
        console.log("suma de numero");
-    console.log(a+b);//efectua la suma
-    console.log(c+parseInt(d1));//ase la suma de la variabñle let d1 ,solo la parte entera
-    console.log(c+parseFloat(d1));//hace la suma correcto
-    console.log(c+Number.parseInt(d1));//number es si cuekga de los datos de Number
-    console.log(c+Number.parseFloat(d1));
+       console.log(a+b);//efectua la suma
+       console.log(c+parseInt(d1));//hase la suma de la variable let d1, solo la parte entera, porque estas usando parseInt()
+       console.log(c+parseFloat(d1));//hace la suma correcto
+       console.log("******");//
+       console.log(c+Number.parseInt(d1));//number es si cuelga de los datos de Number, suma incorrecto
+       console.log(c+Number.parseFloat(d1));//Number.  , esto se pone cuando depende de un contructor o POO
 
   
 

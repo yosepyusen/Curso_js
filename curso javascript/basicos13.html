@@ -11,7 +11,7 @@
 
     <script>
 
-        let a = new String("Hola mundo crelk");
+        let a = new String("Hola mundo crelk");//es un objeto string
         console.log(a);
 
         const b={}//objeto 
@@ -27,12 +27,12 @@
             edad:35,
             pasatiempo:["Corre","hacer ejercicio","Dar clases"],
             soltero:false,
-            contacto:{
+            contacto:{//es un atributo o propiedades
                 email:"yaguirre@gmail.com",
                 twiter:"@yuchins",
                 movil:"98157412",
             },
-            saludar: function(){
+            saludar: function(){// funcion dentro de un objeto
                 console.log(`Hola :)`);
             },
             decirMiNombre: function(){
@@ -44,7 +44,7 @@
         console.log(jon["nombre"]);
         console.log(jon["apellido"]);
         //otra forma de llamar los objetos
-        console.log("Otra forma de imostrara valores del objeton q contiene valores");
+        console.log("Otra forma de mostrara valores del objeton q contiene valores");
         console.log(jon.nombre);
         console.log(jon.apellido);
         console.log(jon.edad);
@@ -55,13 +55,15 @@
         console.log(jon.contacto);
         console.log(jon.contacto.email);
 
-        jon.saludar();
-        jon.decirMiNombre();
+        jon.saludar();//imprime: Hola :)
+        jon.decirMiNombre();//imprime la funcion
         
         console.log(Object.keys(jon));//objeto tiene metodos, que tiene el prototipo el object, permite listar todas las llaves del objeto
-        console.log(Object.values(jon));//todo los valores que hay alamacenados
+        //la linea anterio imprime: (8) ['nombre', 'apellido', 'edad', 'pasatiempo', 'soltero', 'contacto', 'saludar', 'decirMiNombre']
+        // ve mas: Object.keys()
+        console.log(Object.values(jon));//todo los valores que hay alamacenados dicho clase 
         console.log(jon.hasOwnProperty("nombre"));// dice true porq el objeto jon dentro de su lista hay un propiedad q se llama nombre
-        console.log(jon.hasOwnProperty("nacimiento"));// es verdad porq no hay en su lista nacimiento en object jon
+        console.log(jon.hasOwnProperty("nacimiento"));// es false porq no hay en su lista nacimiento en object jon
     
     
     </script>

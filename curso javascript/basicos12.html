@@ -10,21 +10,27 @@
     <h1>Fundamento javasrcit</h1>
 
     <script>
-        //arrelo se puede declaraar con const o let
+        //arrelo se puede declarar con const o let
         //arreglo puede ser distintos pitos
         //los arreglos siempre incializan en cero
         const a = [];
-        const b = [1,true,"Hola",["A","B","C"]];
+        const b = [1,true,"Hola",["A","B","C"]]; //arreglo dentro de un array
         const c = [1,true,"Hola",["A","B","C", [1,2,3]]];
         console.log(a);
         console.log(b);
-        console.log(b.lenght);
-        console.log(b[2]);//imprime de la posicion dos 
+        console.log(b.length);//# de conjunto de elementos
+        console.log(b[2]);//imprime: "Hola" 
         console.log(b[3][2]);//imprime la B
         console.log(c[3][3][1]);//imprime la 2
 
+        /* forma de uso y como imprime con Array.of()
+        Array.of(7); // [7]
+        Array.of(1, 2, 3); // [1, 2, 3]
+        Array(7); // [ , , , , , , ]
+        Array(1, 2, 3); // [1, 2, 3] */
+        
         const d = Array.of("X","Y","Z",9,8,7);// dentro de of , se pone los valores que quiero cargar
-        console.log(d);
+        console.log(d);// imprime: (6) ['X', 'Y', 'Z', 9, 8, 7]
 
         const k = Array(100).fill(false);//con (fill) llena su valor con dato (false) en cantidad de (100)
         console.log(k);
@@ -45,7 +51,8 @@
         colores.pop();//pop(), quita el ultimo elemento
         console.log(colores);
 
-        colores.forEach(function(el, index){//con la funcion forEach, recorre todo los arreglos
+        console.log("\nimpresion con FOREACH");
+        colores.forEach(function(el, index){//con la funcion forEach, recorre todo los arreglos, function dentro de un foreach 
             console.log(`<li id="${index}">${el}<li>`);
         });
         
