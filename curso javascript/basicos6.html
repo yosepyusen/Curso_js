@@ -14,26 +14,47 @@
         let nombre ="Jon";
         let apellido ="miakalifa";
         let saludo = new String("Hola munfo cruel"); //new: objeto nuevo
-        let lorem = "       Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis saepe distinctio eum. Debitis, necessitatibus quis, non, iusto veritatis laborum minus perspiciatis doloremque ea saepe officia atque? Eligendi quod reprehenderit a?        "
+        let lorem = "       Lorem ipsum dolor sit consectetur adipisicing elit. Quis saepe distinctio eum. Debitis, necessitatibus quis, non, iusto veritatis laborum minus perspiciatis doloremque ea saepe officia atque? Eligendi quod reprehenderit a?        "
 
         console.log(nombre,apellido,saludo);
         console.log(nombre.length,apellido.length,saludo.length,
-            nombre.toUpperCase(),
-            apellido.toLowerCase(),
-            lorem.includes("amet"),//para que encuentra el valor >> amet
-            lorem,
+            nombre.toUpperCase(), //con esto imprime todo a mayuscula
+            apellido.toLowerCase(), //convierte una cadena de texto en letras minúsculas
+            lorem.includes("ipsum"),//para que encuentra el valor >> amet, va salir true si encuentra en caso contrario es false
+            lorem, //con esto imprimos solo frase
             lorem.trim(),//quita los espacios en blanco al inicio al final
             lorem.split(" "),
             lorem.split(",")
         );
          let params;
+         let p;
         function name(params) {
             //params1=params.trim(); .join("") split(" ")
             params1=params.split(",").join("");
             //params2= params1.join("");
             console.log((params1.replace(/\s+/g, '')));
         }
+       
+        //trim():Quita los espacios iniciales, finales, intermedios...
+        //trim():elimina carateres repetidos del texto ejem:coma, deja junto todo una frase
+        
         name("a, b, c, d, e, f, g, h, i, j, k, l, m, n, ñ, o, p, q, r, s, t, u, v, w, x, y, z");
+        
+        console.log("------------ ejemplo con join() ------------");
+        const elements = ['Fire', 'Air', 'Water'];
+        //join():une todos los elementos de una matriz (o un objeto similar a una matriz) en una cadena y devuelve esta cadena sin espaciados y elimina la coma.
+        console.log(elements.join());
+        // Expected output: "Fire,Air,Water"
+        console.log(elements.join(''));
+        // Expected output: "FireAirWater"
+        console.log(elements.join('-'));
+        // Expected output: "Fire-Air-Water"
+        console.log("------------ ejemplo con trim() ------------");
+        var orig = "   foo  ";
+        console.log(orig.trim()); // 'foo'
+        // Otro ejemplo de .trim() eliminando el espacio en blanco sólo de un lado.
+        var orig = "foo    ";
+        console.log(orig.trim()); // 'foo'
 
     </script>
 </body>
