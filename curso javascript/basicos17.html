@@ -15,23 +15,25 @@
         console.log("En el Try se agrega el código a evaluar");
         noexiste;
         console.log("Me llegas al chompiras");
-    }catch(error){
+    }catch(error){//imprime el primer console pero el var:noexiste, por eso el 2do msje no imprime y da un catch
           console.log("Catch, captura cualquier error surgido o lanzado en el try");  
-          console.log(error);
-        }  finally{
-            console.log("El bloque finally se ejecutara siempre al final de un bloque try-catch");
+          console.log(error);//va capturar el error siempre y cuando hay errores en el try 
+        }  finally{//haya error o no siempre se va ejecutar el finally
+          console.log("El bloque finally se ejecutara siempre al final de un bloque try-catch");
         } 
 
     //personalizar mensajes de error
+    console.log("-------");
     try{
         let number="tr";
         
         if(isNaN(number)){//isNaN, funcion si le pasas un numero te devuelve (false) y si no es numero es (verdadero)
             throw new Error("El caracter introducido no es un numero");
+            //El método throw() reanuda la ejecución de un generador al lanzar un error en éste y regresar un objeto con las dos propiedades done y value .
             //error general
         }
 
-        console.log(number*number);
+        console.log("El mismo numero multiplicado por el mismo es: "+number*number);//este linea de cod ya no imprime cuan number es diferente a un #
     }catch(error){
         console.log("Se producjo el siguiente error:"+error);
     }

@@ -14,7 +14,7 @@
     let nombre="KEnAi",
         edad=7;
 
-    const perro={//object con dos propiedas y un metodo
+    const perro={//object con dos propiedades y un metodo
         nombre:nombre,
         edad: edad,
         ladrar: function(){
@@ -22,8 +22,8 @@
         }
     }
 
-    console.log(perro);
-    perro.ladrar();
+    console.log(perro);//imprime: el objeto
+    perro.ladrar(); //imprime: gua guaii!!
 
     const dog={
         nombre,
@@ -44,13 +44,18 @@
         let resultado= a+b;
 
         c.forEach(function (n) {//forEach: recibe una funcion dentro del valor de c
-            resultado +=n;
+        // c.forEach ; se va hacer un arreglo
+        // function (n) : se va ejecutar por cada una de los elementos que venga dentro de c
+        //c=3, dentra en foreach y va hacer 3 iteraciones, 1ra iteracion: resultado=3=2+1
+            resultado +=n;// 3+=1, primera iteracion resultado=4
+            // 4+=1, 2da iteracion resultado=5
+            //5+=1, primera iteracion resultado=6
         });
         return resultado;
     }
-    console.log(sumar(1,2));
-    console.log(sumar(1,2,3));
-    console.log(sumar(1,2,3,4));
+    console.log(sumar(1,2));//solo imprime: 3=1+2
+    console.log(sumar(1,2,3));//c=3, dentra en foreach y va hacer 3 iteraciones, 1ra iteracion: resultado=3=2+1
+    console.log(sumar(1,2,3,4));//con ...c , es para poner tantos argumentos que queremos
     console.log(sumar(1,2,3,4,5,6));
     console.log(sumar(1,2,3,4,5,6,7));
 
@@ -62,6 +67,20 @@
 
         const array3 = [...array1,...array2];
         console.log(array3);
+
+        console.log("parametro rest en: ...");
+        function sum(...theArgs) {// funciona como tantas variables le podemos pasar de 3 o 4 o 5 valore
+        let total = 0;
+            for (const arg of theArgs) {
+            total += arg;
+            }
+        return total;
+        }
+        console.log(sum(1, 2, 3));
+        // Expected output: 6
+        console.log(sum(1, 2, 3, 4));
+        // Expected output: 10
+
     
     </script>
 

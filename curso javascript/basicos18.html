@@ -11,17 +11,18 @@
 
     <script>
         
+        //const es una constante , cambio let puede ser num, texto...
        const numero=[1,2,3,4,5,6,7,8,9,0]; 
 
        for (let i = 0; i < numero.length; i++) {
         if (i===5) {
             break;//rompe el ciclo y sale del control
         }
-        console.log(numero[i]);
+        console.log(numero[i]);// el ultimo valor es de 5
        }console.log("****");
        for (let i = 0; i < numero.length; i++) {
         if(i===5){
-            continue;// omite la iteracion de esa posicion
+            continue;// no imprime el valor 6,omite la iteracion de esa posicion 5
         }  
         console.log(numero[i]);      
        }
@@ -42,6 +43,20 @@
          }
         
        }
+
+       console.log("pruebas de continue:");
+        i = 0;
+        n = 0;
+        while (i < 5) {
+        i++;
+        if (i == 3) {// no imprime el numero de la posicion 2 ya que inicia desde cero, 
+            //es decir no imprime numero=3
+            continue;
+        }
+        n += i;//primer iter: 0+=1, n=1 ; 2da: 1+=2, n=3
+        console.log("impresion de valor n:"+n);
+        console.log(i);
+        } 
 
     </script>
 
