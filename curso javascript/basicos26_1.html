@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        let nombre ="yosep",
+        apellido="Aguirre",
+        edad=35;
+
+        console.log(nombre);
+        console.log(apellido);
+        console.log(edad);
+        console.log(`Hola mi nombre es ${nombre} ${apellido} y mi edad es ${edad}`);
+        console.log(`Hola mi nombre es %s %s y mi edad es %d años.`,nombre,apellido,edad);
+        console.clear();
+        console.log(window);
+        console.log(document);//representacion de doc de html
+        console.dir(window);
+        console.dir(document);
+        console.clear();
+
+        console.group("Cursos de yosep js");
+        console.log("cusros de js");
+        console.log("cusros de node js");
+        console.log("cusros de pwas");
+        console.log("cusros de flexbox");
+        console.log("cusros de diseño web");
+        console.groupEnd();
+        
+        console.groupCollapsed("Cursos de yosep js");
+        console.log("cusros de js");
+        console.log("cusros de node js");
+        console.log("cusros de pwas");
+        console.log("cusros de flexbox");
+        console.log("cusros de diseño web");
+        console.groupEnd();
+
+        console.clear();
+        console.log(console);
+        console.table(Object.entries(console).sort());
+
+        const numero=[1,2,3,4,5],
+        vocales=["a","e","i","o","u"];
+
+        console.table(numero);
+        console.table(vocales);
+
+        const perro={
+            nombre:"scoby",
+            raza:"rotwailer",
+            color:"cafe"
+        }
+        console.table(perro);
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
