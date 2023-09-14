@@ -36,73 +36,76 @@
             ladrar(){
                 console.log("Guauuu!!");
             }
-            //un metodo static se puede ejecutar sin necesidad de instanciar la cvlase
+            //un metodo static se puede ejecutar sin necesidad de instanciar la clase
             static queEres(){
                 console.log("Los perros somos animales mamiferos que pertenecemos a la familia de los caninos.Somos considerados mejores amigos del hombre");
             }
-            get getRaza(){
+            get getRaza(){ //get: obtener
                 return this.raza;
             }
-            set setRaza(raza){
+            set setRaza(raza){ //set: dar
                 this.raza=raza;
             }
         }
-        Perro.queEres();
+        Perro.queEres();//imprime la funcion static de Perro
 
+        //instanciamos
         const mimi= new Animal("Mimi","Hembra"),
         snoopy= new Perro("Snoopy","Macho","grande");
 
+        //output
         console.log(mimi);
-        mimi.sonar();
-        mimi.saludar();
+        mimi.sonar(); //output: hago sonidos pq estoy vivo
+        mimi.saludar();//output: Hola mi nombre es Mimi
 
         console.log(snoopy);
         snoopy.sonar();
         snoopy.saludar();
         snoopy.ladrar();
-        console.log(snoopy.getRaza);//imprime valor null
-        snoopy.setRaza= "Gran Danéz";
-        console.log(snoopy.getRaza);
+        console.log(snoopy.getRaza);//obtine el valor la funcion getRaza de clase Perro
+        snoopy.setRaza= "Gran Danéz";//con esto introducimos un valor a la raza
+        console.log(snoopy.getRaza);//output: Gran Danéz
 
         //****************
         console.log("***********************");
         class Personas{
-            constructor(nombre,genero){
-                this.nombre=nombre;
-                this.genero=genero;
+            constructor(name,sexo){
+                this.name=name;//no necesariamente tiene que ser mismo nombre
+                this.sexo=sexo;
             }
             saludame(saludo){
-                console.log(`mi nombre es:${this.nombre} y ${saludo}`);
+                console.log(`mi nombre es:${this.name} y ${saludo}`);
             }
             sonido(){
                 console.log("hago sonidos pq estoy vivo");
             }
         }
         class Hombre extends Personas{
-            constructor(nombre,genero,edad){
-                super(nombre,genero,edad);
-                this.edad=edad;
+            constructor(name,sexo,edad){//este es contruct de clase Hombre
+                super(name,sexo);//viene de clase Personas
+                this.edad=edad;//añadimos una nuevo campo
             }
             Saludame(){
-                console.log(`hola soy gaiaa`);
+                console.log(`hola mi nombre es: ${this.name}`);
             }
             
-            CualesEdad(){
+            Edad(){
                 console.log(`Mi edad es ${this.edad}`);
             }
 
         }
 
-        const mChile=new Personas("mChile","Hembra"),
-        hGai= new Hombre("Gaii","Masculino","25");
+        const mujer=new Personas("Ana","Femenino"),
+        varon= new Hombre("Jair","Masculino","25");
 
-        console.log(mChile);
-        mChile.saludame("Buenas noches");
-        mChile.sonido();
+        console.log(mujer);
+        mujer.saludame("Buenas noches");
+        mujer.sonido();
         
-        console.log(hGai);
-        hGai.saludame("Buenos dias");
-        hGai.sonido();
+        console.log(varon);
+        varon.saludame("Buenos dias");
+        varon.sonido();
+        varon.Edad();
         
         
 

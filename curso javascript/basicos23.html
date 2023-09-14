@@ -14,27 +14,36 @@
 
         //herencia protipica
 
-        function Animales(nombre,genero){
+        function Animales(nombre,genero){//es un contructor no una clase
             this.nombre=nombre;
             this.genero=genero;
+            //el object es primitivo de js
         }
-
-        Animales.prototype.sonar=function(instrument, grave, agudo){
-            console.log(`sonidos de: ${instrument}, ${grave}, ${agudo}`);
+        //con prototype ponemos como dentro de la clase Animales
+        Animales.prototype.sonar=function(bajo, mediano, alto){
+            console.log(`sonidos de: ${bajo}, ${mediano}, ${alto}`);
         }
         Animales.prototype.saludo=function(dias,tardes,noche){
             console.log(`Los saludos de: ${dias, this.nombre}, ${tardes}, ${noche}`);
         }
         //herencia prototipica
 
-        function Perro(name,genero,tamanio){
-            this.super=Animales,//super para llamar al constructor
-            this.super(name,genero);
+        function Perro(name,genero,tamanio){//clase perro tiene 3 varables, animales tiene 2 clases
+            //eror de que cada vez que genere una new instancia Perro, estaria generando una propiedad super de donde clonando todo el prototipo Animal
+            //para evitar ese error se debe instanciar en una variable el clase Perro
+            this.super=Animales,//super para llamar al constructor de la clase Animales
+            this.super(name,genero);//si super = clase Animales
             this.tamanio=tamanio;
-        }//perro esta heredando d animal
-
-        Perro.prototype=new Animales();
-        Perro.prototype.constructor = Perro;
+            //el prototipo es Animales
+        }
+        
+        //Perro esta heredando de Animales
+        Perro.prototype=new Animales();//instanciar de perro a animales
+        Perro.prototype.constructor = Perro; //generar su propio contructor a la funcion constructora Perro
+        //al hacer el constructor se va jalar todas las caracteristicas de su prototipo padre que en este caso seria Animales
+        //con la instancia y el contructor puede usar su propios metodos de sonar() y saludo() de clase padre Animales
+        //padre Animales, hijo Perro, clase heredado de padre e hijo
+        //se puede hacer una sobreescritura de los metodos padres 
 
         //sobre escritura de metodos del prototipo padre en el hijo 
         Perro.prototype.sonar= function(){
@@ -50,12 +59,12 @@
         console.log(snoopy);
         console.log(lolaBunny);
 
-
-        snoopy.sonar("instrumental","Grave","Agudo");
+        console.log("-----------")
+        snoopy.sonar();
         snoopy.saludo("Buenos dias","buenas tardes","Buenas noches");
         snoopy.ladrar();
 
-        lolaBunny.sonar("instrumental","Grave","Agudo");
+        lolaBunny.sonar("20 decilbeles","30 decilbeles","40 decilbeles");
         lolaBunny.saludo("Buenos dias","buenas tardes","Buenas noches");
 
 

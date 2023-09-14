@@ -25,7 +25,7 @@
         sonar(){
             console.log("Hago sonidos por q estoy vivo");
         }
-     }; console.log(animal);
+     }; console.log(animal);//imprimimos la calse 
 
      const animal2 ={
         nombre:"lolabony",
@@ -37,11 +37,11 @@
      console.log("***************");
 
      function Animal(nombre, genero) {
-        // atributos
+        // atributos se queden dentro de la funcion 
         this.nombre=nombre;
         this.genero= genero;
 
-        // metodos, es preferible que se saque de la funcion
+        // metodos, es preferible que se saque de la funcion, para evitar duplicaciones
         this.sonar= function(){// esta funcion comeria memoria si se pide bastante animales, eso se debe sacar
             console.log("Hago sonidos por q estoy vivo");
         },
@@ -50,47 +50,47 @@
         }
      }
 
-     const snoopy = new Animal("Snoppy","Macho"),
-     lolaBunny = new Animal("Lola Bunny","Hembra");
+     const snoopy = new Animal("Snoppy","Macho"),//instanciamos la clase
+     lolaBunny = new Animal("Lola Bunny","Hembra");//otra instancia en otra variable
 
-     console.log(snoopy);
-     console.log(lolaBunny);
+     console.log(snoopy);//imprimimos: Animal {nombre: 'Snoppy', genero: 'Macho', sonar: ƒ, saludar: ƒ}
+     console.log(lolaBunny);// output: Animal {nombre: 'Lola Bunny', genero: 'Hembra', sonar: ƒ, saludar: ƒ}
 
-     snoopy.sonar();
-     snoopy.saludar(saludo="csm");
+     snoopy.sonar();//llamamos la clase instanciado dentro de dicha clase padre la function . sonar()
+     snoopy.saludar(saludo="hola soy snoopy");//llamaos la funcion saludar() dentro de variable instanciado ::: snoopy
 
-     lolaBunny.saludar(saludo="csm");
+     lolaBunny.saludar(saludo="hola soy lolaBunny");
      lolaBunny.sonar();
 
      console.log("**************");
      //----------------------------------------------------
-     // funcion donde se asigna los metodos al prototipo
-     function Cosas(lapiz,libro){
+     // funcion donde se asigna los metodos al prototipo, no al funcion como tal
+     function Cosas(lapiz,material){
         this.lapiz=lapiz;
-        this.libro=libro;
+        this.material=material;
      }
 
-     //metoidos agregados al prototipo de la funcion constructora 
-
-     Cosas.prototype.sonido= function(){
-        console.log("Hago sonidos por q estoy vivo");
+     //metoidos agregados al prototipo de la funcion constructora Cosas
+     //ES MAS RECOMENDABLE usar esta forma
+     Cosas.prototype.objeto= function(){//primero mandamos a la funcion contructora punto prototype
+        console.log("Hola soy un objeto");
      }
 
-     Cosas.prototype.saludame= function(ludo){
-        console.log(`hola me llamo ${this.name} y el saludo es:${ludo}`);
+     Cosas.prototype.echoDe= function(material){
+        console.log(`soy un: ${this.lapiz} y estoy echo de: ${material}`);
      }
 
-     const utiles = new Cosas("lapiz de madera","libro de coquito"),
-     utiles2 = new Cosas("lapiz de metal","libro obra");
+     const utiles = new Cosas("lapiz","Soy de madera"),
+     utiles2 = new Cosas("lapiz","Soy de metal");
 
-     console.log(utiles);
+     console.log(utiles);//imprimimos el objeto
      console.log(utiles2);
 
-     utiles.sonido();
-     utiles.saludame("csm");
+     utiles.objeto();
+     utiles.echoDe("madera");
      
-     utiles2.sonido();
-     utiles2.saludame("csm");
+     utiles2.objeto();
+     utiles2.echoDe("metal");
 
 
 

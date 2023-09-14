@@ -14,7 +14,6 @@
         // clases
         class Animal{
             //el constructor de una clase es un metodo especial que se ejecuta en el momento de instanciar la clase
-            
             constructor(nombre,genero){
                 this.nombre=nombre;
                 this.genero=genero;
@@ -29,15 +28,15 @@
                 console.log(`Hola mi nombre es ${this.nombre}`);
             }
         }
-        class Perro extends Animal{
+        class Perro extends Animal{//clase Perro hereda de Animal
             constructor(nombre,genero,tamanio){
                 super(nombre,genero);
                 this.tamanio=tamanio;
             }
-            sonar(){
+            sonar(){//sobreescritura de metodos
                 console.log("Soy un perro y mi sonidos es un ladrido");
             }
-            ladrar(){
+            ladrar(){//new funcion de clase Perro
                 console.log("Guauuuu!!!");
             }
         }

@@ -47,68 +47,62 @@
     const sumdos= (numero1, numero2) => console.log(`La suma es:${numero1+numero2}`);
     sumdos(45,45);
 
-    /*function sumtres(namber1, namber2, ...namber3) {  
-        
-    let resultadotres=namber1+namber2;
-    
-    namber3.forEach(function (n) {
-        resultadotres += n;
-    });
-    return resultadotres;
-    }
-    console.log(sumtres(1,2,3));*/
-
-    /*const  sumtres=(namber1,namber2, ...namber3)=> {  namber1+namber2,
-        namber3.forEach(function(n){
-            resultado+=n;
-        });
-        return resultado;
-    }
-        //namber3.forEach=(n)=> resultado+=n;
-        //return resultado;
-        console.log(sumtres(1,2,3));*/
-
-        const sumtres=(m,n)=>m+n;
+        const sumtres=(m,n)=>m+n;//suma con 2 # con funcion adow 
         console.log(`La suma es : ${sumtres(4,8)}`);
 
         const funcionDeVariasLineas=()=>{
             for (let interacion = 1; interacion <= 3; interacion++) {
-                console.log(`N°: ${interacion}`);
+                console.log(`N°: ${interacion}`);//imprime tres iteraciones 
                 
             }
-        }; funcionDeVariasLineas();
+        }; 
+        console.log("----  llamada de funcionDeVariasLineas-------");
+        funcionDeVariasLineas();
 
         const variosnumero =[1,2,3,4,5,6,7,8,9,10];
 
         variosnumero.forEach(function(el, index){//recibe el elemento que esta recorriendo del arreglo y la posicion
             //console.log(`El elemento N°${el} de ${index} esta en la posición ${index1}, ${index2}`);
-            console.log(`el elemento ${el}, esta en la posicion ${index}`);
+            console.log(`el elemento ${el}, esta en la posicion ${index}`); //va imprimir 10 valores solo cambia posicion ya que incia desde cero
         });
-        valores=[1,2,3,4,5];
-        valores.forEach((one,two) =>{ 
-        console.log(`el elemento ${one}, esta en la posicion ${two}`);
+        console.log("***************");
+        const valores=[1,2,3,4,5];// es lo mismo que el anterior solo que este tiene 5 valores y va haber 4 posiciones ya que posicion inicia desde 0
+        valores.forEach((one,two) =>{ //sino declaras una variable lo toma como global js
+        console.log(`el elemento ${one}, esta en la posicion ${two}`);//imprime  veces
     });
-
+    //arrow function es que capturan el objeto this del contexto en el que se encuentra
+    //
     function perro(){
         console.log(this);//this se vueleve el objeto window
     }
-    perro();
-        
-    const gato ={
+    perro();//ejecutamos y cuando la function existe dentro del contexto del navegador 
+    //this se vuelve objeto window imprime 
+    /*
+    Window {window: Window, self: Window, document: document, name: '', location: Location, …}
+    */
+    console.log("---------"); 
+    const Perro ={
         nombre:"kenai",
         ladrar:function(){
             console.log(this);//ase referecnia al objeto "gato"
         },
-        dormilon: ()=>{
+        dormilon: ()=>{//arrow function tiene la capacidad de capturar el contexto del objeto en el que se encuentra
             console.log(this);//hace referencia al console window
         },
         comelom (){
             console.log(this);
         }
-    }; console.log(gato);
-    gato.ladrar();
-    gato.dormilon();
-    gato.comelom();
+    }; //console.log(Perro);
+    Perro.ladrar();// diferencia anterior con esto imprime
+    /*
+    {nombre: 'kenai', ladrar: ƒ, dormilon: ƒ, comelom: ƒ}
+    //hace referencia a este objeto
+    //ƒ: es una function
+    */
+    console.log("----1-----");
+    Perro.dormilon();// ahora con esto imprime objeto window, esto es debido al obj arrow function
+    console.log("-----2----");
+    Perro.comelom();//imprime el objeto
 
 
 
