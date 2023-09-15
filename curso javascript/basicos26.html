@@ -23,26 +23,34 @@
         
 
         //console.clear();
-/*
-        console.time("Cuanto timepo tarde mi codigo");
-        const arreglo =Array(1000000);
+
+        console.time("Cuanto timepo tarde mi codigo");// tiene que ser igual al de anterior: Cuanto timepo tarde mi codigo, este frase es como una etiqueta, sino da error
+        const arreglo =Array(1000000);//Array de un millon de posiciones
+        // se puede usar: const arreglo =new Array(1000000);
         for(let i=0; i<arreglo.length; i++){
-            arreglo[i]=i;
+            arreglo[i]=i; // en el arreglo en la posicion i agreda el i
         }
-        console.timeEnd("Cuanto timepo tarde mi codigo");
-        //
+        console.timeEnd("Cuanto timepo tarde mi codigo");// tiene que ser igual al de anterior: Cuanto timepo tarde mi codigo, este frase es como una etiqueta, sino da error
+        //el tiempo que tardo en llenar un millon de elementos dentro del array
+        //console.log(arreglo); //imprime un millon de posiciones
+
         console.log("*******************");
-        for(let j=0; j<=100; j++){
-            console.count("codigo for");
+        for(let j=0; j<=50; j++){
+            console.count("codigo for");//con esto vez cuantas veces se ejecuto o iteraciones
+            //codigo for, es como una etiqueta, 
+            //console.count, muestra numero de ejecuciones
             console.log(j);
         }
         
         let x=1,
         y=2,
         pruebaXY="Se espera que X siempre sea menor que Y";
-
-        console.assert(x<y,(x,y,pruebaXY));// assert es para comprobar la consicion
-*/
+        //para hacer testin o pruebasm assert, como mini libreria para hcaer pruebas
+        console.assert(x<y,(x,y,pruebaXY));// assert es para comprobar la consicion, cuando no sale nada es porque esta bien sino en caso que el cod esta mal va dar error
+        //x<y, condicion
+        //(x,y,pruebaXY), variables de juego
+        //variable final donde se ejecuta el mensaje: pruebaXY
+        
     </script>
 
 </body>

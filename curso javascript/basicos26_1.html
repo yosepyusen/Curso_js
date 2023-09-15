@@ -10,37 +10,38 @@
         apellido="Aguirre",
         edad=35;
 
-        console.log(nombre);
-        console.log(apellido);
-        console.log(edad);
+        console.log(nombre);//output: yosep
+        console.log(apellido);//output: Aguirre
+        console.log(edad);//output: 35
         console.log(`Hola mi nombre es ${nombre} ${apellido} y mi edad es ${edad}`);
         console.log(`Hola mi nombre es %s %s y mi edad es %d años.`,nombre,apellido,edad);
-        console.clear();
-        console.log(window);
+        //console.clear(); //LIMPIA LA CONSOLA EN EL NAVEGADOR
+        console.log(window);//imprime consola de windows de js, window es el objeto global de js que representa en la ventana de navegadores, imprime todas las prpiedades de obj window
         console.log(document);//representacion de doc de html
-        console.dir(window);
-        console.dir(document);
-        console.clear();
+        console.dir(window);//
+        console.dir(document);//output representado de html como unobjeto y sus propiedades, atributos
+        //console.clear();
 
-        console.group("Cursos de yosep js");
+        console.group("Cursos de yosep js");//inico de grupo
         console.log("cusros de js");
         console.log("cusros de node js");
         console.log("cusros de pwas");
         console.log("cusros de flexbox");
-        console.log("cusros de diseño web");
+        console.log("cusros de diseño web");// fin inico de grupo
         console.groupEnd();
         
-        console.groupCollapsed("Cursos de yosep js");
+        console.groupCollapsed("Cursos de yosep js");//inico de grupo
         console.log("cusros de js");
         console.log("cusros de node js");
         console.log("cusros de pwas");
         console.log("cusros de flexbox");
         console.log("cusros de diseño web");
-        console.groupEnd();
+        console.groupEnd(); // fin inico de grupo , ambos se parecen solo que navegador le da agregado
 
-        console.clear();
+        //console.clear();
         console.log(console);
-        console.table(Object.entries(console).sort());
+        console.table(Object.entries(console).sort());//muestra en tabla los comandos de console
+        //Object.entries , vaya generando una fila por cada una de las propiedades del objeto console
 
         const numero=[1,2,3,4,5],
         vocales=["a","e","i","o","u"];

@@ -10,39 +10,46 @@
     <h1>Fundamento javasrcit</h1>
     <script>
       
-        /*
-        Cortocircuito OR - cuando el valor de la izquierda en la expresión siempre pueda validar a true, es el valor que se cargará por defecto
-        Cortocircuito AND - cuando el valor de la izquierda en la expresión siempre pueda validar a false, es el valor que se cargará por defecto
-        */
-
-        function saludar(nombre){
-            nombre=nombre || "Desconocido";
-            console.log(`Hola ${nombre}`);
-            
-            // classSaludo={
-            //     d1=BuenosDias;
-            //     console.log("hola");
-            // }
-        }
-       console.log();
-
-       saludar("Yosep");
-       saludar();
-
+        
+        //function saludar(nombre="Desconocido"){///usar esto 
+            function saludar(nombre){
+                nombre=nombre || "Desconocido";//o sino se puede usar esto puede usarse uno de los dos
+                console.log(`Hola ${nombre}`);
+                
+                // classSaludo={
+                    //     d1=BuenosDias;
+                    //     console.log("hola");
+                    // }
+                }
+                console.log();
+                
+                saludar("Yosep");
+                saludar();//imprime el Desconocido porque no a dado un valor
+                
+                /*
+                Cortocircuito OR - cuando el valor de la izquierda en la expresión siempre pueda validar a true, es el valor que se cargará por defecto
+                Cortocircuito AND - cuando el valor de la izquierda en la expresión siempre pueda validar a false, es el valor que se cargará por defecto
+                */
+       
+       //cargan valores de la izquierda
        console.log("cadena" || "valor de derecha");
        console.log(19 || "valor de derecha");
        console.log(true || "valor de derecha");
        console.log([] || "valor de derecha");
        console.log({} || "valor de derecha");
+
+       //cargan valor de la derecha
        console.log(false || "valor de derecha");
        console.log(null|| "valor de derecha");
        console.log(undefined || "valor de derecha");
        console.log("" || "valor de derecha");
        console.log(-2 || "valor de derecha");
        console.log(0 || "valor de derecha");
+       //debido a OR - cuando el valor de la izquierda en la expresión siempre pueda validar a true, es el valor que se cargará por defecto
        
-       /// aqui && :: operadro todo lo contrario a || 
+       /// aqui && operadro todo lo contrario a || OR
        console.log(0 && "valor de derecha");
+       
 
     </script>
 </body>
