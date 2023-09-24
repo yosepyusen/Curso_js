@@ -1,83 +1,70 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fundamento Java</title>
-</head>
-<body>
-    <h1>Fundamento javasrcit</h1>
+    <title>Document</title>
     <script>
-      /*
-        Expresiones Regulares
+
+    /* **********     Curso JavaScript: 31. Expresiones Regulares - #jonmircha     ********** */
+    /*
+     Expresiones Regulares
         Son una secuencia de caracteres que forma un patrón de búsqueda, principalmente utilizada para la búsqueda de patrones de cadenas de caracteres.
-        validacion de dni, validacion email,
+
         https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular
         https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Regular_Expressions
-       */
-        
+    */
+     
+    
+     let cadena = "Lorem 5 ipsum dolor sit amet consectetur  10  adipisicing elit. Voluptatem fuga cupiditate dolores saepe, praesentium sit eaque recusandae id sapiente similique, laudantium voluptatum perferendis ea iure ad odio doloremque earum voluptate.";
+     let cadena1 = "Lorem 5 ipsum loremsap sit amet doloremque.";
+     // ig,i,"", son banderas, filtros de busqueda
+     //RegExp, es regular expresion en ingles
+     let expReg = new RegExp("lorem", "g"); //  busca la palabra lorem tal como esta escrito, g:para busca toda las coincidencias y no se detenga en la primer busqueda, este filtro:g, funciona siempre y cuando haya mas de dos coincidencias si solo hay una coincidencia vota NULL, con metodo exec y con test da normal
+     let expReg1 = new RegExp("lorem", "ig");// si ponemos i:ignora mayuscula y minuscula y g: para que busca toda las coincidencias
+     let expReg2 = new RegExp("lorem", "");//caso si le dejamos asi va detener en el primer busqeda, esta palabra= Lorem, no es porque al inicial esta escrito con mayuscula 
+     let expReg4 = new RegExp("lorem", "i");//i, es para ignora minuscula y mayuscula
+     
+     //segunda mnaera de buscar una exprsion regukar
+     let expReg3 = /lorem/ig; //ig , bandera
+     let expReg3_1 = /7{1,2}/;// debe de estar entre 1 y 2 veces que se repita o solo ponemos un numero {5}, que indica el # de veces que se va repetir dicha busqueda, el 7 es # a buscar o se puede poner palabra para busqueda
+     //{1,}, esto indica que se puede repetir 1 veces o idefinidamente 
+     let expReg31 = /\d/; //para buscar un numero
+     let expReg311 = /[6-9]/;//corchetes es un listado valido, busqueda de numero 6-9 
 
-        
+     console.log("validacion de expRegm filtro=g "+ "tamaño de cadena1="+cadena1.length); 
+     console.log(expReg.test(cadena1)); // imprime true
+     console.log(expReg.exec(cadena1)); // imprime array, index 216 se detiene en la 2da coincidencia dentro de la frase escrita cadena1
+     //expReg.test(cadena), probar que la expresion regular exista dentro de la cadena, devuelve en consola TRUE si encuentra sino FALSE
+     
+     //expReg.exec(cadena), devuelve un arreglo, devuelve un arrelo si encuentra la palabra buscada y sino encuentra da NULL, este metodo tiene mas informacion
+     /*esto sale en consola|0: "lorem"|, cuando la busqueda es valido
+      index, es la posicion de la cadena en que se encuentra la palabra buscada lorem
+      input, la cadena que bsuque
+      */
+     console.log("validacion de expReg1 de filtro = ig"); 
+     console.log(expReg1.test(cadena1)); // imprime: true
+     console.log(expReg1.exec(cadena1));// imprime un array: index 14, se detiene en la segunda busqueda, de tal modo hay tres coincidencias
+     
+
+     console.log("sin banderas: " + expReg2.test(cadena)); //imprime true porque hay
+     console.log(expReg2.exec(cadena)); //imprime array, esta posicion=index=214 
+
+     console.log("busqueda de palabra=lorem, ignorando mayu y minus..."+expReg4.test(cadena))
+     console.log(expReg4.exec(cadena));//index 0 porque es la primer posicion en qe se encuentra la lorem dentro de la cadena
+     
+     console.log(" OTRA FORMA DE VALIDACION CON RegExp");
+     console.log("validacion de expReg3");
+     console.log(expReg3.test(cadena));// TRUE
+     console.log(expReg3.exec(cadena));//index 214, en la segunda coincidencia se detiene la busqueda de lorem
+
+     console.log("busqueda de numero: "+expReg31.test(cadena));// imprime:true
+     console.log("busqueda de numero 6-9: "+expReg311.test(cadena));//imprime:false pq no hay # dentro de ese rango
+     console.log("busqueda de dolor: "+expReg3_1.test(cadena));//imprime: false pq no hay
 
     </script>
-</body>
-</html> 
-
-SIGUIENTE EJEM:USO DE EXPRESIONES REGULARES PARA CONVERTIR EN ARRAY...
--->
-
-<!DOCTYPE HTML>
-<html>
- 
-<head>
-    <title>
-        Split a number into individual digits
-    </title>
-     
-    <style>
-        body {
-            text-align: center;
-        }
-         
-        h1 {
-            color: green;
-        }
-         
-        #geeks {
-            color: green;
-            font-size: 29px;
-            font-weight: bold;
-        }
-    </style>
 </head>
- 
 <body>
-    <h1>GeeksforGeeks</h1>
-     
-    <p>
-        Type the number and click on the button to perform the operation.
-    </p>
-     
-    Type here: <input id="input" />
-     
-    <br><br>
-     
-    <button onclick="GFG_Fun();">
-        click here
-    </button>
-     
-    <p id="geeks"></p>
-     
-    <script>
-        var down = document.getElementById('geeks');
- 
-        function GFG_Fun() {
-            var n = document.getElementById('input').value;
-            var str = n.split('');
-            down.innerHTML = "[" + str + "]";
-        }
-    </script>
+    
 </body>
- 
-</html> 
+</html>

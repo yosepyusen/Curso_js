@@ -1,87 +1,83 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script>
-
-    /* **********     Curso JavaScript: 31. Expresiones Regulares - #jonmircha     ********** */
-    /*
-     Expresiones Regulares
-        Son una secuencia de caracteres que forma un patrón de búsqueda, principalmente utilizada para la búsqueda de patrones de cadenas de caracteres.
-
-        https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular
-        https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Regular_Expressions
-    */
-     
-    
-     let cadena = "Lorem 5 ipsum dolor sit amet consectetur  10  adipisicing elit. Voluptatem fuga cupiditate dolores saepe, praesentium sit eaque recusandae id sapiente similique, laudantium voluptatum perferendis ea iure ad odio doloremque earum voluptate.";
-     // ig,i,"", son banderas
-     let expReg = new RegExp("lorem", "g"); //  busca el parametro lorem, y g: para toda las coincidencias, caso si le dejamos asi va detener en el primer busqeda, si ponemos i:ignora mayuscula y minuscula
-     let expReg1 = new RegExp("lorem", "ig");//busca
-     let expReg2 = new RegExp("lorem", "");
-     //segunda mnaera de buscar una exprsion regukar
-     let expReg3 = /lorem/ig; //ig , bandera
-     let expReg3_1 = /7{1,2}/;// debe de estar entre 1 y dos veces o solo ponemos un numero {5}
-     let expReg31 = /\d/;
-     let expReg311 = /[6-9]/;
-     let expReg4 = new RegExp("lorem", "i");
-
-     console.log(expReg.exec(cadena)); //aqui tbm hacemos la validacion y nos devuelve en un arreglo
-     console.log(expReg.test(cadena)); //aqui validamo q existe esa busqeda
-
-     console.log(expReg4.exec(cadena))
-
-     console.log(expReg3.exec(cadena));
-     console.log(expReg3.test(cadena));
-
-     console.log("busqueda de numero: "+expReg31.test(cadena));
-     console.log("busqueda de numero 6-9: "+expReg311.test(cadena));
-     console.log("busqueda de dolor: "+expReg3_1.test(cadena));
-
-    /* **********     Curso JavaScript: 32. Funciones Anónimas Autoejecutables - #jonmircha     ********** */
-       //Función Anónima Autoejecutables
-     /*
-    (function () {
-      console.log("Mi primer anonima auto ejecutable");
-      
-    }) ();
-    
-    (function (d,w,c) { //  primer parametroi d despues w y c
-      console.log("Mi 2da anonima auto ejecutable");
-      console.log(d); //docuemnt reprewsenta a d
-      console.log(w);
-      c.log("Este es un cosole.log");
-      //console.log(d);
-    }) (document,window,console); // documen pasando parametro en d
-    
-    //Formas de escribir las funciones Anónimas Autoejecutables
-       //Clásica
-       (function () {
-         console.log('versión Clásica')
-       })();
-
-       //La Crockford (JavaScript The Good Parts)
-       ((function () {
-         console.log('versión Crockford')
-       })());
-
-       //Unaria
-       +function () {
-         console.log('versión Unaria')
-       }();
-
-       //Facebook
-       !function () {
-         console.log('versión Facebook')
-       }(); 
-
-  //alert("Hola")*/
-
-    </script>
+    <title>Fundamento Java</title>
 </head>
 <body>
-    
+    <h1>Fundamento javasrcit</h1>
+    <script>
+      /*
+        Expresiones Regulares
+        Son una secuencia de caracteres que forma un patrón de búsqueda, principalmente utilizada para la búsqueda de patrones de cadenas de caracteres.
+        validacion de dni, validacion email,
+        https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular
+        https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Regular_Expressions
+       */
+        
+
+        
+
+    </script>
 </body>
-</html>
+</html> 
+
+SIGUIENTE EJEM:USO DE EXPRESIONES REGULARES PARA CONVERTIR EN ARRAY...
+-->
+
+<!DOCTYPE HTML>
+<html>
+ 
+<head>
+    <title>
+        Split a number into individual digits
+    </title>
+     
+    <style>
+        body {
+            text-align: center;
+        }
+         
+        h1 {
+            color: green;
+        }
+         
+        #geeks {
+            color: green;
+            font-size: 29px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+ 
+<body>
+    <h1>GeeksforGeeks</h1>
+     
+    <p>
+        Type the number and click on the button to perform the operation.
+    </p>
+     
+    Type here: <input id="input" />
+     
+    <br><br>
+     
+    <button onclick="GFG_Fun();">
+        click here
+    </button>
+     
+    <p id="geeks"></p>
+     
+    <script>
+        var down = document.getElementById('geeks');
+ 
+        function GFG_Fun() {
+            var n = document.getElementById('input').value;
+            var str = n.split('');
+            down.innerHTML = "[" + str + "]";
+        }
+    </script>
+</body>
+ 
+</html> 
