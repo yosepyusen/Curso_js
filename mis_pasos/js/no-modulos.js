@@ -1,1 +1,0 @@
-console.log("Mi navegador es viejo");

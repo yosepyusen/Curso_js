@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+       
+        //https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js , patron para crear pluguins
+        //https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.js  , construido con patron de  Funciones Anónimas Autoejecutables
+        /*
+         ( function( global, factory ) { // esta pasando un objeto global y factory: el patron en que trabaja
+         typeof window !== "undefined" ? window : this, function( window, noGlobal ) ::toda esta linea de cod es obj global
+         window !== "undefined", si window no existe o esta idefinido, asignale window y sino this que es cotexto de documento
+         function( window, noGlobal){ //todo esto es el segundo parametro, todo es una funcion anonima
+         */
+
+      //Función Anónima Autoejecutables
+
+      // function(){} :: cuerpo de una funcion y no tiene nombre, funcion anonima
+      // (function(){}) :: se encapsula esta funcion para que no este abierto y desprotejida, crear una referencia de memoria
+      //(function(){})() , el parentesis despues de la estructura de la funcion que ejecuta la funcion
+      (function(){
+        console.log("Mi primer function anonima autoejecutable IIFE");
+      })(); //el punto y coma es importante despues de siempre de una funcion anonima autoejecutable
+      
+      (function(d, w, c){ //pasa tres parametros, 1mer param: document, 2do: window, 3cer: cosole, este patron para hacer pluguins de yquery y modulos de metodos importados o exportados
+        console.log("Mi 2da function anonima autoejecutable IIFE");
+        console.log(d);//imprime el obj. global document
+        console.log(w);//imprime el obj. window
+        c.log("este es un console.log");
+      })(document, window,console); //pasando el obj documento, que representa js en la estructura de docuemnto html, widow:obj. global y console comprobar nuestra programacion
+      //alert("Hola") //alert es una funcion y ("Hola"), este es el parentesis que ejecuta la funcion
+      
+      //Formas de escribir las funciones Anónimas Autoejecutables
+       //Clásica
+       (function () {
+         console.log('versión Clásica')
+       })();
+
+       //La Crockford (JavaScript The Good Parts)
+       ((function () {
+         console.log('versión Crockford')
+       })());
+
+       //Unaria
+       +function () {
+         console.log('versión Unaria')
+       }();
+
+       //Facebook
+       !function () {
+         console.log('versión Facebook')
+       }(); 
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
