@@ -8,70 +8,79 @@
 </head>
 
 <body>
-  <h1>Ejercicios de Programación en JavaScript</h1>
+  <h1>Ejer resol JS</h1>
   <script>
     /* 1) Programa una función que cuente el número de caracteres de una cadena de texto, pe. miFunción("Hola Mundo") devolverá 10 */
-      /*let holamundo = "Hola Mundo";
+/*      let holamundo = "Hola Mundo";
       console.log(`La cantidad de caracteres var: ${holamundo} es = ${holamundo.length}`);
       console.log(holamundo.length);
-      console.log("Ahora imprimimos co  funciones");
+      console.log("Ahora imprimimos con funciones");
+      
+      //funcion declarada
       function functionholamundo(holamundomensaje="Hola mudo cruel", cantidad=holamundomensaje.length){
         console.log(`el numero de caracteres de la FRASE ${holamundomensaje} es de ${cantidad}`);
       }
-      functionholamundo();
+      
       functionholamundo("hola mundo ", 15);
-
-     /* console.log("OTRO MODO");
+/*
+     console.log("OTRO MODO");
+     //funcion declarada
       function cadena(cadena="") {
         if (!cadena) {
           console.warn("No ingresaste una cadena");
         }else{
-          console.info(`La cadena tienes "${cadena}" tiene ${cadena.length} caractweres`);
+          console.info(`La cadena tiene: "${cadena}" tiene ${cadena.length} caractweres`);
         }
       }
       cadena();
-      cadena("hello world");*/
+      cadena("Hola Mundo");*/
 
-      /*****************
-      const ContarCadena = (cadena="")=> (!cadena)
-      ? console.warn("No ingresaste una cadena")
-      : console.info(`La cadena tienes "${cadena}" tiene ${cadena.length} caractweres`);
+      /*
+       //funcion expresada para evitar malas practicas de llamado a la funcion antes de haber sido declarada
+       //lo recomendable es llamar a una funcion una vez haber sido declarada
+      //funcion EXPRESADA 
+       const ContarCadena = (cadena="") => (!cadena) //(!cadena), caso que la cadena no trae nada
+      //OPERADOR TERNARIO
+       ? console.warn("No ingresaste una cadena") //cuando no existe la cadena, caso verdadero
+      : console.info(`La cadena tienes "${cadena}" tiene ${cadena.length} caractweres`);//caso si existe la cadena
 
       ContarCadena();
-      ContarCadena("Hola mundo cruel");*/
+      ContarCadena("Hola mundo cruel");
 
 
     /* 2) Programa una función que te devuelva el texto recortado según el número de caracteres indicados, pe. miFunción("Hola Mundo", 4) devolverá "Hola" */
-    /*valorholamundo = holamundo.substring(0,4);
-    console.log(valorholamundo);
-    console.log("**********");
+   /*
+    let holamundo ="Hola mundo", valorholamundo;
+    valorholamundo = holamundo.substring(0,4); //substring, es para recortar una frase segun posicion
+
     function funcionDecontarCaracteres(fholamundo=holamundo,fvalorholamundo=valorholamundo){
-      console.log(`la frase recortada de ${fholamundo} es de ${fvalorholamundo}`);
+      console.log(`la frase recortada de "${fholamundo}" es de: ${fvalorholamundo}`);
     }
     funcionDecontarCaracteres();
+    console.log("**********");*/
 
-    
+    /*
     const recortarText = (cadena="", longitud=undefined)=> (!cadena)
     ? console.warn("No ingresaste una cadena")
-    : (longitud===undefined)
+    : (longitud===undefined)//cuando no pones un limite a recortar, exactamente igual a undefined
       ? console.warn("No ingresaste un limite para recoirtar texto")
-      : console.info(cadena.slice(0,longitud));// para sepaerar slice
+      : console.info(cadena.slice(0,longitud));// para separar slice entre rangos de posiciones 
 
-      recortarText("Hola mundo",4);
       recortarText();
       recortarText("Hola mundo");
-      recortarText("",4);*/
+      recortarText("",4);
+      recortarText("Hola mundo",4);
 
     /* 3) Programa una función que dada una String te devuelva un Array de textos separados por cierto caracter, pe.
      miFuncion('hola que tal', ' ') devolverá ['hola', 'que', 'tal'] */
-
-    /*cadenaTexto = prompt("Ingrese una frase: ");
+/*
+    let cadenaTexto = prompt("Ingrese una frase: ");
     let cadenaTexto1 = new String(cadenaTexto);
-    console.log(cadenaTexto1);
+    cadenaTexto1 = cadenaTexto.split(" ")
+    console.log(cadenaTexto1);*/
 
-      cadenaTexto1.split(" ")*/
-
-    /*const cadeAArreglo =(cadena="",separador=undefined)=> (!cadena)
+   /*
+    const cadeAArreglo =(cadena="",separador=undefined)=> (!cadena)
     ? console.warn("No ingresaste una cadena")
     : (separador===undefined)
       ? console.warn("No ingresaste el caracter separador")
@@ -80,21 +89,35 @@
       cadeAArreglo();
       cadeAArreglo("hola que tal");
       cadeAArreglo("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"," ");
-      cadeAArreglo("abe,fer,der,de,se,se",",");*/
+      cadeAArreglo("abe,fer,der,de,se,se",",");
                  
 
     /* 4) Programa una función que repita un texto X veces, pe. miFuncion('Hola Mundo', 3) devolverá Hola Mundo Hola Mundo Hola Mundo */
+/*
+     const repetir = (cadena="", veces=undefined) => {
+      //isNaN(cadena), función devolverá falso siempre y cuando el valor que le pasemos sea un número, para que retorna true ponemos |!isNaN(cadena)|
+      if (!cadena) return console.warn("No ingresaste una cadena"); //return es para que no siga leyendo las siguientes lineas de codigo
+      if (!isNaN(cadena)) return console.error("La cadena a ingresar no puede ser un número");
+      if (veces === undefined) return console.warn("No ingresaste el # de veces a repetir el texto");
+      if (veces===0) return console.error("El # de veces no puede ser 0");
+      if (Math.sign(veces)===-1) return console.error("El # de veces no puede ser negativo");
+      //La función Math. sign() retorna el signo de un número, indicando si el número es positivo, negativo o cero.
+      for (let i = 1; i < veces; i++) console.info(`${cadena},${i}`);//se puede o no poner llaves        
+      
+    } 
+    //formas de ejecutar de manera incorrecta con errores aproposito
+    repetir();
+    repetir("Hola mundo cruel");
+    repetir("",5);
+    repetir(5);
+    repetir("Hola mundo cruel",-5);
+    repetir("Hola mundo cruel",0);
+    //forma correcta de ejecutar
+    repetir("Hola mundo cruel",5);*/
 
-    /* const repetir = (cadena="", veces=undefined) => (!cadena)
-      ? console.warn("No ingresaste una cadena")
-      : veces = prompt("ingrese el numero: ")
-        ? console.warn("No ingresaste # veces")
-        : for (let index = 0; index < veces; index++) {
-          
-          
-        }*//*
-          
-      function repetir(cadena="") {
+      /*  
+      let cadena = prompt("Ingrese una cadena de texto");
+      function repetir(cadena) {
         if (cadena==="") {
           console.log("No ingresaste una cadena")
         }else{
@@ -110,35 +133,36 @@
         }
       }
       
-      repetir("gggh");*/
+      repetir();
          
         //console.info(cadena.split(separador));
         
 
     /* 5) Programa una función que invierta las palabras de una cadena de texto, pe. miFuncion("Hola Mundo") devolverá "odnuM aloH" */
      
-    
-    /*const invertirCadena = (cadena="") => (!cadena)
+    /*
+    const invertirCadena = (cadena="") => (!cadena)
     ? console.warn("no ingresaate una cadena de texto")
-    : console.log(cadena.split("").reverse().join(""));
+    : console.log(cadena.split("").reverse().join(""));//split para separar cada letra, y reverse para voltear orden y join para unir las letras
     
     invertirCadena();
-    invertirCadena("Hola mundo");*/
+    invertirCadena("Hola mundo");
 
     /* 6) Programa una función para contar el número de veces que se repite una palabra en un texto largo, pe. miFuncion("hola mundo adios mundo", "mundo") devolverá 2 */
       /*
       const textoEnCadena = (cadena ="",texto="") =>{
         if (!cadena) return console.warn("No ingresaste el texto largo");
         
-        if (!texto) return console.warn("No ingresaste la palabra a aevaluar");
-        //indexof: me permite buscar texto de una cadena de texto, devuelve el texto abuscar en la posicion en q encontro
-        let i=0,
-            contador =0;
-            while (i !==-1) {
+        if (!texto) return console.warn("No ingresaste la palabra a evaluar");
+        let i=0, contador =0;
+        
+        while (i !==-1) { //indexof: cuando no detecta una palbra repetida en otro va devolver -1
           //console.log(i);
-          i = cadena.indexOf(texto,i);
+          //indexof: me permite buscar texto de una cadena de texto, devuelve el texto a buscar en la posicion en q encontro
+          i = cadena.indexOf(texto,i);//indexof, recibe dos parametros: uno es el texto a buscar y el otro la posicion que empieza que es 0, es decir busqueda de la primera coincidencia
           //console.log("se imprime el:"+i);
-          if (i !==-1) {
+          if (i !==-1) {//dentra de este if siempre y cuando encuentra palabras, caso contrario sale del while
+            //cuando hace primera busqieda y encuentra, la segunda tb, pero en la tercera no y nos vota -1, si no hay este if (i!==-1), como despues esta i++, convertiria el i en +, y el while seguiria ejecutandose, sumaria a un bucle infinito 
             i++;
             contador++;
           }
@@ -148,7 +172,7 @@
 
       textoEnCadena();
       textoEnCadena("hola hola mundo hola hfh hola");
-      textoEnCadena("hola hola mundo hola hfh hola", "hola");*/
+      textoEnCadena("hola hola mundo hola hfh hola, if hola", "hola");
 
       /* 7) Programa una función que valide si una palabra o frase dada, es un palíndromo (que se lee igual en un sentido que en otro), pe. mifuncion("Salas") devolverá true */
     /*
@@ -156,17 +180,17 @@
         if (!palabra) return console.warn("No ingresaste una frase o palabra");
         
         palabra= palabra.toLocaleLowerCase(); //palbra ingresada convirtiemos a mayuscula
-        let alRevez = palabra.split("").reverse().join(""); // palabra convirtiemos a arreglo
+        let alRevez = palabra.split("").reverse().join(""); // palabra convirtiemos al revez
         //reverse para palabra al reves, y se vueleve a unir con Join
 
         return (palabra=== alRevez)
-        ? console.info(`si es palindromo, Palabra original "${palabra}", Palabra al revés ${alRevez}`)
+        ? console.info(`Si es palindromo, Palabra original "${palabra}", Palabra al revés ${alRevez}`)
         : console.info(`No es palindromo, Palabra original "${palabra}", Palabra al revés ${alRevez}`)
       }
 
       palindromo();
       palindromo("Hola mundo");
-      palindromo("Salas");*/
+      palindromo("Salas");
 
     /* 8) Programa una función que elimine cierto patrón de caracteres de un texto dado, pe. miFuncion("xyz1, xyz2, xyz3, xyz4 y xyz5", "xyz") devolverá  "1, 2, 3, 4 y 5 */
 /*
@@ -184,7 +208,7 @@
       eliminarCaracteres("xyz1, xyz2, xyz3, xyz4 y xyz5","xyz"); //eliminamos xyz y nos imprime solo sol numeros
       //a continuacion eliminamos letras de a a z por decir
       eliminarCaracteres("Una frase es un conjunto de palabras que forma un sentido completo y, no siempre constituye una oración y, una oración contiene varias frases contenidas en signos de puntuación, lo que origina que su significado no sea claro y debe de determinarse a través del contexto. La palabra frase es de origen griego “phrasis”","[a-z]");
-*
+
 /* 9) Programa una función que obtenga un numero aleatorio entre 501 y 600 */
 
 // const aleatorio = () => console.info(Math.round(Math.random()*100)+500);
