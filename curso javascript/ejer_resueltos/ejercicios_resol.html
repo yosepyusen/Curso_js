@@ -199,9 +199,9 @@
        : (!patron)
         ? console.warn("No ingresaste un patron de caracteres")
         : console.info(texto.replace(new RegExp(patron,"ig"),"")) //replace:para remplazar
-        //replace como primer parametro un RegExp, dentro ello evalue el patron
-        //si hay patron de tres letras lo va eliminar
-        //ig para q se detenga la coincidencia, "": no va reemplazar con nada
+        //replace como primer parametro un new RegExp(patron,"ig"), dentro ello evalue el patron, ig: para que ignora las mayusculas y g para buscar todas las coincidencias
+        //patron:: es para que remplace por vacio en este caso podria xyz
+        //"": no va reemplazar con nada
 
       eliminarCaracteres();
       eliminarCaracteres("xyz1, xyz2, xyz3, xyz4 y xyz5");
@@ -209,18 +209,19 @@
       //a continuacion eliminamos letras de a a z por decir
       eliminarCaracteres("Una frase es un conjunto de palabras que forma un sentido completo y, no siempre constituye una oración y, una oración contiene varias frases contenidas en signos de puntuación, lo que origina que su significado no sea claro y debe de determinarse a través del contexto. La palabra frase es de origen griego “phrasis”","[a-z]");
 
-/* 9) Programa una función que obtenga un numero aleatorio entre 501 y 600 */
-
-// const aleatorio = () => console.info(Math.round(Math.random()*100)+500);
-      // aleatorio(); //random devuelve # entre cero y uno y round: redondea a ese #
-      
+    /* 9) Programa una función que obtenga un numero aleatorio entre 501 y 600 */
+      /*
+        const aleatorio = () => console.info(Math.round(Math.random()*100)+500); //Math.random()*100, imprime entre 0-100
+        //Math.random(): comprendido en el rango de 0 a menor que 1 (es decir, incluido el 0 pero no el 1
+        aleatorio(); //round: redondea a ese #
+        //console.log(Math.random());
     /* 10) Programa una función que reciba un número y evalúe si es capicúa o no (que se lee igual en un sentido que en otro), pe. miFuncion(2002) devolverá true  */
-/*
+     /* 
       const capicua =(numero="") => {
         if (!numero) return console.warn("No ingresaste un numero");
         
         if(typeof numero!=="number"){
-          return console.error(`La valor "${numero}" iungresado, No es un número`);
+          return console.error(`La valor "${numero}" ingresado, No es un número`);
         }
         numero = numero.toString(); //aqwui convertimo el numero a string
         let alRevez = numero.split("").reverse().join("");
@@ -234,11 +235,11 @@
       capicua(200);
       capicua(2002);
       capicua(19.88);
-      capicua(212.212);*/
+      capicua(212.212);
 
       /* 11) Programa una función que calcule el factorial de un número (El factorial de un entero positivo n, se define como el producto de todos los números enteros positivos desde 1 hasta n), pe. miFuncion(5) devolverá 120 */
-      
       /*
+      
       const factorial =(numero=undefined)=>{
         if (numero===undefined) return console.warn("No ingresaste un numero");
         
@@ -263,10 +264,10 @@
       factorial(-5);
       factorial(6);
       factorial(0);
-      factorial([1,2,3]);*/
+      factorial([1,2,3]);
       
       /* 12) Programa una función que determine si un número es primo (aquel que solo es divisible por sí mismo y 1) o no, pe. miFuncion(7) devolverá true */
-      /*
+     /* 
       const numPrimo =(numero=undefined)=>{
         if (numero===undefined) return console.warn("No ingresaste un numero");
         
@@ -282,16 +283,17 @@
         if (numero===1){
           return console.error(`El valor ingresado no puede ser 1`);
         }
-        let divisible=false;
+        let divisible=false; //divisible, un boleano en false
         for(let i=2; i<numero;i++){// %,(numero % i) este para ver el residuo
           if((numero % i)===0){
-            divisible=true;
-            break;
+            divisible=true;//una vez encontrado un # que es exactamente divisible por ese #   
+            break;//es para que cuando por ejem 200 es divisible por dos de entrada y ya no siga ejecutando la division por eso usa break
           }
         }
-        return (divisible)
+        return (divisible)//divisible es true, el siguiente linea de codigo mencionamos que no es primo
+        //caso que divisible es false entonces es # primo
         ?console.log(`El número ${numero}, NO es primo`)
-        :console.log(`El número ${numero}, NO es primo`);
+        :console.log(`El número ${numero}, Es es primo`);
       }
       numPrimo();
       numPrimo("320");
@@ -299,7 +301,8 @@
       numPrimo(0);
       numPrimo(1);
       numPrimo(-3);
-      numPrimo(9);*/
+      numPrimo(9);
+      numPrimo(13);
       
       /* 13) Programa una función que determine si un número es par o impar, pe. miFuncion(29) devolverá Impar */
       /*
@@ -334,8 +337,8 @@
 
       
       /* 14) Programa una función para convertir grados Celsius a Fahrenheit y viceversa, pe. miFuncion(0,"C") devolverá 32°F */
-      
-      /*const gradosFarCel =(grados=undefined, unidad=undefined)=>{
+      /*
+      const gradosFarCel =(grados=undefined, unidad=undefined)=>{
         if (grados===undefined) return console.warn("No ingresaste grados a convertir");
         
         if (typeof grados!=="number"){
@@ -349,7 +352,7 @@
           
         }
         if(unidad.length !==1 || !/(C|F)/.test(unidad)) return console.warn("valor de unidad no reconocido");
-        
+        //, /(C|F)/, es una exprecion regular que solo permite entrada un letra C y F 
         if(unidad === "C"){
           return console.info(`${grados}°C = ${Math.round(grados*(9/5)+32)}°F`);
         }
@@ -369,7 +372,7 @@
       gradosFarCel(5,"F");
       gradosFarCel(5,"C");
       gradosFarCel(100,"F");
-      gradosFarCel(100,"C");*/
+      gradosFarCel(100,"C");
       
       
       /* 15) Programa una función para convertir números de base binaria a decimal y viceversa, pe. miFuncion(100,2) devolverá 4 base 10 */
@@ -387,8 +390,12 @@
         }
        if (base===2){
         return console.info(`${numero} en base ${base} = ${parseInt(numero, base)} base 10`);
+        //dado un numero en base binario convertimos en base 10
+        //parseInt(numero, base):: entrada 100 en base 2 y convierte en ese numero en base 10 
        }else if(base ===10){
          return console.info(`${numero} en base ${base} = ${(numero.toString(base))} base 2`);
+         //numero.toString(), si lo dejo asi va convertir en un string
+         //numero.toString(base), conbierte un numero de base 10 a un numero de base 2
        }else{
         return console.error("El tipo de base a convertir no es valido");
       }
@@ -406,11 +413,11 @@
       convertirBinarioDecimal(100,2);
       convertirBinarioDecimal(101,2);
       convertirBinarioDecimal(4,10);
-      convertirBinarioDecimal(4,3);*/
+      convertirBinarioDecimal(4,3);
       
       /* 16) Programa una función que devuelva el monto final después de aplicar un descuento a una cantidad dada, pe. miFuncion(1000, 20) devolverá 800 */
-
-      /*
+/*
+      
     const descuento= (numero=undefined, descuento=undefined)=>{
        if (numero===undefined) return console.warn("No ingresaste el numero a convertir");
        if (typeof numero !== "number"){
@@ -442,7 +449,7 @@
       descuento(-1000);
       descuento(-1000,20);
       descuento(1000,0);
-      descuento(1000,25);*/
+      descuento(1000,25);
     
      
       
@@ -453,27 +460,32 @@
         
         //si le ponemos {},[], new Date(), .. todos ellos devuelven object
         //instanceof :: [] instanceof arr , nos devuelve true por que es verdad
-        if (!(fecha instanceof Date)){ //si ponemos typeof,nos devuelve si es un numero, string, boolean,:: son datos primitivos, validamos con !
+        if (!(fecha instanceof Date)){ //si ponemos typeof,nos devuelve si es un numero, string, boolean,:: son datos primitivos, si el dato a ingresado es diferente de fecha ejecuta la siguiente linea de codigo
           return console.error(`El valor ingresado, no es una fecha valida`);//cumplimosa con la validacion 
         }
-        let hoyMenosFecha = new Date().getTime() - fecha.getTime(), //getTime() , para expresar en milisegundos
-        aniosEnMS = 1000*60*60*24*365, //milisegundos en años toma referencia 365 dias al año
-        aniosHumanos = Math.floor(hoyMenosFecha/aniosEnMS);//a un valor entero
+        let hoyMenosFecha = new Date().getTime() - fecha.getTime(), //getTime() , para expresar en milisegundos desde el 1 de enero de 1970
+        //Date().getTime(), fecha de hoy 2023, mes y hr pero en milisegundos
+        //fecha.getTime(), es la fecha que ingresaste pero co getTime expresada en milisegundos
+        aniosEnMiliSegundos = 1000*60*60*24*365; //milisegundos en un año
+        //milisegundo =1000=1 segundo, multiplicado por 60=1 min = 1 min*60=1hr
+        //24 hr al dia , 365 dias al año 
+        aniosHumanos = Math.floor(hoyMenosFecha/aniosEnMiliSegundos);//a un valor entero, # anterior
         //console.log(aniosHumanos);
-        return (Math.sign(aniosHumanos)===-1)
+        return (Math.sign(aniosHumanos)===-1)//Date().getTime() - fecha.getTime(), cuando sale negativo ejem, 2023-2050 
         ? console.info(`Faltan ${Math.abs(aniosHumanos)} año para el ${fecha.getFullYear()}.`)// para absoluto ::Math.abs(aniosHumanos), getfullyear para convertir en años
-        : (Math.sign(aniosHumanos)===1)
+        : (Math.sign(aniosHumanos)===1)//Date().getTime() - fecha.getTime(), cuando sale positivo
         ? console.info(`Han pasado ${aniosHumanos} año, desde ${fecha.getFullYear()}.`)
-          : console.info(`Estamos en el año actual ${fecha.getFullYear()}.`)
+          : console.info(`Estamos en el año actual ${fecha.getFullYear()}.`) //aunque hay una diferencia en milisegundos, con math.floor redondea a cero
       }
       
       calcularAnios();
       calcularAnios({});
       calcularAnios(true);
+      calcularAnios("");
       calcularAnios(new Date());
       calcularAnios(new Date(1984,5,23));
       calcularAnios(new Date(1884,5,23));
-      calcularAnios(new Date(2048,5,23));*/
+      calcularAnios(new Date(2048,5,23));
       
       
       
@@ -488,7 +500,7 @@
         let vocales = 0,
         consonates = 0;
         
-        cadena = cadena.toLocaleLowerCase();// validamos para mayuscula
+        cadena = cadena.toLocaleLowerCase();// convertimos para mayuscula
         
         for (let letra of cadena){// for es un iterador, ::: cada letra que venga  se valida lo siguiente
          if(/[AEIOUÁÉÍÓÚaeiouáéíóú]/.test(letra)){//.test para evaluar por cada letr4a
@@ -499,8 +511,8 @@
           consonates++; 
         }
         }
-        return console.info({
-          cadena : cadena,
+        return console.info({//con esto va imprimir en formato objeto
+          cadena , //cuando se trata de mismo nombre se puede poner solo cadena
           vocales : vocales,
           consonates: consonates
         })
@@ -508,16 +520,19 @@
       cadenaLetras();
       cadenaLetras(3);
       cadenaLetras("hola mundo");
-      cadenaLetras("ñoño");*/
+      cadenaLetras("ñoño");
 
     /* 19) Programa una función que valide que un texto sea un nombre válido, pe. miFuncion("Jonathan MirCha") devolverá verdadero */
-    
-      /*const validarnombre = (nombre="") =>{
+    /*
+      const validarnombre = (nombre="") =>{
         if (!nombre) return console.warn("No ingresaste un nombre");
         
         if (typeof nombre !== "string") return console.error(`El valor ${nombre} ingresado, no es una cadena de texto`);
-        // "\s", para contenpla espacios en blanco ::: "g", para que no se detenga en primera coind¿cidencia sino en todo asta terminar
-        let expReg = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/g.test(nombre); //"^", indica que no puede haber nada antes y "$" y no puede haber nada despues 
+        
+        let expReg = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/g.test(nombre); //ver mas de este g
+        //"^", indica que no puede haber nada antes y "$" y no puede haber nada despues, + para que evalue por cada caracter que tiene la cadena de texto
+        //A-Za-z, todo el abecedario tanto mayuscula y minuscula A-Z y a-z, ÑñÁáÉéÍíÓóÚúÜü, todo lo vocales acentuadas y los dieresis, "\s" es para que contempla espacios en blanco 
+        // "\s", para contenpla espacios en blanco ::: "g", para que no se detenga al evaluar en un caracter de una cadena 
       
         return (expReg)
         ? console.info(`"${nombre}", es un nombre válido`)
@@ -527,7 +542,9 @@
       validarnombre();
       validarnombre(3);
       validarnombre("jonatan mircha");// si valida
-      validarnombre("jonatan mircha23 ");// no valida pq ay numero*/
+      validarnombre("jonatan mircha");// no valida pq ay numero
+      validarnombre("jona jona jonatanj");// si valida
+
     /* 20) Programa una función que valide que un texto sea un email válido, pe. miFuncion("jonmircha@gmail.com") devolverá verdadero */
 /*
     const validarEmail = (email="") =>{
@@ -537,22 +554,22 @@
 
           return console.error(`El valor ${email} ingresado, no es una cadena de texto`);
         }
-        // "\s", para contenpla espacios en blanco ::: "g", para que no se detenga en primera coind¿cidencia sino en todo asta terminar
+        
         let expReg = /[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})/i.test(email); //"^", indica que no puede haber nada antes y "$" y no puede haber nada despues 
-      
+        //{2,15}, al menos tenga de 2 a 15 letras, "\.", es para punto, "_", para guion bajo, [a-z0-9], para letras a-z y numeros de 0-9
         return (expReg) //haber cumplido esa expresion de expReg , entonces que imprima lo siguiente
         ? console.info(`"${email}", es un email válido`)
         : console.warn(`"${email}", No es un email válido`)
       }
-  */    
-      // validarEmail();
-      // validarEmail(3);
-      // validarEmail("jon,ata,cha@gmail");// si valida
-      // validarEmail("jonatan mircha23 ");// no valida pq ay numer
-      // validarEmail("yaguirreobregon@gmail.com");
+     
+      validarEmail();
+      validarEmail(3);
+      validarEmail("jon,ata,cha@gmail");// si valida
+      validarEmail("jonatan mircha23 ");// no valida pq ay numer
+      validarEmail("yaguirreobregon@gmail.com");
       
-      /*fusion 19 y 20*/
- /*     
+      /*fusion 19 y 20*/ //para validar una cadena segun un patron a evaluar pero con expReg
+  /*
       const ValidarPatron = (cadena="", patron=undefined) =>{
           if (!cadena) return console.warn("No ingresaste una cadena de texto a evaluar");
           
@@ -567,8 +584,8 @@
   
             return console.error(`El valor ${patron} ingresado, no es una expresion regular`);
           }
-          // "\s", para contenpla espacios en blanco ::: "g", para que no se detenga en primera coind¿cidencia sino en todo asta terminar
-          let expReg = patron.test(cadena); //"^", indica que no puede haber nada antes y "$" y no puede haber nada despues 
+          
+          let expReg = patron.test(cadena); 
         
           return (expReg) //haber cumplido esa expresion de expReg , entonces que imprima lo siguiente
           ? console.info(`"${cadena}", cumple con un patron ingresado`)
@@ -585,8 +602,7 @@
         ValidarPatron("jonatan mircha",new RegExp(/^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/g));
         ValidarPatron("jonatan mircha 19",/^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/g);
         ValidarPatron("yafuirre@gmail",/^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/g); 
-        ValidarPatron("yaguirre@gmail.com",/[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})/i); //validacion de gamil de acorde a su patron de validaxion de gamil
-*/
+        ValidarPatron("yaguirre@gmail.com",/[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})/i); //validacion de gamil de acorde a su patron de validacion de gamil
 
     /* 21) Programa una función que dado un array numérico devuelve otro array con los números elevados al cuadrado, pe. mi_funcion([1, 4, 5]) devolverá [1, 16, 25] */
     
@@ -595,6 +611,7 @@
         typeof new Date() // IMPRIME:: 'object'
         typeof new RegExp // IMPRIME:: 'object'
         */
+
        /*
         const numeroAlCuadrado =(arr=undefined)=>{
           if (arr===undefined) return console.warn("No ingresaste un arreglo de numero");
@@ -605,9 +622,10 @@
           if (arr.length===0) return console.error("El arreglo esta vacio");
           for(let num of arr){ //por cada numero de arreglo 
             if(typeof num !== "number"){ // si el tipo de dato es diferente de numero
-              return console.error(`El valor ${num} ingresado, no es un Número`);
+              return console.error(`El valor ${num} dentro del array ${arr} ingresado, no es un Número`);
             }
           }
+          
           const newArr = arr.map(el=>el*el);//el :: es la variable que va recorrer los elementos del array
           return console.info(`Arreglo original: ${arr}.\nArreglo elevado al cuadrado: ${newArr}`);
         }
@@ -618,7 +636,7 @@
         numeroAlCuadrado([]);
         numeroAlCuadrado([1,"2",3]);
         numeroAlCuadrado([1,2,{}]);
-        numeroAlCuadrado([1,2,3]);*/
+        numeroAlCuadrado([1,2,3]);
 
     
     /* 22) Programa una función que dado un array devuelva el número mas alto y el más bajo de dicho array, pe. miFuncion([1, 4, 5, 99, -60]) devolverá [99, -60] */

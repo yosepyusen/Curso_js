@@ -18,6 +18,7 @@
     
      let cadena = "Lorem 5 ipsum dolor sit amet consectetur  10  adipisicing elit. Voluptatem fuga cupiditate dolores saepe, praesentium sit eaque recusandae id sapiente similique, laudantium voluptatum perferendis ea iure ad odio doloremque earum voluptate.";
      let cadena1 = "Lorem 5 ipsum loremsap sit amet doloremque.";
+     let letras = "F", letras1 = "f";
      // ig,i,"", son banderas, filtros de busqueda
      //RegExp, es regular expresion en ingles
      let expReg = new RegExp("lorem", "g"); //  busca la palabra lorem tal como esta escrito, g:para busca toda las coincidencias y no se detenga en la primer busqueda, este filtro:g, funciona siempre y cuando haya mas de dos coincidencias si solo hay una coincidencia vota NULL, con metodo exec y con test da normal
@@ -30,7 +31,7 @@
      let expReg3_1 = /7{1,2}/;// debe de estar entre 1 y 2 veces que se repita o solo ponemos un numero {5}, que indica el # de veces que se va repetir dicha busqueda, el 7 es # a buscar o se puede poner palabra para busqueda
      //{1,}, esto indica que se puede repetir 1 veces o idefinidamente 
      let expReg31 = /\d/; //para buscar un numero
-     let expReg311 = /[6-9]/;//corchetes es un listado valido, busqueda de numero 6-9 
+     let letra_C_F=/(C|F)/, expReg311 = /[6-9]/, soloVocales=/[AEIOUÁÉÍÓÚaeiouáéíóú]/, soloLestrasNoVocales=/[bcdfghjklmnñpqrstvwxyz]/;//corchetes es un listado valido, busqueda de numero 6-9 
 
      console.log("validacion de expRegm filtro=g "+ "tamaño de cadena1="+cadena1.length); 
      console.log(expReg.test(cadena1)); // imprime true
@@ -61,7 +62,9 @@
      console.log("busqueda de numero: "+expReg31.test(cadena));// imprime:true
      console.log("busqueda de numero 6-9: "+expReg311.test(cadena));//imprime:false pq no hay # dentro de ese rango
      console.log("busqueda de dolor: "+expReg3_1.test(cadena));//imprime: false pq no hay
-
+     console.log("Solo letra C ó F: "+letra_C_F.test(letras));//imprime:  true por que ingrese F
+     console.log("Solo letra C ó F: "+letra_C_F.test(letras1));//imprime:  false por que ingrese z
+     
     </script>
 </head>
 <body>

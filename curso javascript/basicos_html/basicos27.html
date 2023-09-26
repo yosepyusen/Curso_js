@@ -33,7 +33,11 @@
         console.log(fecha.getTimezoneOffset());// imprime:: 300, de la hr cero -5 = 5*60=300 min
         console.log(fecha.getUTCDate());// imprime mes ... ver mas, esta en funcion grenwich
         console.log(fecha.getUTCHours());//imprime hora
-        console.log(Date.now());
+        console.log(Date.now());// imprime: Sun Sep 13 1998 00:00:00 GMT-0500 (hora estándar de Perú)
+        console.log("********");
+        console.log(fecha.getTime());//espresada en fecha a milisegundos
+        //getTime(), es un número de milisegundos desde el 1 de enero de 1970 00:00:00 UTC.
+        console.log(fecha.getFullYear());// imprime solo año
 
         let cumpleyosep= new Date(1998, 8,13);
         console.log(cumpleyosep);

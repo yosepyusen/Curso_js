@@ -514,7 +514,7 @@
           return console.error(`El valor ${email} ingresado, no es una cadena de texto`);
         }
         // "\s", para contenpla espacios en blanco ::: "g", para que no se detenga en primera coind¿cidencia sino en todo asta terminar
-        let expReg = /[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})/i.test(email); //"^", indica que no puede haber nada antes y "$" y no puede haber nada despues 
+        let expReg = /[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})/i.test(email); //
       
         return (expReg) //haber cumplido esa expresion de expReg , entonces que imprima lo siguiente
         ? console.info(`"${email}", es un email válido`)
