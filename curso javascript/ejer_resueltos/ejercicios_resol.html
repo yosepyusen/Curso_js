@@ -653,7 +653,7 @@
               return console.error(`El valor ${num} ingresado, no es un Número`);
             }
           }
-          const numMax = Math.max(...arr); // asi lo rewuiere con los 3 puntos        
+          const numMax = Math.max(...arr); // asi lo requiere con los 3 puntos        
           const numMin = Math.min(...arr);         
 
           return console.info(`Arreglo original: ${arr}.\n El valor màximo del arreglo es: ${numMax}.\n El valor mìnimo es de ${numMin}`);
@@ -663,11 +663,11 @@
         arrayMaxMin(false)
         arrayMaxMin([])
         arrayMaxMin([1,2,true])
-        arrayMaxMin([14,18,-22])*/
+        arrayMaxMin([14,18,-22])
 
     
     /* 23) Programa una función que dado un array de números devuelva un objeto con 2 arreglos en el primero almacena los números pares y en el segundo los impares, pe. miFuncion([1,2,3,4,5,6,7,8,9,0]) devolverá {pares: [2,4,6,8,0], impares: [1,3,5,7,9]} */
-    /*
+   /* 
     const arrayParImpar =(arr=undefined)=>{
           if (arr===undefined) return console.warn("No ingresaste un arreglo de numero");
           
@@ -682,8 +682,9 @@
           }
 
           return console.info({
-            pares: arr.filter(num => num % 2 === 0),
-            impares: arr.filter(num => num % 2 === 1)
+            pares: arr.filter(n => n % 2 === 0),// dentro variable "pares" se va guardando cada uno de los elementos del array, con condicion de que sean numeros pares
+            ////arr.filter(n => n % 2 === 0), variable arr puede ser un array de numero, de palabras, filter para hacer filtros como # pares, impares, y el "n", puede ser otro nombre dependiendo q le asignes
+            impares: arr.filter(n => n % 2 === 1)
           })
         }
 
@@ -693,7 +694,7 @@
         arrayParImpar(1);
         arrayParImpar("hola");
         arrayParImpar([1,2,"4"]);
-        arrayParImpar([1,2,2,3,5,4]);*/
+        arrayParImpar([1,2,2,3,5,4]);
     
 
     /* 24) Programa una función que dado un arreglo de números devuelva un objeto con dos arreglos, el primero tendrá los numeros ordenados en forma ascendente y el segundo de forma descendiente, pe. miFuncion([7, 5,7,8,6]) devolverá { asc: [5,6,7,7,8], desc: [8,7,7,6,5] }*/
@@ -713,10 +714,15 @@
 
       return console.info({
         arr, //se puede escribir asi::: arr:arr,
-        asc: arr.map(el=>el).sort(), //sort()::: es para que ordena
+        asc: arr.map(el=>el).sort(), //sort()::: es para que ordena, pero solo funciona de un solo digito es decir 1-9
         desc: arr.map(el =>el).sort().reverse(),
-        ascsr: [...new Set(arr.map(el=>el).sort())],
+        ascsr: [...new Set(arr.map(el=>el).sort())],//para eliminar # repetidos [...]
         descsr: [...new Set(arr.map(el =>el).sort().reverse())]
+        
+        // let data = [1,2,6,1,2,5,9,'33','33'];
+        // const dataArr = new Set(data);
+        // let result = [...dataArr]; //aqui para que me lea todo incluido las letras
+        // console.log(dataArr); //[1,2,6,5,9,'33']
       });
     }
 
@@ -724,13 +730,8 @@
     arrayAscDesd("hola");
     arrayAscDesd([]);
     arrayAscDesd([3,{}]);
-    arrayAscDesd([7,5,7,8,6]);*/
-
-    /*
-    let data = [1,2,6,1,2,5,9,'33','33'];
-    const dataArr = new Set(data);
-    let result = [...dataArr]; //aqui para que me lea todo incluido las letras
-    console.log(dataArr); //[1,2,6,5,9,'33']*/
+    arrayAscDesd([7,5,7,8,6]);// 
+    arrayAscDesd([7,5,7,8,6,20]);
     
     /* 25) Programa una función que dado un arreglo de elementos, elimine los duplicados, pe. miFuncion(["x", 10, "x", 2, "10", 10, true, true]) devolverá ["x", 10, 2, "10", true]  */
     /*
@@ -746,10 +747,15 @@
       return console.info({
         original:arr,// 
         sinDuplicados: arr.filter((value,index,self)=>self.indexOf(value)=== index),
+        //value:valor, index: posicion, self: el mismo arreglo
+        //(value,index,self), es el valor
+        //self.indexOf(value)=== index, es la condicon a filtrar el array, de no escribir elementos repetidos de un array
+
+        //indexof: me permite buscar texto de una cadena de texto, devuelve el texto a buscar en la posicion en q encontro
         sinDuplicados1: [...new Set(arr)] //Set()::: crea una lista sin duplicados
-        //self.indexOf(value)=== index ::: evalua si ay duplicados y pregunta ::: === index ::: si ya existe
+        //self.indexOf(value)=== index, evalua que el value:valor, que este dentro de la posicon:index ya existe 
         //self.indexOf(value) ::: vamos evaluar el valor
-        //self::: ase referencia al arreglo
+        
       });
     }
 
@@ -758,7 +764,7 @@
     quitarduplicados({});
     quitarduplicados([1]);
     quitarduplicados([1,2,2,5,5]);
-    quitarduplicados(["x",10,"x",2,"10",10,true,true])*/
+    quitarduplicados(["x",10,"x",2,"10",10,true,true])
     
     /* 26) Programa una función que dado un arreglo de números obtenga el promedio, pe. promedio([9,8,7,6,5,4,3,2,1,0]) devolverá 4.5 */
     /*
@@ -778,14 +784,14 @@
     
       return console.info(
         arr.reduce((total,num,index,arr)=>{// reduce ::: recibe 4 valores, total:: es acumulador
-          // num , es variable que esta recorriendo en este nmomento, index:: la posicion q ocupa este elemento
+          // num , es elemento o # del array, index:: la posicion q ocupa este elemento, arr: es el mismo array, total: es el acumulador
           total += num;
-          if(index===arr.length-1){ // es -1 pq, el array empieza de cero y ademas el index reprwesenta la posicion y empieza de cero al igual q array
-            //arr.length, es para 
-            return `El promedio de ${arr.join("+")} es ${total/arr.length}`; // una el array como un cadena de texto:::>  join("+")
-            //arr.length:: nos da cuantos valores tiene el array
-          }else{// aqui mientras el index no es igual a tamaño del array-  entontes se va acumular el array
-            return total;
+          if(index===arr.length-1){ //cuando index llegue al total de elementos que tiene, el total es:arr.length-1, y index:posicion
+            // es -1 pq, el array empieza de cero y ademas el index representa la posicion
+            return `El promedio de ${arr.join("+")} es ${total/arr.length}`; //join("+"), es para qie escriba " 55+5", por ejem. si ingresa dos numeros de arreglos
+            //arr.length:: nos da cuantos valores tiene el array, eso divide 
+          }else{// aqui mientras el index no es igual a tamaño del array entontes se va acumular el array
+            return total;//retornar el total acumulado 
           }
         })
       );
@@ -796,7 +802,7 @@
     arrayPromedio([]);
     arrayPromedio([1,true]);
     arrayPromedio([55,5]);
-    arrayPromedio([12,11,10,08,11]);*/
+    arrayPromedio([12,11,10,08,11]);//igual imprime con 08
     
     
     

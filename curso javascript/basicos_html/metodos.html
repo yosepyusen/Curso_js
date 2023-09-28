@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        //MAP(), es como un iterador que se puede usar para array casi como el ciclo for
+        const array1= [1,2,3,4], array2=[1,5,7,8,9], array3=[12,15,13,55], array4=[100,15,2,100,1589,4555];
+        const iteracionArray = array1.map(function (elemento){
+            return elemento*3;
+        });
+
+        console.log(`El array orginal: ${array1}, el array multiplicado por 3 a cada uno de sus elementos ${iteracionArray}`);
+        
+        //SORT(), es para que ordena los elementos de un array, funciona en # de un solo digito, en letras orden normal
+        //para orden de 1 digito
+        console.log(array2.sort()); //output, orden bien: (5) [1, 5, 7, 8, 9]
+        console.log(array2.sort().reverse()); //orden en forma descendente: (5) [9, 8, 7, 5, 1]
+        //para orden de 2 digitos, en forma ascendente
+        console.log(array3.sort(function (a,b){
+            // Hacer lo que se necesite para comparar "a" y "b" y devolver el resultado de la comparación
+            return a-b;//
+            /*
+            Si el resultado es negativo, a se ordena antes que b.
+            Si el resultado es positivo, b se ordena antes de a.
+            Si el resultado es 0, nada cambia.
+            */
+        }));
+/*
+        //para orden de 2 o mas digitod, en forma ascendente
+        console.log(array4.sort((a,b)=>{
+            if(a==b){
+                return 0;
+            }
+            if(a<b){
+                return -1;
+            }
+            return 1;
+        }));//imprime: (6) [2, 15, 100, 100, 1589, 4555]*/
+        /*
+        //para orden de 2 o mas digitod, en forma descendente
+        console.log(array4.sort((a,b)=>{
+            if(a==b){
+                return 0;
+            }
+            if(a<b){
+                return -1;
+            }
+            return 1;
+        }).reverse());//imprime : (6) [4555, 1589, 100, 100, 15, 2]*/
+        /*
+        //para orden de 2 o mas digitod, en forma descendente
+        console.log(array4.sort((a,b)=>{
+            if(a==b){
+                return 0;
+            }
+            if(a>b){
+                return -1;
+            }
+            return 1;
+        })); //imprime : (6) [4555, 1589, 100, 100, 15, 2]*/
+/*
+        // ELIMINAR # REPETIDOS DE UN ARRAY
+        let data = [1,2,6,1,2,5,9,'33','33'];
+        const dataArr = new Set(data);
+        let result = [...dataArr];
+        console.log(result); //[1,2,6,5,9,'33']*/
+
+        //METODO REDUCE()
+        console.log("METODO REDUCE()");
+        const suma_total= [0, 1, 2, 3, 4].reduce(function (valorAnterior, valorActual, indice, vector) {
+            return valorAnterior + valorActual;
+        });
+
+        // Primera llamada
+        // (valorAnterior = 0), (valorActual = 1), (indice = 1);
+        // Segunda llamada
+        // (valorAnterior = 1), (valorActual = 2), (indice = 2);
+        // Tercera llamada
+        // (valorAnterior = 3), (valorActual = 3), (indice = 3);
+        // Cuarta llamada
+        // (valorAnterior = 6), (valorActual = 4), (indice = 4);
+        // el array sobre el que se llama a reduce siempre es el objeto [0,1,2,3,4]
+        
+        console.log(suma_total);// IMPRIME: 10
+        
+   
+   </script>
+</head>
+<body>
+    metodos en js
+</body>
+</html>
