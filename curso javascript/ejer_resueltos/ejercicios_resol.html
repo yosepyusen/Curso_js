@@ -813,7 +813,7 @@
           - Valida que el título no rebase los 100 caracteres.
           - Valida que el director no rebase los 50 caracteres.
           - Valida que el año de estreno sea un número entero de 4 dígitos.
-                - Valida que el país o paises sea introducidos en forma de arreglo.
+          - Valida que el país o paises sea introducidos en forma de arreglo.
                 - Valida que los géneros sean introducidos en forma de arreglo.
                 - Valida que los géneros introducidos esten dentro de los géneros aceptados*.
                 - Crea un método estático que devuelva los géneros aceptados*.
@@ -821,97 +821,167 @@
                 - Crea un método que devuelva toda la ficha técnica de la película.
                 - Apartir de un arreglo con la información de 3 películas genera 3 instancias de la clase de forma automatizada e imprime la ficha técnica de cada película.
           
-          * Géneros Aceptados: Action, Adult, Adventure, Animation, Biography, Comedy, Crime, Documentary ,Drama, Family, Fantasy, Film Noir, Game-Show, History, Horror, Musical, Music, Mystery, News, Reality-TV, Romance, Sci-Fi, Short, Sport, Talk-Show, Thriller, War, Western.
-          */
-/*
+          -Géneros Aceptados: Action, Adult, Adventure, Animation, Biography, Comedy, Crime, Documentary ,Drama, Family, Fantasy, Film Noir, Game-Show, History, Horror, Musical, Music, Mystery, News, Reality-TV, Romance, Sci-Fi, Short, Sport, Talk-Show, Thriller, War, Western.*/
+          
+
         class Pelicula {
-          constructor({id, titulo, director, estreno, pais, generos, calificacion}){
-           this.id = id; 
+          constructor({id, titulo, director, estreno, pais, generos, calificacion}){//apenas inicie esta clase o instacie automaticamente va iniciar este constructor
+           this.id = id; //id de la película en IMDB(es un sitio que va acumulando las peliculas y series)
+           //ejem: https://www.imdb.com/title/tt15009428/ , este es el id=tt15009428
            this.titulo = titulo;
            this.director = director;
            this.estreno = estreno;
            this.pais = pais;
            this.generos = generos;
-           this.calificacion = calificacion;
+           this.calificacion = calificacion;//calificacion en IMDB, es # de 0-10, puede ser posicion decimal
 
            this.validarIMDB(id);
            this.validarTitulo(titulo);
            this.validarDirector(director);
            this.validarEstreno(estreno);
+           this.validarPais(pais);
+           this.validarGeneros(generos);
+           this.validarCalificacion(calificacion);
           }
-          validarCadena(propiedad, valor){
-            if(!valor) return console.warn(`${propiedad} "${valor}" esta vacío`); // !valor::: es igual a nulo
+
+          //--------------------------------- 1 validacion validacion ------------------------------
+          validarCadena(propiedad, valor){ //funcion para validar cadenas cuando se ingresa en validarIMDB, solo funciona para cadena
+            if(!valor) return console.warn(`${propiedad} "${valor}" esta vacío`); // !valor::: es igual a nulo, propiedad: el titulo, id, director esta vacio
             if(typeof valor !=="string") return console.error(`${propiedad} "${valor}" ingresado, No es una cadena de texto`);//valor diferente de cadena
 
             return true;
           } 
+          //patron para id es un patron de 2 letras y 7 #s   
+           // tt0075148
+           // tt0019130
+           // tt4154796
+           // tt4158110
+          validarIMDB(id){
+            if(this.validarCadena("IMDB id",id))//si esto se cumple a verdadero, "IMDB id"=propiedad, es un valor fijo que se le da 
+            //para llamar una funcion dentro de una clase, desde otra funcion se usa this
+            //validarCadena("IMDB id",id), esto le pasa defrente los datos porque id solo es un valor, ya que validarCadena(), pide dos valores
+            if((!/^([a-z]){2}([0-9]){7}$/.test(id))){//para q valide el id igual a este patron tt0075148, /^$/ significa no debe haber nada antes y despues
+              //([a-z]){2} ::: los dos primeros deben ser caracteres y ({0-9}){7}::: debe haber numero de 7 digitos
+              return console.error(`IMBDB id "${id}" no es válido, debe tener 9 caracteres, los 2 primeros letras minúsculas, los 7 restantes número`);
+            }
+          }//--------------------------------- fin 1 validacion validacion ------------------------------
+          
+
+          //--------------------------------- 2 validacion validacion ------------------------------
           validarLongitudCadena(propiedad, valor, longitud){
             if(valor.length > longitud) return console.error(`${propiedad} "${valor}" excede el número de caracteres permitidos (${longitud})`); // !valor::: es igual a nulo
-           //valor mayor a la longitud q limitamos entonces hace un error de director....
+           //valor.length>longitud, si el caracter es mayor al longitud o limitacion 
             return true;//reotna true significa qwiue las cosas estan bien
-          } 
+          }
+          validarTitulo(titulo){
+            if(this.validarCadena("Titulo",titulo))//validamos si esta vacio o si es diferente de un string, "Titulo"=es un valor fijo pero titulo= va ingresar 
+            this.validarLongitudCadena("Titulo",titulo,100);//con esto validamos que no pase cierto caracteres en este caso es 100=longitud, titulo=valor, propiedad="Titulo"
+          }//--------------------------------- fin 2 validacion validacion ------------------------------
+
+          //--------------------------------- 3 validacion validacion ------------------------------
+          validarDirector(director){
+            if(this.validarCadena("Director",director))//validamos si esta vacio o si es diferente de un string, "Director"=es un valor fijo pero director= va ingresar 
+             this.validarLongitudCadena("Director",director,50);//ctamaño max de caracteres es 50=longitud, titulo=valor, propiedad="Titulo"
+          }//--------------------------------- fin 3 validacion validacion ------------------------------
+
+          //--------------------------------- 4 validacion validacion ------------------------------
           validarNumero(propiedad, valor){
             if(!valor) return console.warn(`${propiedad} "${valor}" esta vacio`);
             if(typeof valor !== "number") return console.error(`${propiedad} "${valor}" ingresado, No es un Número`);
-            
             return true;
-          }
-*/
-          /********fatlaaa
-          validararreglo(propiedad, valor){
-            if(!valor) return console.warn(``);
-      
-            if(!(valor instanceof Array)) return console.error("El valor ingresado no es un arreglo");
-
-            if(valor.length === 0) return console.error("El arreglo esta vacío");
-            let total;;
-            for(let num of valor){
-              if(typeof num !== "number") return console.error(`El valor "${num}" ingresado, No es un número`);
-              //num +=num;
-            }
-          }*///
-/*
-          validarIMDB(id){
-            if(this.validarCadena("IMDB id",id))//si esto se cumple a verdadero
-              if((!/^([a-z]){2}([0-9]){7}$/.test(id))){//para q valide el id igual a ::: tt0075148 => /^$/ significa no debe haber nada antes y despues
-                //([a-z]){2} ::: los dos primeros deben ser caracteres y ({0-9}){7}::: debe haber numero de 7 digitos
-                return console.error(`IMBDB id "${id}" no es válido, debe tener 9 caracteres, los 2 primeros letras minúsculas, los 7 restantes número`);
-              }
-          }
-          validarTitulo(titulo){
-            if(this.validarCadena("Titulo",titulo))
-            this.validarLongitudCadena("Titulo",titulo,100);
-          }
-          validarDirector(director){
-            if(this.validarCadena("Director",director))
-             this.validarLongitudCadena("Director",director,50);
           }
           validarEstreno(estreno){
             if(this.validarNumero("Año de Estreno",estreno))//si esto se cumple a verdadero
-              if(!(/^([0-9]){4}$/.test(estreno))){//para q valide el id igual a ::: tt0075148 => /^$/ significa no debe haber nada antes y despues
-                //([a-z]){2} ::: los dos primeros deben ser caracteres y ({0-9}){7}::: debe haber numero de 7 digitos
-                return console.error(`Año de Estreno"${estreno}" no es válido, debe ser un número de 4 dígitos`);
-              }
+            if(!(/^([0-9]){4}$/.test(estreno))){//para q valide el id igual a ::: tt0075148 => /^$/ significa no debe haber nada antes y despues
+              //([a-z]){2} ::: los dos primeros deben ser caracteres y ({0-9}){7}::: debe haber numero de 7 digitos
+              return console.error(`Año de Estreno"${estreno}" no es válido, debe ser un número de 4 dígitos`);
+            }
+          }//---------------------------------fin 4 validacion validacion ------------------------------
+
+
+
+          //--------------------------------- 5 validacion validacion ------------------------------
+          validararreglo(propiedad, array){
+            if(!array) return console.warn(`${propiedad} "${array}" esta vacio`);
+            if(!(array instanceof Array)) return console.error("El valor ingresado no es un arreglo");
+            if(array.length === 0) return console.error("El arreglo esta vacío");// cuando manda datos como array=[]
+            for(let elemento of array){
+              if(typeof elemento !== "string") return console.error(`El elemento: "${elemento}" ingresado, dentro de un array: [${array}], No es un número`);// para que evalue si dentro de un arraeglo su valores sean diferentes de una string
+            }
+            return true; ///caso que todo esta bien retorna true
           }
-        }     
-        // tt0075148
-        // tt0019130
-        // tt4154796
-        // tt4158110
+          validarPais(pais){
+            (this.validararreglo("País",pais))//"País"=propiedad, es un campo fijo que se le pasa ,pais=array , en ello se van guadar varios paises pero guardados dentro de un arreglo
+            
+          }//---------------------------------fin 5 validacion validacion ------------------------------
 
+
+
+          //--------------------------------- 6 validacion validacion ------------------------------
+          static get listaGeneros(){
+            return ["Action","Adult","Adventure","Animation", "Biography", "Comedy", "Crime", "Documentary" ,"Drama", "Family", "Fantasy", 
+                    "Film Noir", "Game-Show", "History", "Horror", "Musical", "Music", "Mystery", "News", "Reality-TV", 
+                    "Romance", "Sci-Fi", "Short", "Sport", "Talk-Show", "Thriller", "War", "Western"];
+          }
+          static generosAceptados(){
+            return console.info(`Los géneros aceptados son: ${Pelicula.listaGeneros.join(",")}`);//listaGeneros: para llamar un estatico pero sin corchetes,  usamos clase Pelicula. ,join(","): para que imprima en consola los elementos de un array con un separador coma 
+          }//---------------------------------fin 6 validacion validacion ------------------------------
+
+
+
+          //--------------------------------- 6 validacion validacion ------------------------------
+          validarGeneros(generos){
+           if (this.validararreglo("Género",generos)){//la validacion de arreglos se pone dentro de un if sino va salir otro errores que son dentro del for
+            for(let genero of generos){
+              if (!(Pelicula.listaGeneros.includes(genero))) {//!Pelicula.listaGeneros.includes(genero), si a cada elemento elemento, en cuento devuelve falso dentra al if
+                //Pelicula.listaGeneros: es un array donde estan todo los genero disponibles,
+                //includes(genero): va buscar los elementos de un array ingresado en este caso el array ingresado es generos, si no encuentra devuelve false si encuentra true
+                console.error(`Género(s) incorrectos: [${generos.join(",")}]`);
+                Pelicula.generosAceptados();//imprimir cuales son los generos aceptados
+              }
+            }
+           }; 
+          }//---------------------------------fin 6 validacion validacion ------------------------------
+          
+          
+          //--------------------------------- 7 validacion validacion ------------------------------
+          validarCalificacion(calificacion){
+            if(this.validarNumero("Calificación",calificacion)){//si esto se cumple a verdadero
+              return (calificacion<0 || calificacion>10)
+                ? console.error(`La calificación tiene que estar entre un rango de número de 0-10`)
+                : this.calificacion=calificacion.toFixed(1);
+            }
+            //se puede hacer segunda forma
+      /*      if(calificacion>=0 && calificacion<=10){//
+              this.calificacion=calificacion.toFixed(1);// para que recorte a un # con un decimal
+            }else{
+              console.error("La calificacion que ingresado debe de estar entre un npumero 0-10");
+            }*/
+          }//---------------------------------fin 7 validacion validacion ------------------------------
+
+          fichaTecnica(){
+            console.info(`FICHA TÉCNICA\nTítulo: "${this.titulo}"\nDirector: "${this.director}"\nAño: "${this.estreno}"\nPaís: "${this.pais.join("-")}"\nGéneros: "${this.generos.join(",")}"\nCalificación: "${this.calificacion}"\nIMDB Id: "${this.id}"`);
+          }
+        }  
+       
+        //PASAMOS TODO LOS DATOS
+        //Pelicula.generosAceptados();//imprimir cuales son los generos aceptados
         const peli= new Pelicula({
-          id: "tt1234567",
-          titulo:"titulo de la Peli",//aqui valida como max 100 caracteres
-          director: "Director de la peli", //valida como max 50 caracteres
-          estreno: 2020
-        
+          id: "tt4158110", //caso que esta escrito bien se no sale nada, si pongo un # retorna en consola lo que esta codificado en linea 846, si es vacio 845
+          titulo: "Titulo de la peli", //si no sale nada en consola es pq esta bien, max caracteres permitidos =100
+          director: "Director de la peli",//si no sale nada en consola es pq esta bien, max caracteres permitidos =50
+          estreno: 2017,//si no sale nada en consola es pq esta bien
+          pais: ["España", "Perú"],//si no sale nada en consola es pq esta bien
+          generos: ["Action", "Western","Adult"],
+          calificacion: 7.6666,
         });
-*/
+
+        //IMPRIMIMOS TODO LOS DATOS PASADOS VALIDADOS
+        peli.fichaTecnica();//imprimimos todo los datos que ingresamos*/
 
 
 
-
-         //---------------falta del video 43,44-------------------
+         //---------------falta 44-------------------
         </script>
 </body>
 
