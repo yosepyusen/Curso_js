@@ -823,7 +823,7 @@
           
           -Géneros Aceptados: Action, Adult, Adventure, Animation, Biography, Comedy, Crime, Documentary ,Drama, Family, Fantasy, Film Noir, Game-Show, History, Horror, Musical, Music, Mystery, News, Reality-TV, Romance, Sci-Fi, Short, Sport, Talk-Show, Thriller, War, Western.*/
           
-
+/*
         class Pelicula {
           constructor({id, titulo, director, estreno, pais, generos, calificacion}){//apenas inicie esta clase o instacie automaticamente va iniciar este constructor
            this.id = id; //id de la película en IMDB(es un sitio que va acumulando las peliculas y series)
@@ -952,11 +952,11 @@
                 : this.calificacion=calificacion.toFixed(1);
             }
             //se puede hacer segunda forma
-      /*      if(calificacion>=0 && calificacion<=10){//
-              this.calificacion=calificacion.toFixed(1);// para que recorte a un # con un decimal
-            }else{
-              console.error("La calificacion que ingresado debe de estar entre un npumero 0-10");
-            }*/
+          //  if(calificacion>=0 && calificacion<=10){//
+          //     this.calificacion=calificacion.toFixed(1);// para que recorte a un # con un decimal
+          //   }else{
+          //     console.error("La calificacion que ingresado debe de estar entre un npumero 0-10");
+            
           }//---------------------------------fin 7 validacion validacion ------------------------------
 
           fichaTecnica(){
@@ -973,15 +973,49 @@
           estreno: 2017,//si no sale nada en consola es pq esta bien
           pais: ["España", "Perú"],//si no sale nada en consola es pq esta bien
           generos: ["Action", "Western","Adult"],
-          calificacion: 7.6666,
+          calificacion: 7.6666
         });
 
         //IMPRIMIMOS TODO LOS DATOS PASADOS VALIDADOS
-        peli.fichaTecnica();//imprimimos todo los datos que ingresamos*/
+        //peli.fichaTecnica();//imprimimos todo los datos que ingresamos
 
+        //guardamos dentro de un array con tres peliculas con sus respectivos datos validos
+        const misPelis=[
+          {
+            id: "tt0758758", 
+            titulo: "Into the Wild", 
+            director: "Sean Penn",
+            estreno: 2007,
+            pais: ["Estados Unidos"],
+            generos: ["Adventure","Biography","Drama"],
+            calificacion: 8.1
+          },
+          {
+            id: "tt0479143", 
+            titulo: "Rocky Balboa", 
+            director: "Sylvester Stallone",
+            estreno: 2006,
+            pais: ["Estados Unidos"],
+            generos: ["Action","Drama","Sport"],
+            calificacion: 7.1
+          },
+          {
+            id: "tt0468569", 
+            titulo: "The Dark Knight", 
+            director: "Christopher Nolan",
+            estreno: 2008,
+            pais: ["Estados Unidos","Reino Unido"],
+            generos: ["Action","Crime","Drama","Thriller"],
+            calificacion: 9.0
+          }
+        ]
 
-
-         //---------------falta 44-------------------
+        console.log("IMPRIMIMOS EN CONSOLE LOS 3 PELIS");
+        misPelis.forEach(el =>new Pelicula(el).fichaTecnica());
+        //el, es el elemento de un array que va iterar con foreach
+        //new Pelicula(el), instanciamos, como el tiene varios valores de misPelis, va pasar varios datos
+        //fichaTecnica(), una vez instanciado la clase imprimimos todo los datos pasados
+*/
         </script>
 </body>
 
