@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>asincronia en js</h1>
+    <script>
+        
+        /*
+        console.log("Una sola vez");
+        setTimeout(()=>{//aqui recibe una funcion, colbakc, que va ejecutar y recibe un timepo en milisegundos
+            console.log("Ejecutando un setTimeOut, ejecuta una sola vez");
+        }, 5000) //recibe un tiempo en milisegundos 1000=1segundo
+        //ejecutar varias veces
+        console.log("Varias veces");
+        setInterval(()=>{//aqui recibe una funcion y un intervalo de tiempo
+            console.log("Ejecutando un setinterval, ejecuta una indefinidamente
+            
+            ");
+        }, 1000) */
+
+        //IMPRIMIR HORA CADA SEGUNDO
+        /*
+        setInterval(()=>{//imprime la hora en el lugar donde estas, cada segundo que pasa
+            console.log(new Date().toLocaleTimeString());
+        },1000)*/
+        
+        //SET TIMEOUT, CLEAR TIMEOUT 
+        /*
+        let temporizador = setTimeout(()=>{//para que funcione se tiene q llamr en una funciuon
+            console.log(new Date().toLocaleTimeString());
+        },1000)
+
+        setTimeout(temporizador); //solo imprime ña hora cuando no llama a clearTimeout
+        clearTimeout(temporizador); //cancela la funcion de imprimir la hora: timeout, la hora con:console.log(new Date().toLocaleTimeString());
+        console.log("despues del clear");//esto si imprime siempre cuando no usa la funcion clearTimeout
+        */
+        /*
+        let temporizador = setInterval(()=>{//para que funcione se tiene q llamr en una funciuon
+            console.log(new Date().toLocaleTimeString());
+        },1000)
+
+        clearInterval(temporizador); //cancela el setInterval, lo detiene la funcion de llamada con clearInterval
+        console.log("despues del clearinterval");//imprime en consola */
+
+        
+    </script>
+</body>
+</html>
