@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>asincronia en js</h1>
+    <script>
+        //js, tiene un hilo de proceso, es un lenguaje sigle trhead
+        //las tareas se apilan de entrada y salida son asincronas que no esperan en el presente inmediato
+        //sino que se van resolver en el futuro y no bloqueantes...
+        /*callback: es para controlar para la sincronia*/
+        
+        function cuadradoCallback(value,callback){//esta funcion recibe un valor, callback:consumo de memoria, o recursividad
+            setTimeout(()=>{//dentro de esta funcion va tener un setTimeOut
+                callback(value, value*value);//callback recibe un valor y ejecuta el valor al cuadrado
+            }, 0 | Math.random()*100);//recibe un tiempo en centesimas de segundo, pero va depender del tiempo a poner mayor # mayor tiempo
+        }//0 | Math.random()*1000, va dar bien cero o un numero entre 0 y 1 pero no puede tomar el valor de uno y se multiplica por 100 para que de en centecimas de segundos
+
+        cuadradoCallback(0,(value,result)=>{// funcciton cuadradocallback recibe valor de cero y despues crea un arrow function: que es el callback declarado en la funcion cuadradoCallback y internanmente dentro del arrow function recibe un valor y el resultado de esa elevacion al cuadrado
+            console.log("inicia Callback");
+            console.log(`callback: ${value}, ${result}`);//imprime el valor de cero y cero al cuadrado es cero
+
+            cuadradoCallback(1,(value,result)=>{//dentro de este callback ingresamos uno como valor
+                console.log(`callback: ${value}, ${result}`);// aqui imprime 1,1
+                cuadradoCallback(2,(value,result)=>{
+                    console.log(`callback: ${value}, ${result}`);// aqui imprime 2 , 2^2=4
+                    cuadradoCallback(3,(value,result)=>{
+                        console.log(`callback: ${value}, ${result}`);
+                        cuadradoCallback(4,(value,result)=>{
+                            console.log(`callback: ${value}, ${result}`);
+                            cuadradoCallback(5,(value,result)=>{
+                                console.log(`callback: ${value}, ${result}`);
+                            });//callback no ejecuta el segundo hasta que termina el primero callback que se llamo
+                        });
+                    });
+                });
+            });
+        });
+        
+
+    </script>
+
+</body>
+</html>

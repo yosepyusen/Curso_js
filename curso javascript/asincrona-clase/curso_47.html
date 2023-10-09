@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>asincronia en js</h1>
+    <script>//CALLBACK VS PROMISE
+         
+        //esta clase sobre callback todo para poder evitar errores y manejo de errores, ya que el callback es un piramide largo
+        //cuando tienes pocos proceso se debe realizar en un callback, es decir una funcion asincrona conviene hacer en un callback
+        //promesa se usa cuando hay varios concatenacion de procesos asincronos
+        function cuadradoPromise(value){//referencia de promise a promesa, esta function recibe un solo valor
+            //el if va servir para poder captar el error
+            if (typeof value!=="number") {//tipó de dato es diferente estrictamente a un numero
+                return Promise.reject(`error, el valro "${value}" no es un numero`);
+            }
+            return new Promise((resolve, reject)=>{  //caso que ingreso un #, tiene una parte que resuelve:resolve y la que rechaza:reject,       
+            setTimeout(()=>{//metodo resolve se encapsula dentro de un setTimeout, con ayuda de un arrow function
+            resolve({// metodo resolve se va ejecutar en caso que cumpla el return es positivo
+                //cambio el reject es el return negativo
+                //dentro de lo sig. se crea un objeto 
+                //value: value,//aqui podemos solo poner:: " value, cuando al propiedad y valor tienen el mismo nombre", value es un parametro
+                value,//podemos poner tambien: value: value,
+                result: value*value //una propiedad resolve de elevear el cuadrado el valor
+            });
+            }, 0 | Math.random()*1000);
+            });
+        }
+
+        //cuadradoPromise().then().catch();
+        //promesa sirve de varios 
+        cuadradoPromise(0) //aqui llamamos al funcion con valor cero
+        .then(obj=>{ //metodo then, que recibe la parte positiva de promise, luego se crea un arrow funcion o function anonima..., obj 
+            console.log("Inicio Promise");
+            console.log(`Promise: ${obj.value}, ${obj.result}`);
+            return cuadradoPromise(1);//esta funcion devuelve : obj resolve en caso q se cumpla ya dentro de la funcion llamada cuadradoPromise()
+        })
+        .then(obj =>{//para poder imprimir ya con valor de 2
+          console.log(`Promise: ${obj.value}, ${obj.result}`);//pero aqui el valor es 1 todavia
+          return cuadradoPromise(2);
+        })
+        .then(obj =>{
+          console.log(`Promise: ${obj.value}, ${obj.result}`);
+          return cuadradoPromise(3);//para poder imprimir ya con valor de 2
+        })
+        .then(obj =>{
+          console.log(`Promise: ${obj.value}, ${obj.result}`);
+          return cuadradoPromise(4);
+        })
+        .then(obj =>{
+          console.log(`Promise: ${obj.value}, ${obj.result}`);
+          return cuadradoPromise(5);
+        })
+        .then(obj =>{//imprimimos el valor de promesa y el FIN, cada uno de estos console se imprime en un intervalo de tiempo por settimeout
+          console.log(`Promise: ${obj.value}, ${obj.result}`);
+          console.log("Fin Promise");
+        })
+        
+        .catch(err=>console.error(err));//catch capta el error resultante de reject, caso que encuentra en cualquier ingreso de datos mal pasa directamente al catch 
+
+       
+
+    </script>
+
+</body>
+</html>
