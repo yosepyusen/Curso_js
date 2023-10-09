@@ -4,58 +4,77 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Nuevos tipos de datos en js</title>
 </head>
 <h1>Nuevos tipos de datos en js</h1>
 <body>
     <script>
         /******** ********************** curso 49 ******************/
-        //Symbol()::es un dato primitivo
+        //CLASE DE Symbol(), es un dato primitivo, symbol, ES PARA USO INTERNO y su valor se va mantener PRIVADO
+        //Symbol(), suelen usarse como caracteristicas de objetos o propiedad y se mantienen privadas
+        //Symbol, no permiten crear identificadores unicos de referencia,  dentro de un objeto
+        
         /*
         let id="hola";
         let id2="hola";
-        let id3_1= Symbol("id");
-        let id3_2= Symbol("id2");
-        //symbol::::: crea una referencia unica
+        let id3_1= Symbol("id");//symbol(), dentro de su perentesis acepta un string o numero
+        let id3_2= Symbol("id2");//symbol, crea una referencia unica, y para diferenciar se pone una etiqueta dentro de parentesis como "id2"
+        
 
-        console.log(id===id2);//aqui comparamos los variables
-        console.log(id3_1===id3_2);//false por q es simbolo
-        console.log(typeof id3_1,typeof id3_2);// typeof:: analizar dato
+        console.log(id===id2);//aqui comparamos los variablesy imprime TRUE porque es verdad
+        console.log(id3_1===id3_2);//ya que se creo un simbolo es falso y imprime FALSE, porque cada simbolo tiene una caracteristica unica, aunque tiene la misma etiqueta
+        console.log(id3_1,id3_2);//imprime: Symbol(id) Symbol(id2)
+        console.log(typeof id3_1,typeof id3_2);// typeof:: analizar dato, en este caso imprime que es:symbol symbol
         
         const NAME = Symbol("nombre");//para diferenciar ponemos un cadena de texto para diferenciador
-        const SURNAME = Symbol("APELLIDO");
+        const SURNAME = Symbol("Apellido");
         const SALUDAR = Symbol("saludar");
 
-        const persona = { //clase, lkos corchetes van siempre y cuando declaramos antes dicha varible
-          [NAME]: "Jon", //para definir objetos privados 
+        //se crea un objeto que se llama persona
+        const persona = { //clase, los corchetes van siempre y cuando declaramos antes dicha varible
+          [NAME]: "Jon", //"jon", es el valor que se le da, se usa [], para que js ya sabe que hay un symbol creado y que sea un identificador unico y se mantienen propiedades privadas
           [SURNAME]: "Mircha" ,
           edad: 35 //aqui no ponemos corchetes pq no creamos una varibale
         }
-        console.log(persona);
+        //llamamos al objeto creado
+        console.log(persona);// imprime: {edad: 35, Symbol(nombre): 'Jon', Symbol(APELLIDO): 'Mircha'}, symbol hace referencia a que es como un objeto
+        console.log("***********");
         
-        persona.NAME= "JonatanMircha"//con . creo mas propiedades
-        persona.SURNAME="Mircha"
-        console.log(persona);
+        persona.NAME= "JonatanMircha"//con persona punto(.persona) creo una nueva propiedades, sin que afecte al valor anterior que cree en [NAME], esto no se afecta porque se creo con un symbol 
+        persona.SURNAME="Mircha sanchez"
+        console.log(persona);//llamamos al objeto creado otra vez
         console.log(persona.NAME);//imprime JonatanMircha
-        console.log("Imprimimos nombre: "+persona[NAME]); //imprime Jon
-        console.log("imprimimos el apellido: "+persona[SURNAME]);
+        console.log("Imprimimos nombre: "+persona[NAME]); //imprime Jon, imprimimos el identificador unico creado con symbol
+        console.log("imprimimos el apellido: "+persona[SURNAME]);//imprime: Mircha
 
-        persona[SALUDAR] = function (){
+        persona[SALUDAR] = function (){//poner una propiedad dentro de un metodo
+            //[SALUDAR], corchetes detecta que puede que ser que este recibiendo una propiedad que e va guardar dentro de un simbolo que genera un id unico o referencia unico
+
             console.log("Hola");
         }
-        console.log(persona);
-        persona[SALUDAR]();//imprmimos dentro de una funcion saludar
+        console.log("***********");
+        console.log(persona);//llamamos al objeto persona creado otra vez, pero no se ejecuta de "hola" de la funcion persona[SALUDAR], pero si aparece la funcion en vacio
+        persona[SALUDAR]();//imprmimos una funcion persona[SALUDAR](), que es un identificador unico gracias al crear simbol
 
+        console.log("***SEPARADOR****");
         for(let propiedad in persona){//for para que imprima todo los valores del objeto symbolo
-            console.log(propiedad); // aqui nombre de la propiedad
-            console.log(persona[propiedad]);//ase referencia al valor de la propiedad
+            console.log(propiedad); // aqui imprimimos cada propiedad del objeto persona, y empieza imprimiendo edad, porque el cod lee de abajo hacia arriba
+            //propiedad creados solo hay:edad, NAME,SURNAME
+           console.log(persona[propiedad]);//hase referencia al valor de la propiedad
+           //valores de propiedad son:35,JonatanMircha,Mircha sanchez , edad=35, NAME=JonatanMircha, SURNAME="Mircha sanchez"
+           //NAME=JonatanMircha, SURNAME=Mircha sanchez, porque no imprime "Jon", porque esta con identificador unico que es el corchetes debido al symbol(), creado, lo mismo pasa con "Mircha"
         }
         
         console.log("*********");
-        console.log(Object.getOwnPropertySymbols(persona));*/
+        
+        console.log(Object.getOwnPropertySymbols(persona));//para enlistar o imprimir los atributos privados del objeto, en manera de objeto
+        */
 
         /*******************  CLSE 50   **********************/
+        //clase Sets 
 
+        const set = new Set([1,2,3,3,4,5,true,false,false, {},{},"hola","HOla"]);
+        console.log(set);//imprime estos valores en forma de arreglo, y elimina valores repetidos como 3
         
 
 

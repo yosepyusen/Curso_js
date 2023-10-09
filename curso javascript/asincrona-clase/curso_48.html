@@ -8,8 +8,9 @@
 <body>
     <h1>asincronia en js</h1>
     <script>//await * async
-
-        function cuadradoPromise(value){
+        //las funciones SINCRONAS no vienen a reemplazar a PROMESAS en anterior clase sino mas bien trabajan juntos en armonia
+        //LOADER: lo que permite a que no puede darle a interactuar con una pagina web, hasta que carga completamente la pagina con sus productos
+        function cuadradoPromise(value){//cuadradoPromise, devuelve un objeto por eso: obj
          if (typeof value!=="number") {
              return Promise.reject(`Error el valor ingresado "${value}" no es un numero`);
          }
@@ -22,14 +23,20 @@
            }, 0 | Math.random()*1000);
          });
         }
+        //para usar AWAIT se debe usar una function ASINCRONA, sino sale error
         // si utilizas async antes de function, es un forma de decirle que es una function asincrona en js
         //entonces debemos utilizar palabra reservada :: await ::
-        async function funcionAsyncronaDeclarada(){//no se va ejecutar asta q le llamamos
-         try{//para utilizar AWAIT debe ser una ASYNC
+        async function funcionAsyncronaDeclarada(){//no se va ejecutar asta q le llamamos, por eso es function declarada
+         try{
             console.log("Inicio async function");
-            let obj = await cuadradoPromise(0);//espera el resultado de cuadradopromise()
-            console.log(`Async function: ${obj.value}, ${obj.result} `);
+            let obj = await cuadradoPromise(0);//dice esta linea de cod: vas esperar el resultado de esta ejecucion antes de pasar al siguiente linea y ejecutarla, y que no salga UNDEFINED
+            //el await se usa porque la function cuadradoPromise(), todavia no me devuelve ese objeto, es decir al instante no devuelve sino sale UNDEFINED, UNDEFINED
+            //cuando declaras una funcion como asincrona:ASYNC, entonces debes utilizar una palabra reservada que se llama AWAIT:espera
+            //de cuadradopromise(), la optimizacion a nivel de sintaxis es que al trabajar con funciones asincronas cada peticion lo puedo guardar en una variable
+            //y evitar el uso de THEN indiscriminados, llamado como infierno de las promesas
             
+            console.log(`Async function: ${obj.value}, ${obj.result} `);
+            //mas que todo el AWAIT se usa para evitar el uso de muchos THEN, cuando tu cod. es desordenado y equivocarte con con las llaves de este then
             obj = await cuadradoPromise(1);
             console.log(`Async function: ${obj.value}, ${obj.result} `);
             
@@ -45,15 +52,16 @@
             obj = await cuadradoPromise(5);
             console.log(`Async function: ${obj.value}, ${obj.result} `);
             
-            console.log("Fin Async Functrion");
-        }catch (err){
+            console.log("Fin Async Function");
+        }catch (err){//al capturar el error inmediatamente se termina el cod y sale error
             console.error(err);
          }
         }
 
-        funcionAsyncronaDeclarada(); //aqui llamamos la funcion
-
-        const funcionAsincronaExpresada= async ()=>{
+        funcionAsyncronaDeclarada(); //aqui llamamos la funcion declarada
+        
+        
+        const funcionAsincronaExpresada = async ()=>{//para que sea ASINCRONA se debe piner antes del () la palabra  ASYNC
             try{
             console.log("Inicio async function OTRA FORMA");
             
@@ -72,14 +80,15 @@
             obj = await cuadradoPromise(10);
             console.log(`Async function: ${obj.value}, ${obj.result} `);
             
-            console.log("Fin Async Functrion");
+            console.log("Fin Async Function");
         }catch (err){
             console.error(err);
          }
         }
 
-        funcionAsincronaExpresada()
-
+        funcionAsincronaExpresada(); //aqui llamamos a una function expresada
+        //SI LAS FUNCIONES SE EJECUTAN AL MISMO TIEMPO, imprime en forma aleatorio mezclando
+        //CURSO 49 empieza con js_con_html, ene el file: nuevo-tipo.html
     </script>
 </body>
 </html>
