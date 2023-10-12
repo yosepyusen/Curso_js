@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevos tipos de datos en js</title>
+</head>
+<h1>Nuevos tipos de datos en js</h1>
+<body>
+        <h1>Nuevos tipos de datos en js</h1>
+        <p>lorem</p>
+        <p>lorem</p>
+        <p>lorem</p>
+        
+        <!--
+                h1
+        -->
+    <script>
+
+         /*******************  CLASE 53   **********************/
+        //clase Iterables & Iterators
+        //generadores mas sencilla de trabajar con los iteradores con tipo de datos iterables
+
+        const iterable = [1,2,3,4,5];
+        const iterable2 = "Hola Mundo" ;
+        const iterable3 = new Set([1,2,3,3,4,5,6,6]);//set: no recibe valores repetidos sino unicos
+        const iterable4 = new Map([["nombre","jon"],["edad",35]]);
+
+        //accedemos al iterador con el iterable
+        const iterador = iterable[Symbol.iterator]();//con esto accedemos a una propiedad especial: Symbol.iterator, tbm funciones para maps, set, cadena de texto y (): es para la posicion especial que tiene arreglo o iterale
+        const iterador2 = iterable2[Symbol.iterator]();
+        const iterador3 = iterable3[Symbol.iterator]();//iterator, es un propiedad de js para iterar
+        const iterador4 = iterable4[Symbol.iterator]();
+
+        console.log(iterable);//imprmimos el arreglo: (5) [1, 2, 3, 4, 5]
+        console.log(iterador);//imprime: Array Iterator {} , cuando es array de numeros, tbm son iterables
+        console.log(iterador2);//imprime: StringIterator {} , cuando es un string, son iterables pero de tipo string
+        console.log(iterador3);//imrprime: SetIterator {1, 2, 3, 4, 5, …}
+        console.log(iterador4);//imrprime: MapIterator {'nombre' => 'jon', 'edad' => 35}
+        
+        //1mer metodo
+        //iterar sus elementos con next() de uno en uno, se lo comente para poder hacer el segundo metodo
+        //----------iterando con next incio------------
+        // console.log(iterador.next());//imprime: {value: 1, done: false}, dice que el 1mer valor del iterador es 1, done:false, indica que todavia no ha acbado
+        // console.log(iterador.next());//imprime:{value: 2, done: false}
+        // console.log(iterador.next());
+        // console.log(iterador.next());
+        // console.log(iterador.next());//imprime: {value: 5, done: false} , ya que es el ultimo valor
+        // console.log(iterador.next());// imprime: {value: undefined, done: true}, value:undefined, porque no hay valores y done:true, acabo de iterar
+        //----------iterando con next fin ------------
+
+
+        //Segundo metodo
+        //para iterar elementos con muchos valores, seria tedioso usar next, por eso el sig. metodo
+        let next = iterador.next();//mientras que no haya sido ejecutado un next(), anterior
+        //console.log(next);//va imprimir: {value: 1, done: false}, es decir en linea anterior next esta iterando en valor 1
+        let next2 = iterador2.next();//console.log(next2),//imprime: {value: 'H', done: false}
+        let next3 = iterador3.next();//console.log(next3);//imprime: {value: 1, done: false}
+        let next4 = iterador4.next();//console.log(next4);//imprime:{value: Array(2), done: false}
+
+        //recorremos los elementos del variable iterable
+        console.log("recorremos los elementos del variable: iterable");
+        while(!next.done){ //mientras !next.done, sea falso imprimime solo el valor
+                console.log(next.value);//imprime solo el valor con next.value, aqui imprime 1, en el primer rrecorrido
+                //next(), nos ayuda a decir en que elemento del objeto se ha quedado
+                next = iterador.next();//reasignacion ejecutar iterador.next(), para que dea el sig. valor
+        }//con este while hacemos que rrecora todo los valores del array
+
+        //recorremos los elementos del variable iterable
+        console.log("recorremos los elementos del variable: iterable2");
+        while(!next2.done){ //mientras !next2.done, sea falso imprimime solo el valor
+                console.log(next2.value);//imprime solo el valor con next.value, aqui imprime 1, en el primer rrecorrido
+                //next(), nos ayuda a decir en que elemento del objeto se ha quedado
+                next2 = iterador2.next();//reasignacion ejecutar iterador2.next(), para que dea el sig. valor
+        }//con este while hacemos que rrecora todo los valores del string incluso el espacio en blanco
+        
+        //recorremos los elementos del variable iterable3
+        console.log("recorremos los elementos del variable: iterable3");
+        while(!next3.done){ //mientras !next3.done, sea falso imprimime solo el valor
+                console.log(next3.value);//imprime solo el valor con next.value, aqui imprime 1, en el primer rrecorrido
+                //next(), nos ayuda a decir en que elemento del objeto se ha quedado
+                next3 = iterador3.next();//reasignacion ejecutar iterador3.next(), para que dea el sig. valor
+        }//con este while hacemos que rrecora todo los valores del array
+        
+        //recorremos los elementos del variable iterable3
+        console.log("recorremos los elementos del variable: iterable4");
+        while(!next4.done){ //mientras !next4.done, sea falso imprimime solo el valor
+                console.log(next4.value);//imprime solo el valor con next.value, aqui imprime 1, en el primer rrecorrido
+                //next(), nos ayuda a decir en que elemento del objeto se ha quedado
+                next4 = iterador4.next();//reasignacion ejecutar iterador4.next(), para que dea el sig. valor
+        }//con este while hacemos que rrecora todo los valores del 
+
+    </script>
+</body>
+</html>

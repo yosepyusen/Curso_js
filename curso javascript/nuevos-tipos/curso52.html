@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevos tipos de datos en js</title>
+</head>
+<h1>Nuevos tipos de datos en js</h1>
+<body>
+    <script>
+
+        
+        /*******************  CLASE 52   **********************/
+        //SET Y MAPS tienen un pequeño hermano que es WIXSET:conjuntos debiles y WIXMAP: mapas debiles
+        //el recoletor de basura de js, que en el momento que alguna de las referencias de estos WIXSET Ó WIXMAP, ya se han nulificado, limpiado dentro de nuestra logica de programacion
+        //cuando el recoletor de basura de nuestro navegador ejecute su proceso, esta limpiando todo que el navegador no necesite
+        //WIXSET Ó WIXMAP, sobre estos no se pueden iterar sobre los valores o claves, no se pueden recorrer como tal, ya que no son iterables
+        //WIXSET Ó WIXMAP, en estos no se puede usar metodo CLEAR en set y maps, solo se puede elimnar de uno en uno, tampoco podemos verificar su tamaño(SIZE) 
+        //WIXSET, se pueden usar metodo HAS(buscar), ADD(agregar), DELETE:para elimnar de 1 en 1
+        //WIPMAP: obtener llave con GET, establecer una propiedad con SET, evaluar si existe una llave con el metodo HAS, eliminar una llave
+
+/*
+        //clase WeakSets 
+
+        //const wixet = new WeakSet([1,2,3,3,4,5,true,false,false, {},{},"hola","HOla"]);//set solo almacena elementos unicos sin repeticiones
+        //al agregar elementos con WeakSet se deben hacer uno a uno, sino va dar error como: Uncaught TypeError: Invalid value used in weak set
+        
+        const wixet = new WeakSet();
+        let valor1 ={"valor1:":1};
+        let valor2 ={"valor2:":2};
+        let valor3 ={"valor3:":3};
+
+        wixet.add(valor1);//agregamos al WeakSet sus valores uno a uno 
+        wixet.add(valor2);
+
+        console.log(wixet);//imprime en forma de : WeakSet {{…}, {…}}, con sus dos elementos 
+        
+        //buscando referencias agregadas
+        console.log(wixet.has(valor1));//para que evalue que valor1 se agrego al wixet y imprime true porque es verdadero, ya que si agregamos valor1
+        console.log(wixet.has(valor3));//imprime false pq todavia no ingresamos el valor3
+
+        //eliminando un elemento del wixet
+        wixet.delete(valor2); 
+        console.log(wixet);//imprime el wixet con una sola referencia ya que eliminamos uno
+
+        //agregando valores al wixet 
+        wixet.add(valor2); 
+        wixet.add(valor3); 
+        console.log(wixet);//ahora el wixet imprime con 3 valores
+
+        //----------------------------EJEM: DE LIBRERIAS REACTIVAS, pero con js puro ---------------------
+        //imprimir un wixet con arrow function, dentro de un setinterval
+        setInterval(()=>console.log(wixet), 1000); //imprime un wixet por cada segundo 
+
+        setTimeout(() => {
+           valor1=null;
+           valor2=null;
+           valor3=null; 
+        }, 5000);//pasado los 5milisegundo se van eliminar sus elementos del WIXET, 
+        //imprime:WeakSet con un solo elemento: WeakSet {}, esto es porque su 3 valores lo mandamos a null, va funcionar siempre y cuando se ejecuta primero el setInterval, despues setTimeout
+        //----------------------------EJEM: DE LIBRERIAS REACTIVAS, pero con js puro ---------------------
+*/
+
+/*
+        //clase WeakMaps 
+        //no se puede ver el tamaño de estos WeakMaps y de WeakSet
+
+        //si solo es MAP(), puedes agregar varios elementos al mismo tiempo
+        //pero si es WeakMap, solo puedes agregar por elemento, sino dara error: Uncaught TypeError: Invalid value used as weak map key
+        
+        //------------------------- se debe agregar uno a uno -----------
+        // const wixmap = new WeakMap([
+        //     ["Nombre", "Kenai"], //para cada llave valor tenemos q poner una llave con su valor
+        //     ["Edad",7],//
+        //     ["Animal","Perro"],//
+        //     [null,"nulo"] //agregamos cosas raras, pero le considera un null como tal
+        // ]);
+        //------------------------- se debe agregar uno a uno -----------
+  
+        const wixmap = new WeakMap();
+        let llave1={}; //con esta referencias va llegar a objetos vacios
+        let llave2={};
+        let llave3={};
+
+        //establecer valores al wixmap 
+        wixmap.set(llave1,1);//llave1 toma el valor de 1
+        wixmap.set(llave2,2);
+        
+        console.log(wixmap);//imprime: WeakMap {{…} => 1, {…} => 2}, con dos objetos ya que se agregaron dos
+
+        //buscar referencias de valores con has
+        console.log(wixmap.has(llave1));//decuelve tru porque es verdad que se agrego la llave1
+        console.log(wixmap.has(llave3));//decuelve false porque todavia no se agrega llave3
+
+        //imprimiendo sus valores de wixmap
+        console.log(wixmap.get(llave1));//imprime: 1
+        console.log(wixmap.get(llave2));//imprime: 2
+        console.log(wixmap.get(llave3));//imprime undefined, pq no se define todavia
+
+        wixmap.delete(llave2); //
+        console.log(wixmap);//imprime wixmap con sola una variable: WeakMap {{…} => 1}, porque en el anterior linea de cod. se elimina el valor de llave2
+
+        //establecer valores al wixmap otra vez
+        wixmap.set(llave3,3);
+        wixmap.set(llave3,3);
+        console.log(wixmap);//imprime: WeakMap {{…} => 1, {…} => 3}, porque se agregaron los dos valores
+
+        //cuando yo nulifique las  variables que hacen referencia a cada uno de las propiedades de este wixmap, pues estan se va eliminar automaticamente, con esto mejora el rendimiento de nuestra alicacion
+        //WeakSets & WeakMaps(hace manejo de variables de estado en componente hablando de react de viu y esbelt y angular)
+        
+      //---------------- PARA MEJORAR EL RENDIMIENTO DE NUESTRA APP, CASO DE USO-------
+        // setInterval(()=>console.log(wixmap), 1000);
+        
+        // setTimeout(() => {//con el setTimeout, imprime: WeakMap {}, con cero valores despues de 5 milisegundos, ya que todo los valores se mandaron a ser nulos
+        //     llave1=null;
+        //     llave2=null;
+        //     llave3=null; 
+        // }, 5000);
+        //---------------- PARA MEJORAR EL RENDIMIENTO DE NUESTRA APP, CASO DE USO-------
+*/     
+
+   </script>
+</body>
+</html>

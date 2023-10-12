@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevos tipos de datos en js</title>
+</head>
+<h1>Nuevos tipos de datos en js</h1>
+<body>
+    <script>
+
+    
+
+        /*******************  CLASE 51   **********************/
+        //CLASE MAPs, no es un objeto primitivo, sino objeto iterador, pareciera tener caracterisicas de un arreglo, pero no lo son arreglos 
+        //SET no permiten valores repetidos, los MAPS son objetos que permiten tener una coleccionde llave valor
+        //caso que en un obj. primitivo el nombre de toda las propiedades de ese obj. son cadenas de texto
+        //resulta que nosotros podemos generar llaves que no sean cadenas de texto, llaves como un: NULL, UNDEFINED, NOTA NUMBER, TRUE, BOLLEAN, OBJ.
+        //MAPS es una nueva cosa que permite diferencia de un obj. primitivo
+        //MAPS Y SET son tipo de datos complejos, no son primitivos, como array objects...
+        //primitivos nuevo son:Symbol
+
+        const mapa = new Map();//se pone const por que es un estructura de datos, primera FORMA DE INICIAR UNA MAPA
+        //todo lo qie no es un valor primitivo auque lo guardes en un cosntantes: que no va cambiar tipo de dato
+        //pero si mapa lo quiero convertir a un objeto ahi daria error entonces usariamos LET
+
+        //agregar valores con Método SET
+        mapa.set("Nombre","Jon");
+        mapa.set("Apellido","Mircha");
+        mapa.set("Edad",35);
+
+        console.log(mapa);//imprime: Map(3) {'Nombre' => 'Jon', 'Apellido' => 'Mircha', 'Edad' => 35} , es como un arrow function
+        console.log("Imprimiendo # elementos: "+mapa.size);//es el # de elementos que tiene esta propiedad, como el length
+        console.log("Existe la llave correo: "+mapa.has("correo"));// aqui devuelve false porque no hay correo
+        console.log("Existe la llave nombre: "+mapa.has("Nombre"));//aqui devuelve true porque no hay llave nombre
+        console.log("Obtener valor de llave Nombre que es: "+mapa.get("Nombre"));//devuelve: Jon, pq ese el valor de llave Nombre
+        
+        //SET se usa para poner datos
+        mapa.set("Nombre","Jonathan MirCha")//Sobreescribimos el valor de llave Nombre con "Jonathan MirCha" 
+        //ahora imprimimos sobre escrito de la llave Nombre con GET:obtener 
+        console.log(mapa.get("Nombre"));//ahora imprimie:Jonathan MirCha, que antes era solo:Jon
+
+        //eliminar un elemento de MAP: mapa
+        mapa.delete("Apellido");//eliminamos el elemento Apellido
+        console.log(mapa);//la variable mapa ahora tiene solo dos elementos ya que se elimino el elemento Apellido
+
+        console.log("\nrecorriendo los valores de mapa");//\n :es para un salto de linea
+        //recorrer un mapa con for
+        for(let [key, value] of mapa){ // [key, value]: es eforma de destructuracion, para decirle el primer valor es la llave:key el segundo valor es como tal:value , del objeto mapa 
+            console.log(` Llave: ${key}, valor: ${value}`);//imprime dos lineas de codigo porque hay dos llaves con sus respectivos valores
+        }
+
+        //SET para poner datos
+        mapa.set(19,"diecinueve");//aqui al agregar un elemento: 19 lo considera como ENTERO, y pone de color azul
+        mapa.set(false,"falso");//aqui le considera con un BOLEAN:false
+        mapa.set({},{});//aqui le considera como un objeto por poner llave {}
+        console.log(mapa);//ahora imprime mapa con 5 elementos: Map(5) {'Nombre' => 'Jonathan MirCha', 'Edad' => 35, 19 => 'diecinueve', false => 'falso', {…} => {…}}
+        
+        console.log("\nrecorriendo los valores de mapa, agregados 3 elementos");//\n :es para un salto de linea, ya que map es un dato iterable
+        for(let [key, value] of mapa){ // [key, value]: es eforma de destructuracion, para decirle el primer valor es la llave:key el segundo valor es como tal:value , del objeto mapa 
+            console.log(` Llave: ${key}, valor: ${value}`);//imprime dos lineas de codigo porque hay dos llaves con sus respectivos valores
+        }
+        
+        //SEUNDA FORMA DE INICIAR UN MAP
+        const mapa2 = new Map([
+            //tiene 3 propiedades
+            ["Nombre", "Kenai"], //para cada llave valor tenemos q poner una llave con su valor
+            ["Edad",7],//
+            ["Animal","Perro"],//
+            [null,"nulo"] //agregamos cosas raras, pero le considera un null como tal
+        ]);
+
+        console.log(mapa2);
+
+        //alamacenar toda las llaves del map y sus valores con ayuda de destructuracion
+        const llavesMapa2 = [...mapa2.keys()]; //[...], es un spred operator, [...mapa2.keys()], quiere decir, de la mapa2 almacename sus llaves en array:llavesMapa2 
+        const valoresMapa2 = [...mapa2.values()];//aqui alamacena los valores de mapa2 en el array: valoresMapa2 
+
+        console.log("imprimiendo valores y llave de mapa2")
+        //Imprimiendo sus llaves de mapa2:
+        console.log(llavesMapa2);//imprime en forma de array
+        //Imprimiendo sus valores de mapa2: 
+        console.log(valoresMapa2);
+
+        
+
+
+
+   </script>
+</body>
+</html>
