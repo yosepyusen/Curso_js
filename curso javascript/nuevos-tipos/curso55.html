@@ -10,6 +10,7 @@
 <body>
     <script>
         /*******************  CLASE 55  **********************/
+        //el Proxy hace una vinculacion entre la COPIA que es jon y el obj. ORIGINAL que es persona
         const persona = { //es ub obj: persona
             nombre:"",
             apellido: "",
@@ -28,6 +29,17 @@
                 return console.error(`La propiedad "${propiedad}", no existe en el objeto persona.`);
             }
 
+            //validamos para propiedad: nombre y apellido
+            if((propiedad==="nombre" || propiedad==="apellido") && !(/^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/g.test(valor))){//si el valor de propiedad es igual a "nombre" o  "apellido"
+            //y validacon para ingresar solo nombre: /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/g.test(nombre), pero ! negammos, entonces dentra del if
+                return console.error(`La propiedad: "${propiedad}", solo acepta letras y espacios en blanco`);
+                //va dentrar dentro de este if siempre y cuando ponemos:jon.nombre="Jon19", ya que "Jon19", contiene numeros y va decir:
+            }
+            ///^[0-9]{3}$/.test(valor), es RegExp para validar numeros solo de 0-9 con 3 digitos
+            if((propiedad==="edad") && (valor<0 || valor>=200) ){ //(typeof valor !== "number")
+                return console.error(`La propiedad: "${propiedad}", solo acepta numeros positivos, mayores a 0 y menor a 200`);
+            }
+
             //si no hay ninguna validacion se tiene que invocar
             objeto[propiedad]=valor;//esta linea die: al obj. en cuestion, en cada una de las lineas de propiedades que estoy modificando, en cada linea de codigo, le voy asignar el valor que me esta dando el usuario en el Proxy    
             //objeto[propiedad]=valor; objeto que se vaso es persona, dentro de su propiedad le asigno el valor ejem:jon.nombre="Jon";
@@ -42,10 +54,10 @@
         //agregamos los valores al objeto jon
         jon.nombre="Jon";// en esta linea le estoy asignando a la propiedad nombre con el valor "Jon", se esta ejecutando el handler:manejador
         jon.apellido="Mircha";//lo mismo aqui ejecuta el handler
-        jon.edad="35";//lo mismo aqui ejecuta el handler
+        jon.edad=35;//lo mismo aqui ejecuta el handler
         
         //imprimimos con sus valores agregados
-        console.log(jon);//imprime ahora si:Proxy(Object) {nombre: 'Jon', apellido: 'Mircha', edad: '35'} , con sus respectivos valores y tiene sus 3 valores:[[Handler]]: objetc,[[Target]]: Object , [[IsRevoked]]: false
+        console.log(jon);//imprime ahora si:Proxy(Object) {nombre: 'Jon', apellido: 'Mircha', edad: '35'} , con sus respectivos valores y tiene sus 3 valores:[[Handler]]: objetc, [[Target]]: Object: es el obj. de la cual se baso que es persona, [[IsRevoked]]: false
         
         //agregamos mas valores a jon que va ser una nueva instacia del obj. proxi
         jon.twitter="@yaguirre";//este valor se va agregar siempre y cuando eliminamos la validacion en la linea 25: if(Object.keys(objeto).indexOf(propiedad)===-1)
@@ -54,7 +66,7 @@
         console.log(jon);//
 
         console.log(persona);//recordamos que hay una vinculacion en el proxi. el Proxy y la varriable jon es una copia de persona mantiene una vinculacion
-        //el Proxy hace una vinculacion entre la COPIA que es jon y el obj. ORIGINAL que es persona
+        
 
 
    </script>

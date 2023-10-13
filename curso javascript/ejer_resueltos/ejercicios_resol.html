@@ -892,8 +892,8 @@
           }
           validarEstreno(estreno){
             if(this.validarNumero("Año de Estreno",estreno))//si esto se cumple a verdadero
-            if(!(/^([0-9]){4}$/.test(estreno))){//para q valide el id igual a ::: tt0075148 => /^$/ significa no debe haber nada antes y despues
-              //([a-z]){2} ::: los dos primeros deben ser caracteres y ({0-9}){7}::: debe haber numero de 7 digitos
+            if(!(/^([0-9]){4}$/.test(estreno))){//para q valide el id igual a un año 4 digitos => /^$/ significa no debe haber nada antes y despues
+              // ([0-9]){4}::: debe haber numero de 4 digitos entre 0-9
               return console.error(`Año de Estreno"${estreno}" no es válido, debe ser un número de 4 dígitos`);
             }
           }//---------------------------------fin 4 validacion validacion ------------------------------
