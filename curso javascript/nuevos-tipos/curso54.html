@@ -12,7 +12,66 @@
 
         
         /*******************  CLASE 54  **********************/
-        
+        function* iterable(){//para que la funcion sea tipo GENERADOR, hay que agregarle un * despues de function: function*
+           //function* iterable(), con esto le decimos a js que es un generador, usa para que la funcion retorna ciertos valores despues de que hayabpasado una iteracion
+           //return, retorna el valor de la funcion 
+           yield "hola";//primer iteracion yield manda: hola
+           console.log("Hola consola");//cuando vuelve la iteracion va ejecutar este console.log y se va detener en la sig. linea de codigo
+           yield "hola 2";//se detiene en esta linea de cod. en 2da iteracion
+           console.log("Seguimos con más instrucciones de nuestro código");//en 3ra iteracion  se detiene en la sig. linea de cod.
+           yield "hola 3";//se detiene en esta linea de cod. en 3da iteracion
+           yield "hola 4";//se detiene en esta linea de cod. en 4da iteracion
+
+        }
+
+        let iterador=iterable();
+        //---------------- para pocos element que podemos recorrer -----------
+            // console.log(iterador.next());//imprime el 1mer yield: {value: 'hola', done: false}, value: valor, done: false , dice que tiene mas elementos la funcion iterador
+            // console.log(iterador.next());//imprime: al final, {value: 'hola 2', done: false}, pq 2da iteracion
+            // console.log(iterador.next());
+            // console.log(iterador.next());//imprime: 4ta iteracion, {value: 'hola 4', done: false}
+            // console.log(iterador.next());//imprime: {value: undefined, done: true}, es pq ya termino y no hay mas elementos 
+        //---------------- para pocos element que podemos recorrer -----------
+        console.log("recorriendo los elementos de function* iterable()");    
+        for(let elemnt of iterador){//con este ciclo recorremos todo los elementos de la funcion ITERABLE
+                console.log(elemnt);//imprimimos todo sus elementos de la funcion iterador
+            }
+        //---------------- para varios element que podemos recorrer -----------
+
+        console.log("guardando los variables en de la funcion en un array")
+        const arr = [...iterable()];//[...0]:spread operator, para por cada ejecucion de iterable:yield vaya guardando en una posicion de este arreglo
+        //pero los dos consoles no lo guarda en el arr, por eso imprime los 2 console adicionales que son:console.log("Hola consola"),console.log("Seguimos con más instrucciones de nuestro código"), de la FUNCION ITERADOR
+        console.log(arr);//imprime: (4) ['hola', 'hola 2', 'hola 3', 'hola 4']
+
+        function cuadrado(valor){//crea un funcion dentro de ello se crea en setTimeout, para que se guarde en pila de tareas y pueda ejecutar segun los mili segundos que le poles
+            setTimeout(()=>{
+               return console.log({valor, resultado: valor*valor});//se puede hacer asi o tambien: console.log({valor:valor, resultado: valor*valor});
+            },Math.random()*1000);
+
+            // return { //con esto se va duplicar al imprimir, es mejor poner el return dentro del setTimeout
+            //     valor,
+            //     resultado:valor*valor //con esto retorna: valor al cuadrado que ingresa cuando llamas a esta funcion
+            // }
+        }
+
+        function* generador(){
+            console.log("Inicia generator");
+            yield cuadrado(0);
+            yield cuadrado(1);
+            yield cuadrado(2);
+            yield cuadrado(3);
+            yield cuadrado(4);
+            yield cuadrado(5);
+            console.log("Termina generator");
+        }
+
+        let generator = generador(); //generator, esta ejecutando la funcion ITERABLE
+        //se ejecutan de manera asincrona y desordenada al imprimir los elementos de generador en consola
+        console.log("para recorrer los elementos de: function* generador()");
+        for(let element of generator){//esto es para que rrecorra los elementos de la funcion ITERADOR
+            console.log(element);//imprimimos los 6 yield, imprime de forma desordenado primero puede imprimir: {valor: 2, resultado: 4} , esto es porque el valor dos fue en primero en ejecutarse y asi susesivamente
+        }//tbm imprime: 6 undefined, eso es porque el return esta dentro de un setTimeout creo y espera a que pasan un tiempo aleatorio:Math.random()*1000, para que se pueda imprimir
+        //cambio el: console.log("Inicia generator"), console.log("Termina generator"), se ejecuta defrente 
 
    </script>
 </body>

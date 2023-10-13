@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevos tipos de datos en js</title>
+</head>
+<h1>Nuevos tipos de datos en js</h1>
+<body>
+    <script>
+        /*******************  CLASE 55  **********************/
+        const persona = { //es ub obj: persona
+            nombre:"",
+            apellido: "",
+            edad:0 
+        }
+
+        const manejador = {//es como handler, similar a la funcion manejadora de eventos en el dom de js
+            set(objeto, propiedad, valor){//va recibir un parametro de objt. de manejador que se va llamar set, para establecer todo estas validaciones
+            //dentro de este metodo set(objeto, propiedad, valor), va recibir tres parametros, el objeto como tal, cada una de las propiedasdes que queremos evaluar, despues el valor que va recibir cada una de las propiedades
+            //dentro de este set(), hacer validaciones y que no sufran cambios la copia que hacemos a partir de obj. persona
+
+             //hacemos una validacion que cualquier otra propieda diferente a las que tenga mi obj.  y decirle que no se puede crear
+            if(Object.keys(objeto).indexOf(propiedad)===-1){ //si el indexOf devuelve -1, va dentra dentro del if, en este caso con agregar una propiedad con: jon.twitter="@yaguirre", va dar -1 porque en obj. persona no existe la propiedad twitter
+                //Object.keys , me da la lista de las llaves que tiene un objeto,  
+                //indexOf(propiedad), me va buscar si existe alguna coincidencia, en la lista de llaves, la coincidencia es buscar la propiedad que esta ejecutando el set() del manejador, y indexOf devuelve # positivo o negativo
+                return console.error(`La propiedad "${propiedad}", no existe en el objeto persona.`);
+            }
+
+            //si no hay ninguna validacion se tiene que invocar
+            objeto[propiedad]=valor;//esta linea die: al obj. en cuestion, en cada una de las lineas de propiedades que estoy modificando, en cada linea de codigo, le voy asignar el valor que me esta dando el usuario en el Proxy    
+            //objeto[propiedad]=valor; objeto que se vaso es persona, dentro de su propiedad le asigno el valor ejem:jon.nombre="Jon";
+            }
+        }
+
+        const jon = new Proxy(persona,manejador); //jon va ser persona a un nuevo tipo de dato, nueva instacia del obj. proxi
+        //obj. Proxy(persona, manejador), recibe dos parametros pues el objeto del cual nos vamos a basar en este caso va ser object:persona, y un manejador:handler, que va ser un obj.
+        
+        console.log(jon);//imprime: Proxy(Object) {nombre: '', apellido: '', edad: 0}, con esto dice que es un objeto de tipo Proxy y miren como automaticamente a inicializado los valores que tiene el obj:persona
+        
+        //agregamos los valores al objeto jon
+        jon.nombre="Jon";// en esta linea le estoy asignando a la propiedad nombre con el valor "Jon", se esta ejecutando el handler:manejador
+        jon.apellido="Mircha";//lo mismo aqui ejecuta el handler
+        jon.edad="35";//lo mismo aqui ejecuta el handler
+        
+        //imprimimos con sus valores agregados
+        console.log(jon);//imprime ahora si:Proxy(Object) {nombre: 'Jon', apellido: 'Mircha', edad: '35'} , con sus respectivos valores y tiene sus 3 valores:[[Handler]]: objetc,[[Target]]: Object , [[IsRevoked]]: false
+        
+        //agregamos mas valores a jon que va ser una nueva instacia del obj. proxi
+        jon.twitter="@yaguirre";//este valor se va agregar siempre y cuando eliminamos la validacion en la linea 25: if(Object.keys(objeto).indexOf(propiedad)===-1)
+
+         //imprimimos con sus valores agregados
+        console.log(jon);//
+
+        console.log(persona);//recordamos que hay una vinculacion en el proxi. el Proxy y la varriable jon es una copia de persona mantiene una vinculacion
+        //el Proxy hace una vinculacion entre la COPIA que es jon y el obj. ORIGINAL que es persona
+
+
+   </script>
+</body>
+</html>
