@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This en js</title>
+</head>
+<h1>This en js</h1>
+<body>
+    <script>
+        /*******************  CLASE 58  **********************/
+        
+        console.log(this); //contexto global, imprime el obj. WINDOW
+        this.lugar="Conteto Global";
+
+        function saludar(){
+            console.log(`${this.lugar}`);
+        }
+        saludar();//imprime:Conteto Global, 
+
+        //creo un objeto
+        const objeto = {
+            lugar: "Contexto Objeto"
+        }
+
+        //usando el metodo CALL, este call recibe como parametro un objeto 
+        //la diferencia de call es que aparte de pasarle contexto objeto, puedo pasar mas parametros
+        saludar.call(objeto); //imprime:Contexto Objeto//lo que dice es: voy ejecutar saludar y voy a llamar nuevo this objeto dentro de corchetes de call
+
+        //metodo apply funciona similar a call
+        saludar.apply(objeto);//imprime:Contexto Objeto
+
+        function saludar1(saludo, aQuien){
+            console.log(`${saludo} ${aQuien} desde el ${this.lugar}`);
+        }
+
+   </script>
+</body>
+</html>

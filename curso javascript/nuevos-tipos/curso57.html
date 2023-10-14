@@ -26,12 +26,12 @@
 
         const objeto = {//creamos un objeto
             nombre: "Contexto Objeto",//el objeto tiene un apropiedad estatica de nombre
-            imprimir: function(){// damos un valor a la propiedad imprimir, dentro del obj. con una funcion anonima
+            imprimir: function(){// damos un valor a la propiedad imprimir, dentro del obj. con una funcion anonima, esta funcion maneja su propio scope
                 console.log(this.nombre);
             }
         }
 
-        console.log("Imprimiendo un obj. con sus propiedades");
+        console.warn("Imprimiendo objeto con una de sus propiedades");
         //los scope en js son en base a archivos o a funciones, ese el scope antiguo
         // {}: esto es un scope, 
         
@@ -47,15 +47,73 @@
             print: imprimir //hace referencia a la funcion imprimir() creado anteriormente en el scope global del archivo, 
             //shot hans que tiene los objetos como propiedad tiene igual nombre que guarda el valor, ejem: imprimir:imprimir, de puede dejar en: imprimir
         }
+        console.warn("imprimiendo propiedad print de objeto2");
          objeto2.print();// imprimimos:Contexto Objeto 2, porque no imprime: Contexto Global, por logica, esta funcion imprimir se llama dentro de un objeto y por ende se pasa el valor del objeto2 que es:  nombre:"Contexto Objeto 2"
 
          const objeto3 ={
             nombre:"Contexto Objeto 3",
-            imprimir: function(){// damos un valor a la propiedad imprimir, dentro del obj. con una funcion anonima
+            imprimir3:()=>{//este arrow function no maneja su propio scope, entonces this toma del padre del objeto3 que se ha creado, que contexto global window
+                console.log(this.nombre);//por ello para evitar estos errores de que arow no tiene su propio scope, no usar arrow, mas bien sino FUNCTION
+            } 
+        }
+        console.warn("imprimiendo propiedad imprimir3 de objeto3");
+        objeto3.imprimir3();//imprime : Contexto Global, esto es por arrow function dentro de la propiedad imprimir3 del objeto3, 
+   
+        //creamos una funcion constructora que crea su propio scope
+        function Persona(nombre){//esta funcion recibe un nombre como parametros
+            this.nombre = nombre;
+            return console.log(this.nombre);
+        }
+        console.warn("imprimendo la propiedad de la funcion Persona");
+        let jon = new Persona("Jon");//impime:Jon, lo guardamos en una variable jon y le pasamos el valor de nombre dentros de Persona(nombre) y al ejecutar esta funcion imprime en consola:Jon
+
+        //------------inicio mala practica de imprimir propiedades de obj. Persona1 ------------- 
+        function Persona1(nombre){
+            this.nombre=nombre;
+            //cuando se envuelve una funcion dentro de una funcion se llama: CLAUSURA
+            return function(){//se crea funcion anonima, mandarle en el retorn
                 console.log(this.nombre);
             }
         }
+        let jon1 = new Persona1("Jon1");//lo guardamos en una variable jon y le pasamos el valor de nombre dentros de Persona(nombre) y al ejecutar esta funcion imprime en consola:Jon
+        //para que se invoque el console de return function, de linea 72, se tiene ejecutarla como metodo        
+        console.warn("Imprimiendo:Contexto Global en vez de imprimir:Jon1");
+        jon1();//imprime:Contexto Global, por logica deberia imprimir:Jon, ya que dentro de la funcion Persona1 le paso como argumento nombre que recibe como parametro, si existe cuando mando imprir con consola el nombre=Jon, entonces ...
+        //deberia imprimir:Jon, pero por return de la linea 72 del cod. de que se crea un funcion, crea un nuevo scope y toma el contexto global por eso imprime: Contexto Global
+        //------------fin mala practica de imprimir propiedades de obj. Persona1 ------------- 
 
+
+        //------------inicio BUENA practica de imprimir propiedades de obj. Persona1 ------------- 
+        function Persona1_0(nombre){
+            const that = this//para que guarde el contexto this de esta funcion constructora, para que al retornar una funcion anonima puedes recuperar el Contexto Objeto y NO: el Contexto Global  
+            //that = this, le decimos que obj. this es = a la variable that
+            that.nombre=nombre;//en vez de usar ya usamos that, para pasarle el nombre como parametro
+            
+            return function(){
+                console.log(that.nombre,33);
+            }
+        }
+        let jon1_0 = new Persona1_0("Jon1_0");//en una variable jon1_0, le pasamos el valor de Jon1_0
+        console.warn("Imprimiendo, forma correcta");
+        jon1_0();//imprime:
+        //------------fin BUENA practica de imprimir propiedades de obj. Persona1 ------------- 
+
+       
+        //------------inicio BUENA practica de imprimir propiedades de obj. Persona1 ------------- 
+        //para evitar este error se hace lo sig. crear un arrow function en vez de funcion anonima
+        function Persona2(nombre){
+            this.nombre=nombre;
+            //cuando se envuelve una funcion dentro de una funcion se llama: CLAUSURA
+
+            return ()=>console.log(this.nombre,77);
+            
+        }
+        console.warn("Imprimiendo:Jon, de forma correcta");
+        let jon2 = new Persona2("Jon");//aqui solo le pasamos el valor de nombre
+        jon2();//con esto llamamos el console de la funcion imprime:Jon 77
+        //------------fin BUENA practica de imprimir propiedades de obj. Persona1 ------------- 
+   
+   
    </script>
 </body>
 </html>
