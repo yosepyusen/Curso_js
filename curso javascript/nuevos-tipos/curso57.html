@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevos tipos de datos en js</title>
+</head>
+<h1>Nuevos tipos de datos en js</h1>
+<body>
+    <script>
+        /*******************  CLASE 57  **********************/
+       
+        console.log(this);//hace referencia al objeto global: window,  cuando ejecutando en Node.js,  eso devolveria en la terminal de comandos global, que es el obj.global
+        console.log(window);//imprime el objeto global window
+        console.log(this===window);//imprime true porque es verdad
+
+        this.nombre = "Contexto Global"; //este valor se pasa dentro del objeto global de window
+        console.log(this.nombre); //imprime:Contexto Global ,hace referencia al context global
+
+        function imprimir(){
+            console.log(this.nombre);
+        }
+
+        imprimir();//mprime:Contexto Global , pero ya dentro de una function
+
+        const objeto = {//creamos un objeto
+            nombre: "Contexto Objeto",//el objeto tiene un apropiedad estatica de nombre
+            imprimir: function(){// damos un valor a la propiedad imprimir, dentro del obj. con una funcion anonima
+                console.log(this.nombre);
+            }
+        }
+
+        console.log("Imprimiendo un obj. con sus propiedades");
+        //los scope en js son en base a archivos o a funciones, ese el scope antiguo
+        // {}: esto es un scope, 
+        
+        //-------------esto es un bloque 
+        // {
+        //     //esto es un bloque
+        // }
+        //--------------esto es un bloque
+        objeto.imprimir(); //imprime: Contexto Objeto, y no global porque esta propiedad imprimir, fue creado dentro de un objeto con el valor de una funcion
+
+        const objeto2 ={
+            nombre:"Contexto Objeto 2",
+            print: imprimir //hace referencia a la funcion imprimir() creado anteriormente en el scope global del archivo, 
+            //shot hans que tiene los objetos como propiedad tiene igual nombre que guarda el valor, ejem: imprimir:imprimir, de puede dejar en: imprimir
+        }
+         objeto2.print();// imprimimos:Contexto Objeto 2, porque no imprime: Contexto Global, por logica, esta funcion imprimir se llama dentro de un objeto y por ende se pasa el valor del objeto2 que es:  nombre:"Contexto Objeto 2"
+
+         const objeto3 ={
+            nombre:"Contexto Objeto 3",
+            imprimir: function(){// damos un valor a la propiedad imprimir, dentro del obj. con una funcion anonima
+                console.log(this.nombre);
+            }
+        }
+
+   </script>
+</body>
+</html>

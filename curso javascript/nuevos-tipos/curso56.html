@@ -11,21 +11,34 @@
     <script>
         /*******************  CLASE 56  **********************/
         //Propiedades Dinámicas de los Objetos
+        //sirve para crear objetos de manera dinamica
         
+        let aleatorio = Math.round(Math.random()*100+5);//con esto decimos que dea # aleatorio entre 5 y 105, no toma el valor de 5 y 105, y con el round redondea al # mas proximos
+
         //hacer un objeto a mano para un millon o miles de resultados pues es un poco dificil, para ello lo siguiente, 
         //que tenemos nuevo mecanismo de generar nombres estas propiedades de manera DINAMICA 
-        const objeto_Usuario ={
-            //id_1 //el nombre de esta propiedad se genere dinamicamente: id_1
-        }
+        const objeto_Usuario = {
+            //a partir del nuevo estandar, permite crear dentro del objeto estas propiedades dinámicas
+            
+            propiedad: "Valor", //esto es una propiedad comun y corriente, es una propiedad estatica
+            [`id_${aleatorio}`]: "Valor Aleatorio"//sintaxis [], define que es propiedad dinámica, con esta linea de codigo le decimos que genere dinamicamente un id_: con # aleatorio creado anteriormente
+        };
 
+        console.log(objeto_Usuario);//imprimimos el objeto_Usuario vacio, imprime:{}, pero al dar flecha abajo se cargan los usuarios, pero objeto_Usuario esta vacio...
+        //pero si le agregamos una propiedad estatica y otro con propiedad dinamica que crea ID, con valor aleatorio  
+        
+        //llegan los datos de usuarios
         const usuarios = ["Jon","Irma","Miguel","Kala","kenai"]; //tengo un arreglo de usuarios
         
         //por cada usuario se genere al objeto usuario una propiedad que diga:id-posicion_que_ocupa_el_arreglo
-        usuarios.forEach((usuario, index)=>objeto_Usuario[`Id_${index}`]); //dentro de forEach voy a pasarle un usuario, y la posicion:index, con la flecha =>, indicamos que 
+        //se llena el objeto_Usuario con datos de usuarios con uso del forEach
+        usuarios.forEach((usuario, index)=>objeto_Usuario[`Id_${index}`]=usuario); //dentro de forEach voy a pasarle un usuario, y la posicion:index, con la flecha =>, indicamos que 
         //una manera de crear una propiedad despues de que haya sido definido un objeto es con la notacion del punto o corchetes, con esto podemos crear de manera dinamica los nombres de nuestra propiedad objeto, 
-        //objeto_Usuario[`Id_${index}`], con esto internamenete creamos una propiedad con corchetes,  
+        //objeto_Usuario[`Id_${index}`]=usuario, con esto internamenete creamos una propiedad dinamicamente con uso de corchetes, dentro de corchetes, va crear la posicion:index, y esa posicion dinamica que creo, su valor va ser el nombre del ususario   
 
-
+        console.log(objeto_Usuario);//imprimimos el objeto_Usuario con los usuarios pasados
+        
+        //VER MAS DE ESTE VIDEO q habla de REACT...
    </script>
 </body>
 </html>
