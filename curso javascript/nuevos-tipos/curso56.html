@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevos tipos de datos en js</title>
+</head>
+<h1>Nuevos tipos de datos en js</h1>
+<body>
+    <script>
+        /*******************  CLASE 56  **********************/
+        //Propiedades Dinámicas de los Objetos
+        
+        //hacer un objeto a mano para un millon o miles de resultados pues es un poco dificil, para ello lo siguiente, 
+        //que tenemos nuevo mecanismo de generar nombres estas propiedades de manera DINAMICA 
+        const objeto_Usuario ={
+            //id_1 //el nombre de esta propiedad se genere dinamicamente: id_1
+        }
+
+        const usuarios = ["Jon","Irma","Miguel","Kala","kenai"]; //tengo un arreglo de usuarios
+        
+        //por cada usuario se genere al objeto usuario una propiedad que diga:id-posicion_que_ocupa_el_arreglo
+        usuarios.forEach((usuario, index)=>objeto_Usuario[`Id_${index}`]); //dentro de forEach voy a pasarle un usuario, y la posicion:index, con la flecha =>, indicamos que 
+        //una manera de crear una propiedad despues de que haya sido definido un objeto es con la notacion del punto o corchetes, con esto podemos crear de manera dinamica los nombres de nuestra propiedad objeto, 
+        //objeto_Usuario[`Id_${index}`], con esto internamenete creamos una propiedad con corchetes,  
+
+
+   </script>
+</body>
+</html>
