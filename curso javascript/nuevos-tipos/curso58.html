@@ -10,9 +10,10 @@
 <body>
     <script>
         /*******************  CLASE 58  **********************/
+        //la diferencia de call es que aparte de pasarle contexto objeto, puedo pasar mas parametros
         
         console.log(this); //contexto global, imprime el obj. WINDOW
-        this.lugar="Conteto Global";
+        this.lugar="Contexto Global";
 
         function saludar(){
             console.log(`${this.lugar}`);
@@ -32,8 +33,44 @@
         saludar.apply(objeto);//imprime:Contexto Objeto
 
         function saludar1(saludo, aQuien){
-            console.log(`${saludo} ${aQuien} desde el ${this.lugar}`);
+            console.log(`${saludo} ${aQuien} desde el: ${this.lugar}`);
         }
+        //usamos call
+        console.warn("imprimimos el console de funcion saludar1 con CALL");
+        //pasamos los 3 valores con call separados por coma 
+        saludar1.call(objeto,"Hola","Jon");//imprime: Hola Jon desde el: Contexto Objeto
+        saludar1.call(null,"Hola","Jon");//imprime: Hola Jon desde el: Conteto Global, sale asi porque pusimo NULL, en vez de objeto
+        saludar1.call(this,"Hola","Jon");//imprime: Hola Jon desde el: Conteto Global, sale asi porque pusimo THIS
+
+        console.warn("imprimimos el console de funcion saludar1 con APPLY");
+        //apply utiliza un arreglo o corchetes para pasar los dos valores que pide la funcion saludar1
+        saludar1.apply(objeto,["Adios","Mircha"]);//imprime: Adios Mircha desde el: Contexto Objeto
+        saludar1.apply(null,["Adios","Mircha"]);//sale contexto global, por el NULL
+        saludar1.apply(this,["Adios","Mircha"]);//sale contexto global, por el this
+
+
+        //USO DE BIND para eso usamos un funcion anonima, pero es mejor no usar arrow function
+        const persona ={
+            nombre: "Jon",
+            saludar:function(){//si aqui utilizo un arrow function ya no tendria sentido el BIND
+                console.log(`Hola ${this.nombre}`)
+            },
+            //creamos otra propiedad con un arrow function q da como valor
+            saludo: ()=>{
+                console.log(`Hola ${this.nombre}`)
+            }
+        }
+
+        persona.saludar();//imprime: Hola Jon, porque llamamos la propiedad saludar del objeto persona 
+        persona.saludo();//imprime: Hola undefined, por el arrow function
+
+        //creamos otro objetp persona1
+
+        const persona1 ={
+            saludar:persona.saludar //dentro de este objeto, en la propiedad: saludar, el valor que se le da es llamar Objeto persona y asu vez llamar al metodo saludar del objeto persona
+            
+        }
+
 
    </script>
 </body>
