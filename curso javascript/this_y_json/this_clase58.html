@@ -48,6 +48,7 @@
         saludar1.apply(null,["Adios","Mircha"]);//sale contexto global, por el NULL
         saludar1.apply(this,["Adios","Mircha"]);//sale contexto global, por el this
 
+        this.nombre = "Window";//si creamos un contexto global
 
         //USO DE BIND para eso usamos un funcion anonima, pero es mejor no usar arrow function
         const persona ={
@@ -67,9 +68,19 @@
         //creamos otro objetp persona1
 
         const persona1 ={
-            saludar:persona.saludar //dentro de este objeto, en la propiedad: saludar, el valor que se le da es llamar Objeto persona y asu vez llamar al metodo saludar del objeto persona
-            
+            saludar:persona.saludar, //dentro de este objeto, en la propiedad: saludar, el valor que se le da es llamar Objeto persona y asu vez llamar al metodo saludar del objeto persona
+            //para que no salga el undefined hacemos lo siguiente
+            saludar1:persona.saludar.bind(persona), //bind(), es para que enlaza el contexto de persona, es decir el obj.persona dentro del parentesis
+            saludar2:persona.saludar.bind(this),//llamamos al contexto this que creamos en linea 51
         }
+        console.warn("imprimiendo los valores de Persona1");
+        //ejecutamos el metodo de saludar de obj.Persona1
+        persona1.saludar();//imprime:Hola undefine , undefined sale porque no pusimos nada en propiedad nombre, ya que al ejecutar el metodo saludar(linea 56), en la sig. linea de cod imprime: console.log(`Hola ${this.nombre}`) 
+        //ahora no va imprimir undefined
+        persona1.saludar1();//imprime:Hola Jon , esto imrpime de metodo saludar1 del obj.persona1, este metodo a su vez llama al metodo saludar del objeto persona 
+        persona1.saludar2();//imprime:Hola Window, porque le dimos el contexto de this
+
+        //ver mas habla de react viejo...
 
 
    </script>
