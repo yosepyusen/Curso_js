@@ -57,14 +57,16 @@
         console.log(JSON.stringify({x:2,y:3}));//imprime:undefined      ,convierte en cadena de texto
         //para js, [1,2,3]:esto es un array , {}:esto es un obj, true,false:son boleanos, null:nulo, undefined:no definido, todo estos valores le convierte en cadena de texto con stringify()
         //para js, {x:2,y:3}, todo estos valores le convierte en cadena de texto con stringify()
-
-                            
+            
         console.log(JSON.stringify(json));//imprimiendo objeto json y lo convierte en todo los valores en una cadena de texto
+        //al copiar de consola los valores objeto json impreso con eso podemos poner un archivo json con ese formato json
+         
 
         //ANOTACIONES DE JSON
 /*      formato json, no ADMITE COMENTARIOS, todo archivo json empieza con apertura y cierre de llaves y las propiedades deben estar dentro de comillas
         para convertir en un file json ponemos en crear un file con nombre: nombre.json , el icono nos sale en forma de corchetes
         de preferencia las el valor de las propiedades al igual que los mismos propiedades de json debe ir entre comilla igual los numeros eje: "cadena"(propiedad):"string", "numero"(propiedad):"35" (valor en #)
+        pero los numeros y bolean pueden ir sin en comillas
         metodo json tiene dos metodos que son: JSON.parse(), JSON.stringify() , 
         JSON.parse():lo que hace es analizar una notacion json es decir una cadena de texto y lo va convertir a una cadena de dato  que js q valide  
         JSON.stringify():convierte un objeto o valor de JavaScript en una cadena de texto JSON, opcionalmente reemplaza valores si se indica una función de reemplazo, o si se especifican las propiedades mediante un array de reemplazo.
