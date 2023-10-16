@@ -43,8 +43,8 @@
         console.log(JSON.parse("null"));//para js es nulo, imprime:null
         
         //objetos no validos para JSON
-            //console.log(JSON.parse("Hola Mundo"));//imprime:Uncaught SyntaxError: Unexpected token 'H', "Hola Mundo" is not valid JSON,para js no es valido
-            //console.log(JSON.parse("undefined"));//imprime:SyntaxError: "undefined" is not valid JSON, es un formato no valido
+        //console.log(JSON.parse("Hola Mundo"));//imprime:Uncaught SyntaxError: Unexpected token 'H', "Hola Mundo" is not valid JSON,para js no es valido
+        //console.log(JSON.parse("undefined"));//imprime:SyntaxError: "undefined" is not valid JSON, es un formato no valido
         
         //----------JSON.stringify():convierte un objeto o valor de JavaScript en una cadena de texto JSON, opcionalmente reemplaza valores si se indica una función de reemplazo, o si se especifican las propiedades mediante un array de reemplazo.
         console.warn("usando stringify()");
@@ -57,10 +57,11 @@
         console.log(JSON.stringify({x:2,y:3}));//imprime:undefined      ,convierte en cadena de texto
         //para js, [1,2,3]:esto es un array , {}:esto es un obj, true,false:son boleanos, null:nulo, undefined:no definido, todo estos valores le convierte en cadena de texto con stringify()
         //para js, {x:2,y:3}, todo estos valores le convierte en cadena de texto con stringify()
-            
         console.log(JSON.stringify(json));//imprimiendo objeto json y lo convierte en todo los valores en una cadena de texto
         //al copiar de consola los valores objeto json impreso con eso podemos poner un archivo json con ese formato json
-         
+        
+        //imprimiendo un objeto en formato JSON
+        console.log(JSON.parse('{"cadena":"Jon","numero":35,"booleano":true,"arreglo":["correr","programar","cocinar"],"objeto":{"twitter":"@jonmircha","email":"jonmircha@gmail.com"},"nulo":null}'));//para js es nulo, imprime:null
 
         //ANOTACIONES DE JSON
 /*      formato json, no ADMITE COMENTARIOS, todo archivo json empieza con apertura y cierre de llaves y las propiedades deben estar dentro de comillas
@@ -71,6 +72,7 @@
         JSON.parse():lo que hace es analizar una notacion json es decir una cadena de texto y lo va convertir a una cadena de dato  que js q valide  
         JSON.stringify():convierte un objeto o valor de JavaScript en una cadena de texto JSON, opcionalmente reemplaza valores si se indica una función de reemplazo, o si se especifican las propiedades mediante un array de reemplazo.
 */
+        //LIBRO DE JS:ELOQUENT JAVASCRIPT
     </script>
 </body>
 </html>
