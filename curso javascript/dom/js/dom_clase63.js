@@ -34,6 +34,38 @@ $linkDOM1.setAttribute("rel","noopener");//para evitar hackeos y sea insegura es
 //"rel","noopener", que no hay dependencia entre la ventana que estamos abriendo y la ventana origen
 $linkDOM1.setAttribute("href","https://www.youtube.com/@jonmircha");//para que cuando dea clik en class:".link-dom" de la etiqueta a, en especifico en la web escrito:DOM, lleva a un nuevo enlace con href
 
+
+
 //validar si un atributo existe o no en elemento, usa hasAttribute(), busqueda de atributo: "rel"
-console.log($linkDOM1.hasAttribute("rel",));
+console.log($linkDOM1.hasAttribute("rel"));//imprime: true porque, el atributo ha sido agregado en linea 33, pero dentro del html no ha a sido agregado, pero si se ve dentro de la vista en vivo
+
+//quitar elementos podemos usar removeAttribute() 
+$linkDOM1.removeAttribute("rel");
+console.log($linkDOM1.hasAttribute("rel"));//imprime: false porque, el atributo ha sido eliminado en linea 43, pero dentro del html no ha a sido agregado, pero si se ve dentro de la vista en vivo, pestaña Elements
+
+//Data-Attributes, tiene que empezar por Data y guion, esto se debe agregar en el html en linea 37
+console.log($linkDOM1.getAttribute("data-description"));//imprime:Document Object Mdel
+
+//todo estos data atribute lo guarda en un manera de mapa de una coleccion js
+console.log($linkDOM1.dataset);//imprime:DOMStringMap {description: 'Document Object Mdel'} , es un nuevo tipo mapa
+//si agregamos esto: data-id="1" ,en la linea 37 del html dom_clase63.html, con la linea anterior de este js se va pasar este id dentro de DOMStringMap, imprime:DOMStringMap {id: '1', description: 'Document Object Mdel'}, en total habria: dos atributos uno: description:"Document Object Mdel", el otro es: id:"1"  
+
+//obtener un data en particular, ya que son dos: DOMStringMap {id: '1', description: 'Document Object Mdel'}, en total habria: dos atributos uno: description:"Document Object Mdel", el otro es: id:"1"  
+console.log($linkDOM1.dataset.description);//imprime:Document Object Mdel
+console.log($linkDOM1.dataset.id);//imprime:1, porque es el valor de la data id
+
+//agregar datos a los datas
+$linkDOM1.setAttribute("data-description","Modelo de Objeto del Documento");
+console.log($linkDOM1.dataset.description);//imprime ahora:Modelo de Objeto del Documento, pero esto cambia en el navegador menos en html que se mantiene fijo
+
+//otra forma de pasarle datos a data
+$linkDOM1.dataset.description = "suscribete y comparte";
+console.log($linkDOM1.dataset.description);//imprime ahora:suscribete y comparte, pero esto cambia en el navegador menos en html que se mantiene fijo
+
+
+console.log($linkDOM1.hasAttribute("data-id"));//imprime: true, porque agregamos en el html este atributo 
+//para eliminar usamos..
+$linkDOM1.removeAttribute("data-id");
+console.log($linkDOM1.hasAttribute("data-id"));//imprime: false, porque lo quitamos en anterior linea de este cod., pero este data-id no se elimina y se mantiene fijo en el cod. html: dom_clase63.html
+
 
