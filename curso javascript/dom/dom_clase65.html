@@ -5,11 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        /*el fondo del body sale en blanco porque quite los estilos de js agregados en clase 64*/
         
         :root{ /*root representa la etiqueta html que tiene mayor peso especifico que la etiqueta html y dentro de root se crean las variables*/
-            --yellow-color:#f7df1e; /*se crea una variable, pero primero se agrega siempre dos veces guion:--, para crear una variable de css, despues, yelow-color:es el nombre*/
-            --dark-color:#222; /*otra variable css y va estar todo los selectores del documento, dichas variables css*/
-        
+            --yellow-color:purple; /*se crea una variable, pero primero se agrega siempre dos veces guion:--, para crear una variable de css, despues, yelow-color:es el nombre*/
+            --dark-color:pink; /*otra variable css y va estar todo los selectores del documento, dichas variables css*/        
+        }
+
+        .card {
+            display: inline-block;
+            background-color: var(--dark-color);/*asignamos el --dark-color, su valor es: pink */
+            color: var(--yellow-color);/*--yellow-color, su valor es:#f7df1e*/
+        }
+
+        .card figcaption {
+            padding: 1rem;/*1rem=16px*/
+        }
+
+        .rotate-45 {/* se crea una clase auxiliar*/
+            transform: rotate(45deg);/* 45deg es 45 grados*/
+        }
+
+        .rotate-135 {/* se crea una clase auxiliar*/
+            transform: rotate(135deg);/* 135deg es 135 grados*/
+        }
+
+        .opacity-80 {/* se crea una clase auxiliar*/
+            opacity: .8;/* aplica opacidad de 80 del elemento */
+        }
+
+        .sepia {/*clase */
+            filter: sepia(1);/* aplica un filtro de css*/
         }
 
     </style>
@@ -66,7 +92,7 @@
         </figure>
     </section>   
 
-    <script src="js/dom_clase64.js"></script>
+    <script src="js/dom_clase65.js"></script>
 
 </body> 
 </html>
