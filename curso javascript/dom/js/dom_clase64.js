@@ -34,4 +34,32 @@ $linkDOM1.style.borderRadius="0.5rem";//1rem= 16px, 0.5rem=8px
 console.log($linkDOM1.getAttribute("style"));// ahora imprime:background-color: rgb(247, 223, 30); color: rgb(34, 34, 34); text-decoration: none; display: block; width: 50%; text-align: center; margin-left: auto; margin-right: auto; padding: 1rem; border-radius: 0.5rem;, es mas grande los estilos pq le agregamos
 //CSSStyleDeclaration , tiene sus propiedades vacios, mientra lo añadimos va agregando los valores, hasta ahora hay 18 propiedades con sus valores
 
-console.log(getComputedStyle($linkDOM1));//imprime:CSSStyleDeclaration , para ver algunas de sus propiedades tienen sus valores y se va llenando conforme lo añadimos los estilos dinamicamente
+console.log(getComputedStyle($linkDOM1));//imprime:CSSStyleDeclaration , para ver algunas de sus propiedades tienen sus valores y se va llenando conforme lo añadimos los estilos dinamicamente y esta mapeando tal como interpreta tanto valores como propiedades
+
+//variables CSS- Custom Properties CSS, dentro etiqueta script del html dom_clase64.html, ingresamos los estilos
+//accediendo a las propiedades css
+const $html = document.documentElement, //$html:este elemento representa la etiqueta html
+$body = document.body;
+
+//creamos una variable para cada custom propertie, y accedo a las propiedades mapeadas con getComputedStyle, de $html y para acceder a getPropertyValue al valor
+let varDarkColor = getComputedStyle($html).getPropertyValue("--dark-color"), 
+varYellowColor = getComputedStyle($html).getPropertyValue("--yellow-color");
+//varDarkColor y varYellowColor, no tienen dolar por que son variables normales que almacenan un color
+
+console.log(varDarkColor, varYellowColor); //imprime:#222 #f7df1e, con esto accedimos a las variables css
+
+//aplicar estilos con ayuda de variables
+$body.style.backgroundColor = varDarkColor; //al $body(etiqueta body del html) en su elemento style aplicamos estilo backgroundColor(color del cuerpo), y asignamos varDarkColor(color oscuro=#222)
+$body.style.color = varYellowColor; //al $body en su elemento  style aplicamos color(color de letra), y asignamos varYellowColor(color amarrilo=#f7df1e;)
+
+//modificar algunas de las variables
+
+//en la variable --dark-color, ahora se le añade valor "pink"
+$html.style.setProperty("--dark-color","pink");//aparentemente no pasa nada pero aplica en: <html lang="es" style="--dark-color: pink;"> 
+//ahora obtenemos el nuevo valor de --dark-color que es:"pink" 
+varDarkColor = getComputedStyle($html).getPropertyValue("--dark-color");//seleccionamos con getComputedStyle el elemento $html y getPropertyValue, obtenemos el valor de "--dark-color"
+
+//pasamos el nuevo valor con setProperty de --dark-color a background-color
+$body.style.setProperty("background-color",varDarkColor); //background-color, es el estilo que le dimos en el html dentro de etiqueta body en linea 41 del dicho html
+//cambiamos otra vez 
+$body.style.setProperty("color","purple");
