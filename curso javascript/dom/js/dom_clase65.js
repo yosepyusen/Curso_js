@@ -20,4 +20,31 @@ console.log($card.className);//ahora imprime:card rotate-45
 console.log($card.classList);//imprime:DOMTokenList(2) ['card', 'rotate-45', value: 'card rotate-45'], value=valor y tiene dos elementos
 
 $card.classList.remove("rotate-45");//quita la clase y los cambios se ven en pag web del html
-console.log($card.classList.contains("rotate-45"));//imprime: false
+console.log($card.classList.contains("rotate-45"));//imprime: false, porque le quitamos
+
+//metodo que funciona como add y remove, funciona como palanca se llama:toggle en español, funciona como interruptor, si el elemento tiene la clase se la quita, caso que no la tiene se lo agrega
+$card.classList.toggle("rotate-45");//como no tiene esta clase le agrega esta clase auxiliar
+console.log($card.classList.contains("rotate-45"));//imprime: true, por que en anterior linea le agregamos
+
+//usamos otra vez toggle
+$card.classList.toggle("rotate-45");//como tiene esta clase se le quita esta clase auxiliar
+console.log($card.classList.contains("rotate-45"));//ahora imprime: false
+//este metodo toggle, es usado como modo de cambio a oscuro a blanco con un click en paginas webs
+
+//reemplazando con metodo replace, una clase por otra
+$card.classList.toggle("rotate-45");//añadimos esta clase ya que se quito anterior con este mismo metodo
+//replace(), primer parametro es a reemplazar y la segunda es parametro es la nueva clase por la cual va ser reemplazada
+$card.classList.replace("rotate-45","rotate-135");//vemos estos cambios en pag web 
+
+//agregar o quitar varias clases al mismo tiempo, y el separador es coma
+//agregamo clases a $card
+$card.classList.add("opacity-80","sepia");
+//vamo en Elements del navegador, dentro de la etiqueta figure y ahora la clase es: class="card rotate-135 opacity-80 sepia"
+//y los cambios se ve que en la pag web, que la primera img tiene color de amarillo griseaseo
+
+//quitar varias clases al mismo tiempo, y el separador es coma
+$card.classList.remove("opacity-80","sepia");
+
+//$card.classList.toggle("opacity-80","sepia");//este no aplica porque no togle no puede agregar dos clases a la vez
+$card.classList.toggle("opacity-80");//pero uno solo si aplica
+$card.classList.toggle("sepia");//pero uno solo si aplica
