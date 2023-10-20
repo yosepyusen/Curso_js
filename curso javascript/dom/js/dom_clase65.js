@@ -1,3 +1,5 @@
+//-------------------INICIO CLASE 65  ----------------------
+
 //class con css para cuando se programe en POO
 //se puede acceder por classname o se puede acceder a un objeto especial que devuelve tipo objeto del navegador DOMTOKEN LIST(dentro estan cada una de las clases que tenga elemento en cuestion) 
 
@@ -48,3 +50,7 @@ $card.classList.remove("opacity-80","sepia");
 //$card.classList.toggle("opacity-80","sepia");//este no aplica porque no togle no puede agregar dos clases a la vez
 $card.classList.toggle("opacity-80");//pero uno solo si aplica
 $card.classList.toggle("sepia");//pero uno solo si aplica
+
+//------------------- CLASE 65 FIN ----------------------
+
+
