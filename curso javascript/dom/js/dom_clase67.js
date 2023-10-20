@@ -49,6 +49,10 @@ console.log($cards.nextElementSibling);//imprime:<script src="js/dom_clase67.js"
 
 //metodo closest, con esto buscamos el ancestro(padre mas cercano, es decir hacia afuera, del tipo de selector que le demos)
 console.log($cards.closest("div"));//imprime: null, porque mas arriba no hay div en el html, el ancestro directo es la etiqueta body y la etiqueta html
-console.log($cards.closest("body"));//imprime:,<body>...</body>
+console.log($cards.closest("body"));//imprime:,<body>...</body>, el body mas sercano da 
+
+//si me fuera a una tarjetas hijas
+console.log("usando closest");
+console.log($cards.children[3].closest("section"));//imprime:<section class="cards">...</section> , $cards.children[3]: tomando como referencia el tercer hijo(el tercer hijo es una etiqueta <figure>), closest("secction"): con esto le decimos cual es la etiqueta seccion ancestro mas sercana
 
 
