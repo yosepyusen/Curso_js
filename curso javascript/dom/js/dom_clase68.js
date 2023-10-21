@@ -41,3 +41,10 @@ const estaciones = ["Primavera","Verano","Otoño","Invierno"], //creamos un arre
     //document.write, no es una buena practica de usar 
 document.write("<h3>Estaciones del Año</h3>");//con esto escribe en el html: dom_clase68.html, linea 68
 
+//agregamos la etiqueta ul creado al elemento padre body
+document.body.appendChild($ul);
+
+
+estaciones.forEach(element =>{
+    const $li = document.createElement("li");
+});
