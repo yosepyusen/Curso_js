@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*el fondo del body sale en blanco porque quite los estilos de js agregados en clase 64*/
+        
+        :root{ /*root representa la etiqueta html que tiene mayor peso especifico que la etiqueta html y dentro de root se crean las variables*/
+            --yellow-color:purple; /*se crea una variable, pero primero se agrega siempre dos veces guion:--, para crear una variable de css, despues, yelow-color:es el nombre*/
+            --dark-color:rgb(245, 164, 178); /*otra variable css y va estar todo los selectores del documento, dichas variables css*/        
+        }
+       /* *{
+            padding: 0%;
+            margin: 0%;
+        }*/
+
+        .cards {
+            border: thin solid var(--dark-color); /* tenga un borde delgado=thin, solido y de color=var(--dark-color); */
+            padding: 1rem;/* 1rem=16px*/
+        }
+
+        .card {
+            border: thin solid rgb(158, 8, 228); /* para el borde */
+            max-width:30%;
+            display: inline-block;
+            background-color: var(--dark-color);/*asignamos el --dark-color, su valor es: pink */
+            color: var(--yellow-color);/*--yellow-color, su valor es:#f7df1e*/
+        }
+        img{
+            max-width: 100%;
+        }
+
+        .card figcaption {
+            padding: 1rem;/*1rem=16px*/
+        }
+
+       
+
+    </style>
+</head>
+<body>
+    
+    <h1>WEB APIs</h1>
+    <br>
+    <hr>
+    <br>
+    <h3>MANEJO DE DOM</h3>
+    <p id="que-es">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis dignissimos dolores aliquid eum laudantium? Perferendis sequi libero ad, ut sed fuga culpa illo blanditiis ratione molestias enim, eius nulla nam?
+    </p>    
+    <nav id="menu">
+        <ul>
+            <li><a href="#">Sección 1</a></li><!-- el salto de linea que doy de un <li> al siguiente <li>, eso para dom es un tipo de no, pero casi no se usa -->
+            <li><a href="#">Sección 2</a></li>
+            <li><a href="#">Sección 3</a></li>
+            <li><a href="#">Sección 4</a></li>
+            <li><a href="#">Sección 5</a></li>
+        </ul>
+    </nav>
+    <ul>
+        <li>esto es li adicional que cree</li>
+    </ul>
+    <input type="text" name="nombre" placeholder="Nombre">
+    <!-- lo que pide el estandar html para crear estos datas atribbute, es que empiece con la palabra data y el guion medio y a partir el nombre que quieres darle, eje:data-description ,puede ser en español tbm -->
+    <a href="dom_clase63.html">DOM</a>
+
+    <!-- primer espacio entre <section> hasta llegar a <figure> de la linea 84 -->
+    <section class="cards">
+        <figure class="card">
+            <!-- Generadores de Imagen de Marcador de Posición -->
+            <img src="https://placekitten.com/640/360" alt="Animal">
+            <figcaption>Animal</figcaption>
+        </figure> 
+        <figure class="card">
+            <img src="https://baconmockup.com/640/360" alt="Carne">
+            <figcaption>Carne</figcaption>
+        </figure> 
+        <figure class="card"> <!-- este tiene posicion 2, para acceder con children(hijo), en especifico -->
+            <img src="https://placebeard.it/640x360" alt="Humano">
+            <figcaption>Humano</figcaption>
+        </figure>   
+        <figure class="card">
+            <img src="https://picsum.photos/640/360" alt="Cosas">
+            <figcaption>Cosas</figcaption>
+        </figure>
+        <figure class="card">
+            <img src="https://loremflickr.com/320/240" alt="Gatos">
+            <figcaption>Gatos</figcaption>
+        </figure> 
+    </section>   
+
+    <script src="js/dom_clase70.js"></script>
+
+</body> 
+</html>
