@@ -35,16 +35,65 @@ $figure2.classList.add("card");
 $cards.appendChild($figure2); //con esto hay 7 tarjetas las dos ultimas se crearon con js
 //-----------------------------  fin otra tarjeta   ---------------------------
 
+//---------------------------- creandoo una lista ---------------------------
 const estaciones = ["Primavera","Verano","Otoño","Invierno"], //creamos un arreglo
     $ul = document.createElement("ul");//creamos dinamicamente una etiqueta <ul>
 
-    //document.write, no es una buena practica de usar 
+//document.write, no es una buena practica de usar 
 document.write("<h3>Estaciones del Año</h3>");//con esto escribe en el html: dom_clase68.html, linea 68
 
 //agregamos la etiqueta ul creado al elemento padre body
 document.body.appendChild($ul);
 
 
-estaciones.forEach(element =>{
-    const $li = document.createElement("li");
+estaciones.forEach(element =>{// foreach(element => {}), con esto dice que por cada elemento: element haga lo que esta dentro de {}
+    const $li = document.createElement("li"); //creamos un etiqueta <li>
+    $li.textContent = element;//pasamos el valor a la etiqueta <li>, con contenido, cada vez que recorra los elementos del array estaciones, con element
+    $ul.appendChild($li);//cada recorrido le pasamos el valor d hijo y se crea una etiqueta li dentro de ul en cada recorrido 
 });
+//---------------------------- creando una lista ---------------------------
+
+//---------------------------- creandoo otra lista ---------------------------
+const continentes = ["África","América","Asia","Oceania"], //creamos un arreglo
+    $ul2 = document.createElement("ul");//creamos dinamicamente una etiqueta <ul> 
+
+document.write("<h3>Continenetes del Mundo</h3>");
+document.body.appendChild($ul2);
+
+//usando innerHtml, no es una buena practica porque no estas creando un nodo hmtl, pero para visualizacion es valida
+//para llenar contenido dinamico de varios registros a la vez, pues lo primero que tienes que incializar con valor NULO, o cadena vacia la propiedad HTML, del elemento en cuestion
+$ul2.innerHTML="";//aunque no este inicializado esto o comentamos esta linea de cod., agrega normal la lista de continenetes, pero para evitar errores se deja en cero o vacio
+//para poder llenar dinamicamente con foreach
+continentes.forEach(elemento=>$ul2.innerHTML+=`<li>${elemento}</li>`);//por cada recorrido se va agregando cada elemento: <li>${elemento}</li>, del array continenetes, por eso $ul se inicializa en nada y se pone el + para que agrege el elemento por cada rrecorrido del foreach
+//---------------------------- creandoo otra lista ---------------------------
+
+//tecnica del fragmento es para ahorrar memoria y no se lajea o lenetea al momneto de abrir la app y sobre todo hacer una sola incersion al DOM
+//USANDO FRAGMENTOS
+//----------------------------------------inicio usando fragmento ----------------------
+const meses = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ],
+  $ul3 = document.createElement("ul"),//creamo <ul>
+  $fragment = document.createDocumentFragment();//creamos un fragmento, al ser fragmentos en DOM, no se puede usar la tecnica del innerHTML, sino de crear elementos, nodos, este ultimo es la forma mas optima  
+
+  meses.forEach(elemento=>{
+    const $li = document.createElement("li");
+    $li.textContent = elemento;
+    $fragment.appendChild($li);//agregamos a ese nodo el fragmento 
+  });
+
+  document.write("<h3>Meses del año</h3>");
+  $ul3.appendChild($fragment);//a el $ul3, le agregamos com hijo el fragmento
+  document.body.appendChild($ul3); //con esto es una sola insercion al DOM
+  //----------------------------------------fin usando fragmento ----------------------

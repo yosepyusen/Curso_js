@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*el fondo del body sale en blanco porque quite los estilos de js agregados en clase 64*/
+        
+        :root{ /*root representa la etiqueta html que tiene mayor peso especifico que la etiqueta html y dentro de root se crean las variables*/
+            --yellow-color:purple; /*se crea una variable, pero primero se agrega siempre dos veces guion:--, para crear una variable de css, despues, yelow-color:es el nombre*/
+            --dark-color:pink; /*otra variable css y va estar todo los selectores del documento, dichas variables css*/        
+        }
+       /* *{
+            padding: 0%;
+            margin: 0%;
+        }*/
+
+        .cards {
+            border: thin solid var(--dark-color); /* tenga un borde delgado=thin, solido y de color=var(--dark-color); */
+            padding: 1rem;/* 1rem=16px*/
+        }
+
+        .card {
+            border: thin solid black; /* para el borde */
+            max-width:30%;
+            display: inline-block;
+            background-color: var(--dark-color);/*asignamos el --dark-color, su valor es: pink */
+            color: var(--yellow-color);/*--yellow-color, su valor es:#f7df1e*/
+        }
+        img{
+            max-width: 100%;
+        }
+
+        .card figcaption {
+            padding: 1rem;/*1rem=16px*/
+        }
+
+        .rotate-45 {/* se crea una clase auxiliar*/
+            transform: rotate(45deg);/* 45deg es 45 grados*/
+        }
+
+        .rotate-135 {/* se crea una clase auxiliar*/
+            transform: rotate(135deg);/* 135deg es 135 grados*/
+        }
+
+        .opacity-80 {/* se crea una clase auxiliar*/
+            opacity: .8;/* aplica opacidad de 80 del elemento */
+        }
+
+        .sepia {/*clase */
+            filter: sepia(1);/* aplica un filtro de css*/
+        }
+
+    </style>
+</head>
+<body>
+    
+    <h1>WEB APIs</h1>
+    <br>
+    <hr>
+    <br>
+    <h3>MANEJO DE DOM</h3>
+    <p id="que-es">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis dignissimos dolores aliquid eum laudantium? Perferendis sequi libero ad, ut sed fuga culpa illo blanditiis ratione molestias enim, eius nulla nam?
+    </p>    
+    <nav id="menu">
+        <ul>
+            <li><a href="#">Sección 1</a></li><!-- el salto de linea que doy de un <li> al siguiente <li>, eso para dom es un tipo de no, pero casi no se usa -->
+            <li><a href="#">Sección 2</a></li>
+            <li><a href="#">Sección 3</a></li>
+            <li><a href="#">Sección 4</a></li>
+            <li><a href="#">Sección 5</a></li>
+        </ul>
+    </nav>
+    <ul>
+        <li>esto es li adicional que cree</li>
+    </ul>
+    <input type="text" name="nombre" placeholder="Nombre">
+    <!-- lo que pide el estandar html para crear estos datas atribbute, es que empiece con la palabra data y el guion medio y a partir el nombre que quieres darle, eje:data-description ,puede ser en español tbm -->
+    <a class="link-dom" style="background-color: #f7df1e; color: #222;" href="dom_clase63.html" data-id="1" data-description="Document Object Mdel">DOM</a>
+
+    <!-- primer espacio entre <section> hasta llegar a <figure> de la linea 84 -->
+    <section class="cards">
+        <figure class="card">
+            <!--img src="https://placeimg.com/200/200/tech" alt="Tech"-->
+            <img src="https://placekitten.com/640/360" alt="Animal">
+            <figcaption>Animal</figcaption>
+        </figure> 
+        <figure class="card">
+            <img src="https://baconmockup.com/640/360" alt="Carne">
+            <figcaption>Carne</figcaption>
+        </figure> 
+        <figure class="card"> <!-- este tiene posicion 2, para acceder con children(hijo), en especifico -->
+            <img src="https://placebeard.it/640x360" alt="Humano">
+            <figcaption>Humano</figcaption>
+        </figure>   
+        <figure class="card">
+            <img src="https://picsum.photos/640/360" alt="Cosas">
+            <figcaption>Cosas</figcaption>
+        </figure>
+        <figure class="card">
+            <img src="https://placebeard.it/640x360" alt="HumanoUno">
+            <figcaption>HumanoUno</figcaption>
+        </figure> 
+    </section>   
+
+    <!-- clase 69 inicio -->
+    <template id="template-card">
+        <figure class="card">
+            <img src="" alt="">
+            <figcaption></figcaption>
+        </figure>
+    </template>
+    <!-- clase 69 fin -->
+    <script src="js/dom_clase69.js"></script>
+
+</body> 
+</html>
