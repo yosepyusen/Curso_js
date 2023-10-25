@@ -28,12 +28,13 @@ $newCard.classList.add("card");//añdimos la clase .card, dentro de la etiqueta 
 //$cards.insertAdjacentElement("beforeend",$newCard);//inserta en el ultimo de toda las imgs de la seccion porque beforeend, es el ultimo hijo
 $cards.insertAdjacentElement("afterend",$newCard);//inserta despues de la etiqueta seccion de tarjetas, porque es hermano siguiente el afterend
 
-//USANDO insertAdjacentHTML
+//USANDO insertAdjacentHTML, insertAdjacentText
 let $contenCard= ` 
     <img src="https://picsum.photos/640/360" alt="Fotos">
     <figcaption></figcaption>
 `;
 
+//ya seleccionamos la clase .cards del html, linea 12
 const $newcard1 = document.createElement("figure");
 $newcard1.classList.add("card");//añdimos la clase .card, dentro de la etiqueta figure
 
@@ -41,3 +42,23 @@ $newcard1.insertAdjacentHTML("beforeend",$contenCard);//primero tomamos refrenci
 $newcard1.querySelector("figcaption").insertAdjacentText("afterbegin","Fotos");//como la figcaption esta vacia daria lo mismo si pongo afterbegin, beforeend, dentro de () de insertAdjacent y ponemos el texto de figcaption, tomamos referencia la $newcard1 y seleccionamos con querySelector la etiqueta figcaption
 $cards.insertAdjacentElement("afterbegin",$newcard1);//inserta antes de toda las imgs de la seccion pero sin texto de la figcaption, porque afterbegin es primer hijo y en total hay 6 imgs
 
+//otro ejemplo
+let $contenidoCard = `
+    <img src="https://picsum.photos/640/360" alt="Fotos">
+    <figcaption></figcaption>
+`;
+
+//ya seleccionamos la clase .cards del html, linea 12
+const $newcard2 = document.createElement("figure");
+$newcard2.classList.add("card");//añdimos la clase .card, dentro de la etiqueta figure
+
+$newcard2.insertAdjacentHTML("beforeend",$contenCard);//primero tomamos refrencia clase $newcard2, y con insertAdjacentHTML porque el $contenCard es cod. html y puede ser afterbegin o beforeend, daria lo mismo porque el elemento esta vacio ; cambio afterend ó beforebegin: no aparece la img 
+$newcard2.querySelector("figcaption").insertAdjacentText("afterbegin","Fotos1");//como la figcaption esta vacia daria lo mismo si pongo afterbegin, beforeend, dentro de () de insertAdjacent y ponemos el texto de figcaption, tomamos referencia la $newcard1 y seleccionamos con querySelector la etiqueta figcaption
+
+//usando similar METODOS DE JQUERY 
+//COMENTANDO...
+//$cards.prepend($newcard2);//prepend:es como 1mer hijo, agrega una nueva img antes de categoria Foto, en total hay 7 imgs, dentro del seccion
+//$cards.append($newcard2);//append:es como ultimo hijo, imprime despues de la img Gatos antes del cierre de la etiqueta seccion
+//$cards.before($newcard2);//before:es un hermano antes, se imprime la img antes de la etiqueta seccion y despues de <a href="dom_clase63.html">DOM</a>
+$cards.after($newcard2);//after:es como hermano posterior, imprime la img desdues del cierre de la etiqueta seccion pero antes de la img Fotos
+ 
