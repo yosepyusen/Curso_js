@@ -36,7 +36,7 @@ const $card = document.querySelector(".cards"),//seleccionamos la clase .cards
         let $clone = document.importNode($template, true); //clonar todo un nodo del documento con document.importNode y se basa para hacer el colne de $template y luego se pasa un bolean que diga true: sognifica que va copiar toda la estructura interna y si ponemos fale solo copiaria etiqueta template de apertura y cierre
         $fragmento.appendChild($clone);//con esto al fragmento agregamos el hijo $clone
     });
-
+     
     $card.appendChild($fragmento);//al elemento card se agrega el fragmento y asi se hace una sola insercion del DOM
     //si vamo en pestaña elementos podemos ver que al dar click en etiqueta <template>, no hay un interacion con la pagina web
     //ya que estas etiquetas TEMPLATE no se RENDERIZAN en el DOM, pero las 5 figuras que agreamos con el arreglo cardContend, si aparecen dentro de la etiqueta <section>, en total aparecen en 10 img en la PAGINA WEB
