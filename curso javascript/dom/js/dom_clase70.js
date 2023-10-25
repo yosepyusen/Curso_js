@@ -17,4 +17,6 @@ $newCard.classList.add("card");//añdimos la clase .card, dentro de la etiqueta 
 //$cards.replaceChild($newCard,$cards.children[4]);//reemplazamos con replaceChild por una nueva card:$newCard a la actual posicion de la tarjeta 4 que es humanoUno: $cards.$children[4]; la clase ".cards", hace referencia que implicitamente toma la etiqueta seccion 
 
 //appeChild nos inserta al final, pero otro metodo permite isertar antes de un nodo que tomemos como referencia
-$cards.insertBefore($newCard, $cards.firstElementChild);//vemos e 
+$cards.insertBefore($newCard, $cards.firstElementChild);//insertBefore: inserta antes, el 1mer parametro pide el nuevo nodo:$newCard, el nodo de referencia:$cards.firstElementChild
+//$cards.firstElementChild: con esto le decimo que reemplce con $newCard, pero antes del primer elemento 
+
