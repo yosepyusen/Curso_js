@@ -24,18 +24,20 @@ $eventoSemantico.onclick = holaMundo //el evento solo es click por eso onclick y
 //js esta basado en prototipos, el onclick es como agregar un metodo al prototipo del modelo del evento de $eventoSemantico
 //va haber donde a un mismo elemento html tengamos que asignarle diferentes manejadores de eventos, es decir diferentes funciones que hagan diferentes cosas esa es la desventajas los eventos semanticos solo hacen un sola funcion
 
-//ejecutamos el manejador semantico: 2ra forma, con una funcion anonima o arrow function o funcion anonima
+//ejecutamos el manejador semantico: 2da forma, con una funcion anonima o arrow function o funcion anonima
 //por eso el evento semantico solo hace un solo evento a la vez y no puede recibir parametros y el unico parametro que recibe, es el evento en si, que lo podemos obtener con "event"
-$eventoSemantico.onclick = function (e){ //con esta linea de codigo decimos que no ejecuta la funcion holaMundo de la linea decod. 21 , porque aqui en esta linea le igualamos a una funcion anonima y porque solo tiene ejecutar un solo evento a la vez
-    alert("Gola mundo Manejador de eventos Semanticos");
-    //la palabra event se simplifica por e: function (e)
+$eventoSemantico.onclick = function (e){ //con esta linea de codigo decimos que no ejecuta la funcion holaMundo de la linea decod. 22 , porque aqui en esta linea le igualamos a una funcion anonima y porque solo tiene ejecutar un solo evento a la vez
+    alert("Hola mundo Manejador de eventos Semanticos");
+    //la palabra event se simplifica por e: function (e), es el unico parametro que recibe esta funcion que es e
     console.log(e);//esa e representa el evento
     console.log(event);//invocar el evento como tal sin haberle pasado parametro como tal 
 };//al terminar de aceptar el evento nos imprime dos veces PointerEvent , ya que en la funcion dentro hay dos consoles
+//al terminar solo ejecuta manejador semantico de la 2da forma, porque este evento hace un solo evento a la vez
 
-
+//------------------------------------------------------------------------------
 //varias funciones a un mismo elemento html, para eso usa manejadores semanticos multiples
 const $eventoMultiple = document.getElementById("evento-multiple");//selecionamos el id con nombre "evento-multiple", con ayuda getElementById
 
-//addEventListener, recibe varios parametros pero solo hay e
-$eventoMultiple.addEventListener()//
+//addEventListener, recibe varios parametros pero solo nos centramos en dos mas importamtes
+$eventoMultiple.addEventListener("click",holaMundo);//recibe dos parametro primero es el tipo:click, 2do parametro es el listener:holaMundo(es una funcion previamente declarada), ya no es onclick sino click y asi para los demas con addEventListener
+//dentro de addEventListener no se pone parentesis a holaMundo, ya que se ejecuta al instante y sale undefined en consola 
