@@ -62,6 +62,7 @@ $eventoMultiple2.addEventListener("click",()=>{
 });//imprime:Hola Desconocido@-[object PointerEvent], despues Hola Jon y en consola dos veces PointerEvent, si o si tengo que poner los parentesis en saludar
 //--------fin 2da forma ------------------------
 
+//removiendo un evento despues de la primera ejecucion
 const $eventoRemover = document.getElementById("evento-remover"), //selecionamos el id="evento-remover", con getElementById
     removerDobleClick = (e)=>{
         alert(`Removiendo el evento de tipo "${e.type}"`);
