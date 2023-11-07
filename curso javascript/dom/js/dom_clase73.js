@@ -62,11 +62,16 @@ $eventoMultiple2.addEventListener("click",()=>{
 });//imprime:Hola Desconocido@-[object PointerEvent], despues Hola Jon y en consola dos veces PointerEvent, si o si tengo que poner los parentesis en saludar
 //--------fin 2da forma ------------------------
 
-const $eventoRemover = document.getElementById("evento-remover");
-//ahora trabjamos con doble click
-$eventoRemover.addEventListener("dblclick",(e)=>{ //el e, hace referencia al evento
-    //nos pide el removeEventListener, primero el evento que queremos remover que es dblclick y la funcion manejadora asociada al evento que es arrow function 
-    //para remover un evento esta tiene que estar guardada en una funcion expresada o declarada
-    alert(`Removiendo el evento de tipo "${e.type}"`);
-    console.log(e);
-});
+const $eventoRemover = document.getElementById("evento-remover"), //selecionamos el id="evento-remover", con getElementById
+    removerDobleClick = (e)=>{
+        alert(`Removiendo el evento de tipo "${e.type}"`);
+        console.log(e);
+        //para remover un evento esta tiene que estar guardada en una funcion expresada o declarada
+        //nos pide el removeEventListener, primero el evento que queremos remover que es dblclick y la funcion manejadora asociada al evento que es arrow function 
+        $eventoRemover.removeEventListener("dblclick",removerDobleClick);//ahora trabjamos con doble click
+        $eventoRemover.disabled = true;//con esto desabilitamos el boton
+    }
+
+//el "e" hace referencia al evento
+$eventoRemover.addEventListener("dblclick",removerDobleClick);//ahora añadimos un evento de tipo dobleclick=dblclick, y añadimos la funcion removerDobleClick lo que...
+//imprime al dar doble click: Removiendo el evento de tipo "dblclick", despues en consola imprime:MouseEvent y despues al dar doble click en ese mismo pagina web no se ejecuta ya que se removio el evento y por ultimo se desabilita el boton
