@@ -53,3 +53,4 @@ $eventoMultiple.addEventListener("click",(e)=>{ //evento que paso con el valor d
     //sino queremos pasar el evento su parametro simplificado ponemos "event"
     console.log(event);//con esto imprime:PointerEvent  
 });//al dar click en el boton Evento con manejador multiple, nos llama primero a holaMundo, despues el alert de: Hola Mundo Manejador de eventos multiple,
+

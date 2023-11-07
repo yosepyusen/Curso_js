@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*el fondo del body sale en blanco porque quite los estilos de js agregados en clase 64*/
+        
+        :root{ /*root representa la etiqueta html que tiene mayor peso especifico que la etiqueta html y dentro de root se crean las variables*/
+            --yellow-color:purple; /*se crea una variable, pero primero se agrega siempre dos veces guion:--, para crear una variable de css, despues, yelow-color:es el nombre*/
+            --dark-color:rgb(245, 164, 178); /*otra variable css y va estar todo los selectores del documento, dichas variables css*/        
+        }
+       /* *{
+            padding: 0%;
+            margin: 0%;
+        }*/
+
+        .cards {
+            border: thin solid var(--dark-color); /* tenga un borde delgado=thin, solido y de color=var(--dark-color); */
+            padding: 1rem;/* 1rem=16px*/
+        }
+
+        .card {
+            border: thin solid rgb(158, 8, 228); /* para el borde */
+            max-width:30%;
+            display: inline-block;
+            background-color: var(--dark-color);/*asignamos el --dark-color, su valor es: pink */
+            color: var(--yellow-color);/*--yellow-color, su valor es:#f7df1e*/
+        }
+        img{
+            max-width: 100%;
+        }
+
+        .card figcaption {
+            padding: 1rem;/*1rem=16px*/
+        }
+
+       
+
+    </style>
+</head>
+<body>
+    
+    <h3>MANEJO DE DOM</h3>
+
+    <!-- inicio clase 73 -->
+    <h3>Eventos en JavaScript</h3>
+    <h4>Manejadores de Eventos</h4>
+
+    <!-- no es la forma mas correcta de aplicar eventos como si fueran -->
+    <button onclick="alert('Hola')">Evento con atributo html</button>
+
+    <!-- no es la forma mas correcta de aplicar eventos como si fuera -->
+    <button onclick="holaMundo()">Evento de js</button>
+
+    <!-- forma mas correcta de manejador de eventos -->
+    <br><br>
+    <button id="evento-semantico">Evento con manejador semantico</button>
+    <button id="evento-multiple">Evento con manejador multiple</button>
+    <button id="evento-multiple1">Evento con manejador multiple1</button>
+    <button id="evento-multiple2">Event con manejador multiple2</button>
+    <br><br>
+    <button id="evento-remover">Removiendo Event con Manejadores multiple</button> <!-- este boton se activa ccon doble click -->
+    <!-- fin clase 73 -->
+
+    <script src="js/dom_clase73.js"></script>
+
+</body> 
+</html>
