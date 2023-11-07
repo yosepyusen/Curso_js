@@ -4,11 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .eventos-flujo div {
+            padding: 4rem;
+            font-size: 2rem;
+            border: 1px solid red;
+            text-align: center;
+        }
+        .eventos-flujo1 div {
+            border: 1px solid red;
+            padding: 4rem;
+        }
+        .uno{
+            background-color: yellow;
+            /* border: 1px solid red; */
+        }
+        .dos{
+            background-color: gold;
+        }
+        .tres{
+            background-color: lightyellow;
+        }
+
+
+    </style>
 </head>
 <body>
     
     <h3>Flujo de eventos</h3>
-    <section class="evento-flujo">
+    <h4>MAS INTERNO A MÁS EXTERNO</h4>
+    <section class="eventos-flujo">
         <div class="uno">
             1
             <div class="dos">
@@ -18,7 +43,20 @@
                 </div>
             </div>
         </div>
-        
+    </section>
+    <hr>
+    
+    <h4>MAS EXTERNO A MAS INTERNO</h4>
+    <section class="eventos-flujo1">
+        <div class="uno">
+            1
+            <div class="dos">
+                2
+                <div class="tres">
+                    3
+                </div>
+            </div>
+        </div>
     </section>
 
     <script src="js/dom_clase74.js"></script>
