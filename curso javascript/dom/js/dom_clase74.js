@@ -4,7 +4,7 @@ const $divsEventos = document.querySelectorAll(".eventos-flujo div"),//.eventos-
     $divsEventos1 = document.querySelectorAll(".eventos-flujo1 div"),//cree otro yo! a modo ejemplo
     $divsEventos2 = document.querySelectorAll(".eventos-flujo2 div");//cree otro yo! a modo ejemplo
 
-//creamos un 
+
 function flujoEventos(e){
     console.log(`Hola te saluda "${this.className}", el click lo origino "${e.target.className}"`);
     //this.className(es la clase del div)
