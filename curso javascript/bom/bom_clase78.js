@@ -22,5 +22,5 @@ $btnCerrar.addEventListener("click",(e)=>{
 });
 
 $btnPrint.addEventListener("click",e=>{
-    window.print();
+    window.print();//para imprimir y esto se puede convinar con midia de css u hoja de estilos para dar mejor forma al momento de imprimir 
 });
