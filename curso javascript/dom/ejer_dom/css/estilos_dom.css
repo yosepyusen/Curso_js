@@ -1,10 +1,21 @@
-*{
+/* *{
     margin: 0;
     padding: 0;
-}
+} */
 
-h1{
+/* h1{
     text-align: center;
     padding: 0.5rem;
     background-color: yellow;
+} */
+
+:root{ /* entramos a la ruta principal con root y creamos las variables */
+    --main-font:sans-serif;
+    --font-size:16px;
+    --main-color: #f7df1e;
+    --second-color: #222;
+    --main-modal-color: rgba(247, 222, 30, 0.85);
+    --second-modal-color: rgba(34, 34, 34, 0.85);
+    --container-width: 1200px;
 }
+

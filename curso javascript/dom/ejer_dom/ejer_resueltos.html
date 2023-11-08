@@ -4,20 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicios del DOM</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.2.1/hamburgers.min.css"><!-- mandamos llamar la libreria hamburguer css, que saca de cdn js>hamburgers -->
     <link rel="stylesheet" href="css/estilos_dom.css">
 
 </head>
 <body>
     
-    <!-- para icono de hamburgesa:https://jonsuh.com/hamburgers/ -->
+    
     <!-- para compartir los ejercicios del dom:https://codepen.io/ , es como tener un script de css,js y html en tiempo real
     una vez salvado el documento en este codepen, nos va dar un url -->
     <!-- ver tips css de mircha , le borro la lista-->
 
     <header class="header">
         <h1>Ejercicios del DOM</h1>
+
+        <!-- inicio de codigo semantico con botones del icono hamburguesa--> 
+        <!-- para icono de hamburgesa:https://jonsuh.com/hamburgers/ -->
+        <button class="hamburger hamburger--minus" type="button"> <!-- hamburger--minus: es el efecto que quieran para el icono hamburguesa, hay varios clase en la pagina -->
+            <span class="hamburger-box">
+              <span class="hamburger-inner"></span>
+            </span>
+         <!-- fin de codigo semantico con botones -->
+
+        <!-- INICIO panel de navegacion -->
+        <aside class="panel">
+            <nav class="menu">
+                <a href="#seccion1">Seccion 1</a>
+                <a href="#seccion2">Seccion 2</a>
+                <a href="#seccion3">Seccion 3</a>
+                <a href="#seccion4">Seccion 4</a>
+                <a href="#seccion5">Seccion 5</a>
+            </nav>
+        </aside>
+        <!-- FIN panel de navegacion -->
+        
+        <!-- inico main -->
+        <main>
+            <section id="seccion1" class="section">
+                <h2>Seccion 1</h2>
+            </section>
+            <section id="seccion2" class="section">
+                <h2>Seccion 2</h2>
+            </section>
+            <section id="seccion3" class="section">
+                <h2>Seccion 3</h2>
+            </section>
+            <section id="seccion4" class="section">
+                <h2>Seccion 4</h2>
+            </section>
+            <section id="seccion5" class="section">
+                <h2>Seccion 5</h2>
+            </section>
+        </main>
+        <!-- fin main -->
+
+        </button>
     </header>
     
+    <script src="js/index_dom.js" type="module"></script> <!-- para trabajar con modulos ponemos:module -->
 
 </body>
 </html>
