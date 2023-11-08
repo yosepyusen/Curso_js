@@ -23,7 +23,21 @@ console.log("********** Objeto Historial (history) **********");
 console.log(history);//imprime:History {length: 4, scrollRestoration: 'auto', state: null}, el 4 length hace referencia cuantas paginas puedo acceder hacia atras o hacia adelante en la pestaña en la que me encontrado
 //history, es como que guarda almacenamiento del historial de que me encuentro
 
-console.log(history.length);//nos dice cuantas paginas hemos visitado
-//history.forward(1);
-//history.go(-3);
-//history.back(2);
+console.log(history.length);//nos dice cuantas paginas hemos visitado, este numero va aumentando segun vayas navegando en la pagina
+//history.back(3);//es para retroceder tres navegaciones atras en una misma ventana del navegador
+//history.forward(1);//es para ir cuantas paginas quieres ir adelante, cuando ya hayas a vuelto con history.back
+
+//los de ir hacia atras seria valores negativos y positivos cuando vas adelante, asi usa go
+//history.go(-3);//con esto le decimos tre paginas hacia atras, desde el mismo navegacion, usamos # positivo para ir en adelante del historial del mismo ventana abierto o ir atras con numeros negativos
+
+console.log("********** Objeto Navegador (navigator) **********");
+console.log(navigator);//imprime: Navigator con sus metodos ya que es un objeto, y con ello se puede iteracruar con el bluetoo, clipboard(que seleccionamos),geolocation, userAgent(para ver si viene de un dispositivo o de pc)...
+console.log(navigator.connection);//imprime: NetworkInformation, nos da cierta informacion de la conecion, como si es 4g, pero va depender que navegadores lo soporta, en este caso brave no aparece 
+console.log(navigator.geolocation);//imprime:Geolocation{}
+console.log(navigator.mediaDevices);//imprime:MediaDevices {ondevicechange: null}, para acceder a camaras y microfono
+console.log(navigator.mimeTypes);//imprime:MimeTypeArray , son formatos que dependiendo de tipo de app, soportan los navegadores web(chrome,firefox...), como application/pdf...
+console.log(navigator.onLine);//imprime:true, navegador tienen eventos para detectar cuando el usuario pierde la conexion o la vuelve a recuperar 
+console.log(navigator.serviceWorker);//imprime:ServiceWorkerContainer..., es un api, para convertir un simple sitio web en una app instalable como aplicacion escritorio 
+console.log(navigator.storage);//imprime:StorageManager..., que es el web de almacenamiento, ya sea webStorage o localStorage
+console.log(navigator.usb);//imprime:USB , capacidad de detectar dispositivos usb, cuando conectan o desconectan
+console.log(navigator.userAgent); //imprime:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 , nos da mucha info. sobre la plataforma, navegador que se esta conectando a nuestra aplicacion
