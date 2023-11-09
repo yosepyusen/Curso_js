@@ -19,3 +19,54 @@
     --container-width: 1200px;
 }
 
+/* creamos un reseteo basico para etiqueta html */
+html{
+    box-sizing: border-box; /*box-sizing: tamaño de la caja a border-box */
+    font-family: var(--main-color);
+    font-size: var(--font-size);
+    scroll-behavior: smooth;/*esa navegacion, para dar efecto de transision no subita a la hora de que vamos de una seccion a otra */
+}
+
+/* todo los elementos de este doc. html hereden el box-sizing, con esto se crea un especie de caja */
+*, /*El asterisco (*) es el selector universal en CSS. De forma automática, el asterisco selecciona todos los elementos en un documento*/
+*:before, /*con before y after le decimos que herede un documento antes y depues del asterisco(*) */
+*:after{
+    box-sizing: inherit; /*inherit, es heredar forzadamente */
+}
+
+
+body{/* reseteamos el body con margin cero ya que por defecto tiene 8px */
+    margin: 0;
+    overflow-x: hidden; /* para que todo que se desborde en horizontal se oculte y  no nos genere barra de desplazamiento */
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+}
+
+/*************************** inicio esilos para menu hamburgesa ****************************/
+.header{
+    /* position: fixed; */ /*nos da una posicion fija y encima de todo los elementos de dicho elemento que se aplico fixed*/
+    position: sticky; /* cuando el header llegue a la posicion de cero al margen de top, se va comportar como si estuviera fija */
+    top: 0; /* el top cero debe ir con posicion de stycky */
+    padding: 0.5rem; /*padding para los 4 lados*/
+    background-color: var(--main-color);
+    color: var(--second-color); /* color a la letra */
+}
+
+.header h1{ /* reseteamos los estilos del h1 que esta dentro de header */
+    margin: 0 ; /*margin cero arriba y abajo y automatico a los lados y centrea el texto*/
+    text-align: center;
+}
+.section{
+    padding: 2rem; /*paddin a los lados*/
+    padding-top: 4rem; /*correjimos a 4rem*/
+    margin-left: auto; /*margin left y rigth auto para que al dar maxima anchura(pantallas a mas de 1200)*/
+    margin-right: auto;
+    width: 100%;
+    max-width: var(--container-width); /*1200px*/
+    min-height: 100vh; /*minima altura, hace que cada seccion, aunque el contenido sea mas pequeño ocupe el tamaño del view port*/
+    text-align: center;
+}
+/*************************** fin esilos para menu hamburgesa ****************************/
