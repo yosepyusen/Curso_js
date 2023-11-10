@@ -69,4 +69,10 @@ img{
     min-height: 100vh; /*minima altura, hace que cada seccion, aunque el contenido sea mas pequeño ocupe el tamaño del view port*/
     text-align: center;
 }
+.panel-btn{
+    position: fixed;/*nos da una posicion fija y encima de todo los etiquetas html*/
+    bottom: 1vh; /*vh es la unidad de altura de la ventana gráfica representa un porcentaje de la altura de la ventana gráfica. */
+    right: 1vw; /* vw es la unidad de ancho de la ventana gráfica representa un porcentaje del ancho de la ventana gráfica. */
+    z-index: 999;
+}
 /*************************** fin esilos para menu hamburgesa ****************************/
