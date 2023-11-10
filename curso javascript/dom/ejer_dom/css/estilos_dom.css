@@ -96,11 +96,12 @@ img{
     left: 0;
     right: 0;/*con to,bottom, left, rigth, hacemos que tenga una anchura del 100% y altura del 100%*/
     
+    transition: transform 0.3s ease;/* para da una transicion de aceleracion 0.3seg */
     transform: translate(0, 100%); /*si quieres que el menu salga de arriba decimos cero para q "X" no se mueva, pero en "Y", que se mueva a -100%, no desaparecio el menu sino que esta arriba por eso no se ve, como quieras que se mueva de x e y con transform*/
 }
 
-.panel.is-active{ /*creamos una clase para que, para agregar o quitar*/
-
+.panel.is-active{ /*creamos una clase para que, para agregar o quitar a la clase .panel*/
+    transform: translate(0,0); /*cuando esta activado el panel regrese a su posicion cero*/
 }
 
 /*************************** fin esilos para menu hamburgesa ****************************/
