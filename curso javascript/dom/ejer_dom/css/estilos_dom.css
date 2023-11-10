@@ -45,7 +45,6 @@ img{
     height: auto;
 }
 
-/*************************** inicio esilos para menu hamburgesa ****************************/
 .header{
     /* position: fixed; */ /*nos da una posicion fija y encima de todo los elementos de dicho elemento que se aplico fixed*/
     position: sticky; /* cuando el header llegue a la posicion de cero al margen de top, se va comportar como si estuviera fija */
@@ -69,10 +68,61 @@ img{
     min-height: 100vh; /*minima altura, hace que cada seccion, aunque el contenido sea mas pequeño ocupe el tamaño del view port*/
     text-align: center;
 }
+/*************************** inicio esilos para menu hamburgesa ****************************/
 .panel-btn{
-    position: fixed;/*nos da una posicion fija y encima de todo los etiquetas html*/
+    position: fixed;/*nos da una posicion fija y encima de todo los etiquetas html, y va posicionarse posicionarse a 1vh y 1vw, con esto se va colocar en la esquina derecha*/
+    z-index: 999; /*cambiamos la posicion por defecto que static, ya que lo cambies a relative,stiky, puedes jugar con el nivel de profundidad que nos da z-index, con "999" se logra que el boton este por encima de todo los elementos*/ 
+    /*z-index:indica el orden de un elemento posicionado y sus descendientes. Cuando varios elementos se superponen, los elementos con mayor valor z-index cubren aquellos con menor valor*/
     bottom: 1vh; /*vh es la unidad de altura de la ventana gráfica representa un porcentaje de la altura de la ventana gráfica. */
     right: 1vw; /* vw es la unidad de ancho de la ventana gráfica representa un porcentaje del ancho de la ventana gráfica. */
-    z-index: 999;
+    width: 4rem;/* anchura y altura en 4rem=4*16px, es el tamaño del boton*/
+    height: 4rem;
+    border-radius: 50%; /*redondo el boton*/
+    padding: 0%; /*quito padding*/
+    display: flex; /*para empiece desde el margen inicial sobre el eje principal, contraerse    ...*/
+    justify-content: center; /*ajusta el contenido centro de esas 3 lineas del boton*/
+    align-items: center;/*alinea los items de las tres lineas del boton*/
+    background-color: var(--main-color);
 }
+
+.panel{
+    position: fixed;
+    z-index: 998;/*este contenido este sobre todo los elementos del html a excepcion de .panel-btn*/
+    background-color: var(--second-modal-color);
+    width: 100%;
+    top: 0; /*hacer alinear a top(alto-desde comienzo) cero y bottom(alto-hasta el final) cero, el top y boton es para estirar el elemento en toda las direcciones y que ocupe toda la ventana algo asi*/
+    bottom: 0;
+    /*hacemos lo mismo de estirar el ancho ya que el alto estiramos con top y bottom: */
+    left: 0;
+    right: 0;/*con to,bottom, left, rigth, hacemos que tenga una anchura del 100% y altura del 100%*/
+    
+    transform: translate(0, 100%); /*si quieres que el menu salga de arriba decimos cero para q "X" no se mueva, pero en "Y", que se mueva a -100%, no desaparecio el menu sino que esta arriba por eso no se ve, como quieras que se mueva de x e y con transform*/
+}
+
+.panel.is-active{ /*creamos una clase para que, para agregar o quitar*/
+
+}
+
 /*************************** fin esilos para menu hamburgesa ****************************/
+.menu{
+    width: inherit; /*este clase menu herede la anchura de su contenedor()*/
+    display: flex; /*display flex direccion columna(flex-direction: column)*/
+    flex-direction: column;
+    justify-content: space-evenly;/*espaciado proporcional entre los espacios de los elementos y las orillas y trabaja en columna*/
+    align-items: center;/*justify-content, trabaja en horizontal"x" */
+    text-align: center;/*alinear las letras*/
+}
+.menu a{
+    padding: 2rem;
+    width: inherit;/*este clase menu herede la anchura de su contenedor()*/
+    display: block; /*vuelvo elementos de bloque*/
+    font-size: 1.5rem;
+    text-decoration: none;/*quito decoracion de enlaces , etiqueta a*/
+    color: var(--main-color);
+    transition: all 0.3s ease; /* aplicamos transicion de 0.3 segundos*/
+}
+.menu a:hover{ /*al tocar el maus estos enlaces la letra cambia de estilos con hover*/
+    font-weight: bold; /*letra negrita*/
+    color: var(--second-color); /*color de la letra negra*/
+    background-color: var(--main-modal-color);/*color de fondo amarillo un poco bajo*/
+}
