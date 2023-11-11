@@ -37,7 +37,7 @@ html{
 
 body{/* reseteamos el body con margin cero ya que por defecto tiene 8px */
     margin: 0;
-    overflow-x: hidden; /* para que todo que se desborde en horizontal se oculte y  no nos genere barra de desplazamiento */
+    overflow-x: hidden; /* para que todo que se desborde en horizontal se oculte y  no nos genere barra de desplazamiento, hidden:esconde un elemento, pero deja (vacío) el espacio donde debería aparecer. */
 }
 
 img{
@@ -96,12 +96,23 @@ img{
     left: 0;
     right: 0;/*con to,bottom, left, rigth, hacemos que tenga una anchura del 100% y altura del 100%*/
     
-    transition: transform 0.3s ease;/* para da una transicion de aceleracion 0.3seg */
-    transform: translate(0, 100%); /*si quieres que el menu salga de arriba decimos cero para q "X" no se mueva, pero en "Y", que se mueva a -100%, no desaparecio el menu sino que esta arriba por eso no se ve, como quieras que se mueva de x e y con transform*/
+    opacity: 0; /*opacidad del boton*/
+    visibility: hidden;/*cuando agregamos opacity, añadimos visibilidad y con hidden que esconde, pero deja (vacío) el espacio donde debería aparecer*/
+
+    transition: transform 0.3s ease, opacity 0.5s ease;/* para da una transicion de aceleracion 0.3seg y si aplica opacity a cero entonces le damos transicion y en clase: .panel.is-active(poniendo opacity: 1;)*/
+    
+    /*SI UTILIZAMOS translate, YA NO USAMOS opacity O AL REVEZ*/
+    
+    /*transform: translate(0,-100%); /*si quieres que el menu salga de ARRIBA a ABAJO decimos cero para q "X" no se mueva, pero en "Y", que se mueva a -100%, no desaparecio el menu sino que esta arriba por eso no se ve, como quieras que se mueva de x e y con transform*/
+    /*transform: translate(0,100%);/*menu salga de ABAJO a ARRIBA*/
+    /*transform: translate(100%,0);/*menu salga de DERECHA a IZQUIERDA*/
+    /*transform: translate(-100%,0);/*menu salga de IZQUIERDA a DERECHA*/
 }
 
 .panel.is-active{ /*creamos una clase para que, para agregar o quitar a la clase .panel*/
-    transform: translate(0,0); /*cuando esta activado el panel regrese a su posicion cero*/
+    /*transform: translate(0,0); /*cuando esta activado el panel regrese a su posicion cero*/
+    opacity: 1;/*en clase .panel le dimos opacity cero ahora a aqui le damos opacity a 1*/
+    visibility: visible;/*si agregamos en clase .panel visibility: hidden, entonces al activar este boton sea visible*/
 }
 /* 
 
