@@ -103,6 +103,13 @@ img{
 .panel.is-active{ /*creamos una clase para que, para agregar o quitar a la clase .panel*/
     transform: translate(0,0); /*cuando esta activado el panel regrese a su posicion cero*/
 }
+/* 
+
+.panel-btn *{ //con esto le decimos todo o que se encuentre dentro de la clase .panel-btn, y los estilos van aplicar, no importa si es span,div, p,a ; los que estan dentro de clase por el asterisco despues
+
+}
+
+*/
 
 /*************************** fin esilos para menu hamburgesa ****************************/
 .menu{
