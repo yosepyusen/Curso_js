@@ -18,8 +18,25 @@ export function digitalClock(clock,btnPlay,btnStop){
             clearInterval(clockTemp)//cuando presiono el boton stop, entonces limpio el setInterval
             d.querySelector(clock).innerHTML = null;//seleccionamos #reloj, y en su contenido innerHTML que sea null, para que desaparezca el null
             e.target.disabled=true;//desabilitamos el boton de stop
+
+            setTimeout(function(){//con esto recargamos la pagina para
+                location.reload();
+            },1000);
+        }
+    });
+    
+}
+
+export function alarm(sound,btnPlay,btnStop){
+    let alarmaTemp; 
+    const $alarm = d.createElement("audio");//con createElement creamos una etiqueta de tipo audio
+
+    d.addEventListener("click",e=>{
+        if(e.target.matches(btnPlay)){//si el obj. del evento coincide con lo que traemos en el boton play
+
+        }
+        if(e.target.matches(btnStop)){//si el obj. del evento coincide con lo que traemos en el boton play
+
         }
     });
 }
-
-export function alarm(){}
