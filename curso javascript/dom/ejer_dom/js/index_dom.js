@@ -8,3 +8,6 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
     digitalClock("#reloj","#activar-reloj","#desactivar-reloj"); //como es id se pone delante un #, y se selecciona las tres id del button
 });
 
+//
+
+
