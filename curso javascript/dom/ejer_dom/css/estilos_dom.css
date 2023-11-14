@@ -151,15 +151,15 @@ img{
 /*************************** inicio eventos del teclado ****************************/
 .stage{
     display: flex;/*para empiece desde el margen inicial sobre el eje principal, contraerse    ...*/
-    min-height: 50hv; /*aplico con minima altura de la mitad del view port */
-    background-color: var(--second-color);
+    min-height: 50vh; /*aplico con minima altura de la mitad del view port */
+    background-color: var(--second-color);/*color oscuro*/
 }
 
 .ball{
     margin: auto;
-    width: 4rem;
+    width: 4rem;/*ancho y alto del tamaño de la pelota de tal manera que sea cuadrado*/
     height: 4rem;
-    border-radius: 50%;
+    border-radius: 50%;/*con esto le volvemos en en pelota, border redondeado*/
     background-color: var(--main-color);
 }
 /*************************** fin eventos del teclado ****************************/

@@ -1,6 +1,6 @@
 import hamburgerMenu from "./menu_hamburguesa.js";//podemos escribir solo "hambu" y dar tab y se nos autocompleta este codigo
 import { digitalClock,alarm } from "./reloj.js"; //como no hay ningun funcion por default uso la destructuracion de obj.
-import { shortcuts } from "./teclado.js";//importamos la funcion shortcuts
+import { shortcuts,moveBall } from "./teclado.js";//importamos la funcion shortcuts
 
 const d=document;
 
@@ -16,6 +16,7 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
 //-------------------- USANDO KEYDOWN, cuando pulsas una tecla, se parece el ebento keypress --------------------------------
 d.addEventListener("keydown",e=>{//este evento se va ejecutar cuando precionamos una tecla
     shortcuts(e);//shortcuts recibe el evento, primero imprime:KeyboardEvent(el evento en si), despues imprime:keydown, por el segundo console es "e.type"
+    moveBall(e,".ball",".stage");//le pasamos el evento, selector de la pelota y selector del escenario
 });
 
 //-------------------- USANDO KEYUP, cuando sueltas la tecla --------------------------------
