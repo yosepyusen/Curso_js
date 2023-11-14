@@ -10,10 +10,22 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
     alarm("assets/alarma-gallo.mp3","#activar-alarma","#desactivar-alarma");
 });
 
-//principalmente el teclado tiene 3 eventos: kiot cuando soltamos la tecla, down:cuando presionamos y keypress:mientras la preconamos
-d.addEventListener("keydown",e=>{//este evento se va ejecutar cuando precionamos una tecla
-    shortcuts(e);//shortcuts recibe el evento, primero imprime:KeyboardEvent(el evento en si), despues imprime:keydown, por el segundo console es "e.type"
-});
+//principalmente el teclado tiene 3 eventos: keyup:cuando soltamos la tecla, keydown:cuando presionamos y keypress:mientras la precionamos la tecla
 //con KeyboardEvent, cada tecla tiene un codigo ejem el tabulador tiene:keyCode:32,
+
+//-------------------- USANDO KEYDOWN, cuando pulsas una tecla, se parece el ebento keypress --------------------------------
+// d.addEventListener("keydown",e=>{//este evento se va ejecutar cuando precionamos una tecla
+//     shortcuts(e);//shortcuts recibe el evento, primero imprime:KeyboardEvent(el evento en si), despues imprime:keydown, por el segundo console es "e.type"
+// });
+
+//-------------------- USANDO KEYUP, cuando sueltas la tecla --------------------------------
+// d.addEventListener("keyup",e=>{//este evento se va ejecutar cuando precionamos una tecla
+//     shortcuts(e);//shortcuts recibe el evento, primero imprime:KeyboardEvent(el evento en si), despues imprime:keydown, por el segundo console es "e.type"
+// });
+
+//-------------------- USANDO KEYPRESS, cuando mantenemos presionado la tecla nos va dar varios eventos --------------------------------
+// d.addEventListener("keypress",e=>{//este evento se va ejecutar cuando precionamos una tecla
+//     shortcuts(e);//shortcuts recibe el evento, primero imprime:KeyboardEvent(el evento en si), despues imprime:keydown, por el segundo console es "e.type"
+// });
 
 
