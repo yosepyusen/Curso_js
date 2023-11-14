@@ -119,10 +119,11 @@ img{
 .panel-btn *{ //con esto le decimos todo o que se encuentre dentro de la clase .panel-btn, y los estilos van aplicar, no importa si es span,div, p,a ; los que estan dentro de clase por el asterisco despues
 
 }
-
 */
 
 /*************************** fin esilos para menu hamburgesa ****************************/
+
+/*************************** inicio de esilos para el menu de navegacion ****************************/
 .menu{
     width: inherit; /*este clase menu herede la anchura de su contenedor()*/
     display: flex; /*display flex direccion columna(flex-direction: column)*/
@@ -145,3 +146,20 @@ img{
     color: var(--second-color); /*color de la letra negra*/
     background-color: var(--main-modal-color);/*color de fondo amarillo un poco bajo*/
 }
+/*************************** fin de esilos para el menu de navegacion ****************************/
+
+/*************************** inicio eventos del teclado ****************************/
+.stage{
+    display: flex;/*para empiece desde el margen inicial sobre el eje principal, contraerse    ...*/
+    min-height: 50hv; /*aplico con minima altura de la mitad del view port */
+    background-color: var(--second-color);
+}
+
+.ball{
+    margin: auto;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background-color: var(--main-color);
+}
+/*************************** fin eventos del teclado ****************************/

@@ -14,9 +14,9 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
 //con KeyboardEvent, cada tecla tiene un codigo ejem el tabulador tiene:keyCode:32,
 
 //-------------------- USANDO KEYDOWN, cuando pulsas una tecla, se parece el ebento keypress --------------------------------
-// d.addEventListener("keydown",e=>{//este evento se va ejecutar cuando precionamos una tecla
-//     shortcuts(e);//shortcuts recibe el evento, primero imprime:KeyboardEvent(el evento en si), despues imprime:keydown, por el segundo console es "e.type"
-// });
+d.addEventListener("keydown",e=>{//este evento se va ejecutar cuando precionamos una tecla
+    shortcuts(e);//shortcuts recibe el evento, primero imprime:KeyboardEvent(el evento en si), despues imprime:keydown, por el segundo console es "e.type"
+});
 
 //-------------------- USANDO KEYUP, cuando sueltas la tecla --------------------------------
 // d.addEventListener("keyup",e=>{//este evento se va ejecutar cuando precionamos una tecla
