@@ -30,34 +30,52 @@ export function moveBall(e,ball,stage){//recibe 3 parametros: e:evento, ball:sel
     const $ball =  d.querySelector(ball), //guardamos la clase ".ball", en variable $ball
         $stage = d.querySelector(stage);//guardamos la clase ".stage", en la variable $stage
 
-    console.log(e.keyCode);//nos da # del codigo de la tecla que pulsaste
-    console.log(e.key);//key nos da la tecla que pulsaste
+        //limitar el movimiento de la pelota
+    let limitsBall = $ball.getBoundingClientRect(),//getBoundingClientRect, nos da un obj. con la anchura, altura, posicion en x, posicion en y, tambien que tan alejado esta de los margenes top,right,buttom,left
+        limitsStage = $stage.getBoundingClientRect();
+
+    //estas 3 lineas siguientes lo comentamos, si queremos entender lo descomentamos
+    // console.log(e.keyCode);//nos da # del codigo de la tecla que pulsaste
+    // console.log(e.key);//key nos da la tecla que pulsaste
+    // console.log(limitsBall,limitsStage);//immprime dos obj. de tipo DOMRect(de ArrowDown, o de ArrowLeft), ya que uno es de limitsBall, limitsStage, con sus propiedades:bottom, height, left, right, top, width, x, y, las propiedades que se mueven son: bottom,top,left y right
 
     //e.preventDefault()//si ejecutamos el prevent,lo que se va hacer es apagar todo los comportamientos por defecto que tenga mi teclado, por eso no es recomendable poner aqui y evitar cancelar todo los comportamientos por defecto q tuvieran las teclas de la pc
 
     switch (e.keyCode) { //evaluamos segun el numero de cada letra que pulseamos
         case 38: //cuando vale arriba, es decir la tecla de flecha arriba
             //move("up");
-            e.preventDefault();//entonces prevenimos el comportamiento solo cuando presionamos las flechas
-            y--; //cuando pulse flecha arriba disminuimos el "Y" , es al revez al plano cartesiano
+            if(limitsBall.top > limitsStage.top) {
+                e.preventDefault();//entonces prevenimos el comportamiento solo cuando presionamos las flechas y cuando estan dentro de este condicional
+                y--;
+            }
+            //y--; //cuando pulse flecha arriba disminuimos el "Y" , es al revez al plano cartesiano
             break;
         
         case 40: //cuando vale abajo, es decir la tecla de flecha abajo
             //move("down");
-            e.preventDefault();
-            y++;//cuando pulse flecha abajo aumentamos en uno el "Y" 
+            if(limitsBall.bottom < limitsStage.bottom) {
+                e.preventDefault();
+                y++;
+            }
+            //y++;//cuando pulse flecha abajo aumentamos en uno el "Y" 
             break;
     
         case 37: //cuando vale izquierda, es decir la tecla de flecha izquierda
             //move("left");//pasamos el valor de left
-            e.preventDefault();
-            x--;//cuando pulse flecha izquierda disminuimos el "x" 
+            if(limitsBall.left > limitsStage.left) {//si el limite de la pelota en left(limitsBall.left), es mayor al limite del escenario(limitsStage.left), en el mismo margen, solamente cuando eso ocurra, disminuya el valor de x
+                e.preventDefault();
+                x--; 
+            }//si vemos en consola el valor inicial de limitsBall de su left es de 347 y en cambio el valor inicial de limitsStage de su left es 32, por eso la condicion de (limitsBall.left > limitsStage.left)
+            //x--;//cuando pulse flecha izquierda disminuimos el "x" 
             break;
-    
-        case 39: //cuando vale derecha, es decir la tecla de flecha derecha
+            
+            case 39: //cuando vale derecha, es decir la tecla de flecha derecha
             //move("right");
-            e.preventDefault();
-            x++;//cuando pulse flecha derecha aumentamos el "x" 
+            if(limitsBall.right < limitsStage.right) {//si el limite de la pelota(limitsBall.right), es menor al limite del escenario(limitsStage.right), en el mismo margen, solamente cuando eso ocurra, aumenta el valor de x
+                e.preventDefault();
+                x++; 
+            }//si vemos en consola el valor inicial de limitsBall de su right es de 411 y en cambio el valor inicial de limitsStage de su right es 726, por eso la condicion de (limitsBall.right < limitsStage.right)
+            //x++;//cuando pulse flecha derecha aumentamos el "x" 
             break;
     
         default: //con default no hacemos nada pero le dejamos
