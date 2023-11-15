@@ -1,3 +1,4 @@
+//para que dea el reloj de cuenta regresiva descomentamos la linea 23 y ver que la fecha de cumple sea mayor a la fecha actual
 const d = document;
 export default function countdown(id,limitDate,finalMessage){ //recibe 3 parametros, uno es el id: del selector, fecha limite(limitDate) y final mensaje(finalMessage)
     const $countdown = d.getElementById(id),//recibimos el 1mer parametro:countdown
@@ -16,11 +17,17 @@ export default function countdown(id,limitDate,finalMessage){ //recibe 3 paramet
             //("0"+Math.floor((limitTime % (1000*60*60*24))/(1000*60*60))): todo es cadena de texto
             //slice(), para recortar cadena de texto o arreglos, si le das valor negativo empieza a recortar hacia a tras, entonces 011 horas recorta a 11 horas y si es de 01-09 horas ñe deja como esta, este slice es si deseas
 
-            minutes = ("0"+Math.floor((limitTime % (1000*60*60))/(1000*60))).slice(-2), //aqui lo unico que cambiaria es el factor de conversion a minutos:1000*60
-            seconds =("0"+Math.floor((limitTime % (1000*60))/(1000))).slice(-2);//aqui lo unico que cambiaria es el factor de conversion a milisegundos:1000
+            minutes = ("0"+Math.floor((limitTime % (1000*60*60))/(1000*60))).slice(-2), //(limitTime % (1000*60*60)):para q el residuo sea en milisegundos, es decir lo restante en minutos y a este residuo lo dividimos por 1000*60(milisegundos en 1 segundo) ; y milisegundos en una hr(1000*60*60)
+            seconds =("0"+Math.floor((limitTime % (1000*60))/(1000))).slice(-2);//(limitTime % (1000*60)):para q el residuo sea en milisegundos, es decir lo restante en segundos y a este residuo lo dividimos por 1000 milisegundos ; y milisegundos en un minuto(1000*60)
 
-        $countdown.innerHTML =`<h3> Faltan: ${days} días ${hours} horas ${minutes} minutos ${seconds} segundos</h3>`//en su contenido innerHTML de $countdown, va contener
+        //$countdown.innerHTML =`<h3> Faltan: ${days} días ${hours} horas ${minutes} minutos ${seconds} segundos</h3>`//en su contenido innerHTML de $countdown, va contener
         
+        if(limitTime<0){//cuando el proximo cumpleaños pasado en fechas es menor que la fecha ahora
+            //a modo de ejemplo cambiamos la fecha pasado en limitDate(Mayo 23,2024 03:23:19) a Nov 15,2023 13:07:00
+            clearInterval(countdownTemp);//limpiamos el setInterval
+            $countdown.innerHTML =`<h3> ${finalMessage} </h3>`//imprimimos el mensaje pasado en la variable finalMessage
+            //al final imprime:Feliz Cummpleaño Amigo 🤓
+        }
         //las 2 siguientes lineas comentamos, si queremos entender mejor descomentamos
         //console.log(countdownDate, nowfecha);//con countdownDate:imprime varias veces un valor estatico que le pasamos, el 2do valor de nowfecha:imprime la fecha actual y segun pasa el tiempo esto va aumentando
         //console.log(limitTime);//con esto le decimos cuanto tiempo resta en milisegundos
