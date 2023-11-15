@@ -163,3 +163,22 @@ img{
     background-color: var(--main-color);
 }
 /*************************** fin eventos del teclado ****************************/
+
+/*************************** inicio scroll-top-btn ****************************/
+.scroll-top-btn{
+    position: fixed;  /*nos da una posicion fija y encima de todo los elementos de dicho elemento que se aplico fixed*/
+    z-index: 999; /*Cuando varios elementos se superponen, los elementos con mayor valor z-index cubren aquellos con menor valor*/
+    bottom: 1vh; /*da un espaciado de abajo de 1vh(representa un porcentaje de la altura de la ventana gráfica)*/
+    right: calc(4.25rem + 1vw);/* vw:representa un porcentaje del ancho de la ventana gráfica, 4.25 rem para que se retire al lado del boton(de los menus) dejando espacio*/
+    width: 4rem;/*tanto el alto y ancho de este boton tiene 4 rem*/
+    height: 4rem;
+    border-radius: 50%;
+    font-size: 2rem;/*tamaño de letra*/
+    font-weight: bold; /*negrita*/
+    background-color: var(--main-color); /*color amarrilo*/
+    color: var(--second-color);/*colo gris medio negro*/
+    cursor: pointer;/*salga mano*/
+    outline: 0;/*para dibujar un borde alrededor del elemento*/
+    border: 0;/*ningun borde,esta propiedad no ocupa espacio dentro del diseño, es decir, no afecta al tamaño de la caja del elemento*/
+}
+/*************************** fin scroll-top-btn ****************************/
