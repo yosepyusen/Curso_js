@@ -2,6 +2,7 @@ import hamburgerMenu from "./menu_hamburguesa.js";//podemos escribir solo "hambu
 import { digitalClock,alarm } from "./reloj.js"; //como no hay ningun funcion por default uso la destructuracion de obj.
 import { shortcuts,moveBall } from "./teclado.js";//importamos la funcion shortcuts
 import countdown from "./cuenta_regresiva.js"; //cuando importas por default no es necesario poner los {}
+import scrollTopButton from "./boton_scroll.js";
 
 const d=document;
 
@@ -15,6 +16,9 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
     countdown("countdown","Mayo 23,2024 03:23:19","Feliz Cummpleaño Amigo 🤓");//no van utilizar #, esto pondriamos cuando usariamos querySelector, pero internamente usaremos getElementById
     //Mayo 23,2023 03:23:19, formato:mes-dia-año y  03:23:19, es la hora de nacimiento por decirlo asi, cualquier formato fecha js, sirve
     //el año de la fecha que pasamos debe de ser mayor a la fecha actual para poder decir faltan tantos dias, meses...
+
+    //clase 87
+    scrollTopButton(".scroll-top-btn");//es una clase por eso se agrega el punto despues scroll-top-btn
 });
 
 //principalmente el teclado tiene 3 eventos: keyup:cuando soltamos la tecla, keydown:cuando presionamos y keypress:mientras la precionamos la tecla

@@ -180,5 +180,19 @@ img{
     cursor: pointer;/*salga mano*/
     outline: 0;/*para dibujar un borde alrededor del elemento*/
     border: 0;/*ningun borde,esta propiedad no ocupa espacio dentro del diseño, es decir, no afecta al tamaño de la caja del elemento*/
+    transition: all 0.3s ease-out; /*el cambio de hover lo haga con transicion de todo los estilos, ease-out:es como aceleracion salida creo*/
 }
+
+/*invertir los colores en el boton hover del boton*/
+.scroll-top-btn:hover{
+    background-color: var(--second-color);
+    color: var(--main-color);
+}
+
+.hidden{ /*cuando tenga la clase*/ 
+    visibility: hidden; /*con hidden ocultamos el scroll-top-btn*/
+    opacity: 0; /*Para ajustar la opacidad (y la transparencia) */
+    /**/
+}
+
 /*************************** fin scroll-top-btn ****************************/
