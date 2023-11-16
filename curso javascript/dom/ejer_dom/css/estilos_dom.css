@@ -194,5 +194,30 @@ img{
     opacity: 0; /*Para ajustar la opacidad (y la transparencia) */
     /**/
 }
-
 /*************************** fin scroll-top-btn ****************************/
+
+/*************************** inicio dark-theme-btn ****************************/
+.dark-theme-btn{
+    position: fixed;  /*nos da una posicion fija y encima de todo los elementos de dicho elemento que se aplico fixed*/
+    z-index: 999; /*Cuando varios elementos se superponen, los elementos con mayor valor z-index cubren aquellos con menor valor*/
+    bottom: 1vh; /*da un espaciado de abajo de 1vh(representa un porcentaje de la altura de la ventana gráfica)*/
+    left:  1vw;/* vw:representa un porcentaje del ancho de la ventana gráfica*/
+    width: 4rem;/*tanto el alto y ancho de este boton tiene 4 rem*/
+    height: 4rem;
+    border-radius: 50%;
+    font-size: 2rem;/*tamaño de letra*/
+    font-weight: bold; /*negrita*/
+    background-color: var(--main-color); /*color amarrilo*/
+    color: var(--second-color);/*colo gris medio negro*/
+    cursor: pointer;/*salga mano*/
+    outline: 0;/*para dibujar un borde alrededor del elemento*/
+    border: 0;/*ningun borde,esta propiedad no ocupa espacio dentro del diseño, es decir, no afecta al tamaño de la caja del elemento*/
+    transition: all 0.3s ease-out; /*el cambio de hover lo haga con transicion de todo los estilos, ease-out:es como aceleracion salida creo*/
+}
+
+/*invertir los colores en el boton hover del boton*/
+.dark-theme-btn:hover{
+    background-color: var(--second-color);
+    color: var(--main-color);
+}
+/*************************** fin dark-theme-btn ****************************/
