@@ -20,10 +20,6 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
 
     //clase 87
     scrollTopButton(".scroll-top-btn");//es una clase por eso se agrega el punto despues scroll-top-btn
-
-    //clase 88
-    darkTheme(".dark-theme-btn","dark-mode");//primer dato obtenemos la clase del boton con luna y 2do la clase que va activar el tema oscuro, solo necesitamos nombre y no ponemos punto
-    //el dark-mode, se escribio en la hoja css
 });
 
 //principalmente el teclado tiene 3 eventos: keyup:cuando soltamos la tecla, keydown:cuando presionamos y keypress:mientras la precionamos la tecla
@@ -45,4 +41,6 @@ d.addEventListener("keydown",e=>{//este evento se va ejecutar cuando precionamos
 //     shortcuts(e);//shortcuts recibe el evento, primero imprime:KeyboardEvent(el evento en si), despues imprime:keydown, por el segundo console es "e.type"
 // });
 
-
+//clase 88, lo sacamos fuera del DOMContentLoaded, porque dentro de este js que es la funcion darkTheme, vamos utilizar DOMContentLoaded 
+darkTheme(".dark-theme-btn","dark-mode");//primer dato obtenemos la clase del boton con luna y 2do la clase que va activar el tema oscuro, solo necesitamos nombre y no ponemos punto
+//el dark-mode, se escribio en la hoja css
