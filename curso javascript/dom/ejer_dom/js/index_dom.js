@@ -3,6 +3,7 @@ import { digitalClock,alarm } from "./reloj.js"; //como no hay ningun funcion po
 import { shortcuts,moveBall } from "./teclado.js";//importamos la funcion shortcuts
 import countdown from "./cuenta_regresiva.js"; //cuando importas por default no es necesario poner los {}
 import scrollTopButton from "./boton_scroll.js";
+import darkTheme from "./tema_oscuro.js";
 
 const d=document;
 
@@ -19,6 +20,10 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
 
     //clase 87
     scrollTopButton(".scroll-top-btn");//es una clase por eso se agrega el punto despues scroll-top-btn
+
+    //clase 88
+    darkTheme(".dark-theme-btn","dark-mode");//primer dato obtenemos la clase del boton con luna y 2do la clase que va activar el tema oscuro, solo necesitamos nombre y no ponemos punto
+    //el dark-mode, se escribio en la hoja css
 });
 
 //principalmente el teclado tiene 3 eventos: keyup:cuando soltamos la tecla, keydown:cuando presionamos y keypress:mientras la precionamos la tecla

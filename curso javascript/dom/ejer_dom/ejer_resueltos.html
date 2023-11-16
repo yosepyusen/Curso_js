@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-dark> <!-- aplica el modo oscuro a todo los elementos del html, tambien se puede aplicar al body -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="css/estilos_dom.css">
 
 </head>
-<body>
+<body data-dark> <!-- aplica el modo oscuro, data-dark(es un atributo inventado) -->
     
     
     <!-- para compartir los ejercicios del dom:https://codepen.io/ , es como tener un script de css,js y html en tiempo real
     una vez salvado el documento en este codepen, nos va dar un url -->
     <!-- ver tips css de mircha , le borro la lista-->
 
-    <header class="header">
+    <header class="header" data-dark> <!-- podemos agregar el data-dark -->
         <h1>Ejercicios del DOM</h1>
     </header>
         <!-- inicio de codigo semantico con botones del icono hamburguesa--> 
@@ -76,7 +76,7 @@
         hidden es para ocultar el boton
     -->
     <button class="scroll-top-btn hidden" >&#11014;</button>
-    <button class="dark-theme-btn">☀️🌙</button>
+    <button class="dark-theme-btn">🌙</button> <!-- si queremos aplicar el modo oscuro ponemos: <html lang="en" data-dark>, tbm ponemos al body -->
     <!-- fin clase 87,88 -->
     
     <script src="js/index_dom.js" type="module"></script> <!-- para trabajar con modulos ponemos:module -->
