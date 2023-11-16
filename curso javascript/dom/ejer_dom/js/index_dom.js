@@ -44,3 +44,7 @@ d.addEventListener("keydown",e=>{//este evento se va ejecutar cuando precionamos
 //clase 88, lo sacamos fuera del DOMContentLoaded, porque dentro de este js que es la funcion darkTheme, vamos utilizar DOMContentLoaded 
 darkTheme(".dark-theme-btn","dark-mode");//primer dato obtenemos la clase del boton con luna y 2do la clase que va activar el tema oscuro, solo necesitamos nombre y no ponemos punto
 //el dark-mode, se escribio en la hoja css
+
+//aumentando srcoll en barra de menu que yo cree, estas dos lineas sig. son de mios le comentamos 
+// var objDiv = document.getElementById("contenedor");//con estoseleccionamos el id
+// objDiv.scrollTop = objDiv.scrollHeight;//con esto creamos un barra de desplazamiento vertical(scrollTop) y barra de desplzamiento horizontal(scrollHeight)

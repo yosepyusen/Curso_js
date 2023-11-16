@@ -132,6 +132,10 @@ img{
     align-items: center;/*justify-content, trabaja en horizontal"x" */
     text-align: center;/*alinear las letras*/
 }
+#scroll{ /*este #scroll es para generar un barra de dezplazamiento en ele menu*/
+    max-height: 100%; /*no ponemos width, porque en clase .panel esta puesto*/
+    overflow: auto;/*si recortar contenido, dibujar barras de desplazamiento o mostrar el contenido excedente en un elemento a nivel de bloque*/
+}
 .menu a{
     padding: 2rem;
     width: inherit;/*este clase menu herede la anchura de su contenedor()*/
@@ -224,5 +228,5 @@ img{
     background-color: var(--second-color);/*color negro*/
     color: var(--main-color);/*amarrillo*/
 }
-
 /*************************** fin dark-theme-btn ****************************/
+
