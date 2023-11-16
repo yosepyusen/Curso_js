@@ -4,6 +4,7 @@ import { shortcuts,moveBall } from "./teclado.js";//importamos la funcion shortc
 import countdown from "./cuenta_regresiva.js"; //cuando importas por default no es necesario poner los {}
 import scrollTopButton from "./boton_scroll.js";
 import darkTheme from "./tema_oscuro.js";
+import responsiveMedia from "./objeto_reponsive.js";
 
 const d=document;
 
@@ -20,6 +21,16 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
 
     //clase 87
     scrollTopButton(".scroll-top-btn");//es una clase por eso se agrega el punto despues scroll-top-btn
+    
+    //---- inicio clase 89 ---------------
+    //para youtube
+    responsiveMedia("youtube","(min-width:1024px)","Contenido Móvil","Contenido escritorio");// ya no:#youtube, ponemos: youtube, porque vamos usar getElementById
+    //para jquery: (min-width:1024px), es minima anchura
+    
+    //para gmaps
+    responsiveMedia("gmaps","(min-width:1024px)","Contenido Móvil","Contenido escritorio");
+    //---- fin clase 89 ---------------
+
 });
 
 //principalmente el teclado tiene 3 eventos: keyup:cuando soltamos la tecla, keydown:cuando presionamos y keypress:mientras la precionamos la tecla
