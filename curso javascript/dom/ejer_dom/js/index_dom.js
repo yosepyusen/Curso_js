@@ -22,7 +22,7 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
     //clase 87
     scrollTopButton(".scroll-top-btn");//es una clase por eso se agrega el punto despues scroll-top-btn
     
-    //---- inicio clase 89 ---------------
+    //---- inicio clase 90 ---------------
     //para youtube
     responsiveMedia("youtube","(min-width:900px)",//para jquery: (min-width:900px), es minima anchura
     `<a href="https://youtu.be/6IwUl-4pAzc?si=sShh95s8ycA5SCbs" target="_blank" rel="noopener">Ver Video</a>`
@@ -37,7 +37,7 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
     width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`);
     
     //SOLO POR QUE ES BRAVE SALE ERRORES Y A VECES EN OTRO NAVEGADORES SALE PAR DE ERRORES COMO:ERR_BLOCKED_BY_CLIENT, es porque brave tiene bloqieador de navegadores
-    //---- fin clase 89 ---------------
+    //---- fin clase 90 ---------------
 
 });
 
@@ -60,9 +60,10 @@ d.addEventListener("keydown",e=>{//este evento se va ejecutar cuando precionamos
 //     shortcuts(e);//shortcuts recibe el evento, primero imprime:KeyboardEvent(el evento en si), despues imprime:keydown, por el segundo console es "e.type"
 // });
 
-//clase 88, lo sacamos fuera del DOMContentLoaded, porque dentro de este js que es la funcion darkTheme, vamos utilizar DOMContentLoaded 
+//clase 88, 89, lo sacamos fuera del DOMContentLoaded, porque dentro de este js que es la funcion darkTheme, vamos utilizar DOMContentLoaded 
 darkTheme(".dark-theme-btn","dark-mode");//primer dato obtenemos la clase del boton con luna y 2do la clase que va activar el tema oscuro, solo necesitamos nombre y no ponemos punto
 //el dark-mode, se escribio en la hoja css
+//---- fin clase 88, 89 ----
 
 //aumentando srcoll en barra de menu que yo cree, estas dos lineas sig. son de mios le comentamos 
 // var objDiv = document.getElementById("contenedor");//con estoseleccionamos el id
