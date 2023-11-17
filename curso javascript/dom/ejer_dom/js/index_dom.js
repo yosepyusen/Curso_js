@@ -28,7 +28,7 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
     //para jquery: (min-width:1024px), es minima anchura
     
     //para gmaps
-    responsiveMedia("gmaps","(min-width:1024px)","Contenido Móvil","Contenido escritorio");
+    responsiveMedia("gmaps","(min-width:900px)","Contenido Móvil","Contenido escritorio");
     //---- fin clase 89 ---------------
 
 });
