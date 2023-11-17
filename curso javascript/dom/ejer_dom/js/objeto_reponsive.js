@@ -14,6 +14,7 @@ export default function responsiveMedia(id, mq, mobileContent, desktopContent){ 
         }else{//caso contrario si el false, es decir si es a una anchura menor a 1024px
             d.getElementById(id).innerHTML = mobileContent;
         }
+        //en la sig. linea comentamos solo descomentamos para entender mejor
         console.log("MQ",e.matches,breakpoint);//imprime:MQ false(si el ancho de la ventana es menor a 900px) y true(si es mayor a 1024px)
         //con breakpoint, imprime:MediaQueryList {media: '(min-width: 900px)', matches: false, onchange: null}, si es menor a 900px si es mayor a 900px dentro de MediaQueryList imprime true
     }   
@@ -23,7 +24,7 @@ export default function responsiveMedia(id, mq, mobileContent, desktopContent){ 
     //addListener, no se ejecuta a la carga del documento, se ejecuta cuando hay cambio en media query es decir en ancho de la pagina web
     //tbm se puede usar window.load o window resize cambio de addListener
 
-    //resposive(breakpoint);//ejecutamos directamente el resposive, al momento que cargue la pagina web, pasando el breakpoint(el media query)
+    resposive(breakpoint);//ejecutamos directamente el resposive, al momento que cargue la pagina web, pasando el breakpoint(el media query)
     //esta funcion responsiveMedia, esta ejecutandose en index_dom.js, dentro de DOMContentLoaded
 }
 

@@ -24,11 +24,19 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
     
     //---- inicio clase 89 ---------------
     //para youtube
-    responsiveMedia("youtube","(min-width:1024px)","Contenido Móvil","Contenido escritorio");// ya no:#youtube, ponemos: youtube, porque vamos usar getElementById
-    //para jquery: (min-width:1024px), es minima anchura
+    responsiveMedia("youtube","(min-width:900px)",//para jquery: (min-width:900px), es minima anchura
+    `<a href="https://youtu.be/6IwUl-4pAzc?si=sShh95s8ycA5SCbs" target="_blank" rel="noopener">Ver Video</a>`
+    ,`<iframe width="560" height="315" src="https://www.youtube.com/embed/6IwUl-4pAzc?si=QIQwZYyovcAQ3KE_" 
+    title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media;
+     gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`);// ya no:#youtube, ponemos: youtube, porque vamos usar getElementById
     
     //para gmaps
-    responsiveMedia("gmaps","(min-width:900px)","Contenido Móvil","Contenido escritorio");
+    responsiveMedia("gmaps","(min-width:900px)",
+    `<a href="https://maps.app.goo.gl/qA2hcaCQSaZLopsn7" target="_blank" rel="noopener">Ver Video</a>`,
+    `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.053441245366!2d-76.24225622567167!3d-9.929507506099508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91a7c2e25c51eee9%3A0x791adbfd296fbb35!2sPlaza%20de%20Armas%20de%20Hu%C3%A1nuco!5e0!3m2!1ses-419!2spe!4v1700224630052!5m2!1ses-419!2spe" 
+    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`);
+    
+    //SOLO POR QUE ES BRAVE SALE ERRORES Y A VECES EN OTRO NAVEGADORES SALE PAR DE ERRORES COMO:ERR_BLOCKED_BY_CLIENT, es porque brave tiene bloqieador de navegadores
     //---- fin clase 89 ---------------
 
 });
