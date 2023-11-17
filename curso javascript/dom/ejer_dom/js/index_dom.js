@@ -5,6 +5,7 @@ import countdown from "./cuenta_regresiva.js"; //cuando importas por default no 
 import scrollTopButton from "./boton_scroll.js";
 import darkTheme from "./tema_oscuro.js";
 import responsiveMedia from "./objeto_reponsive.js";
+import resposiveTester from "./prueba_resposive.js";
 
 const d=document;
 
@@ -38,7 +39,10 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
     
     //SOLO POR QUE ES BRAVE SALE ERRORES Y A VECES EN OTRO NAVEGADORES SALE PAR DE ERRORES COMO:ERR_BLOCKED_BY_CLIENT, es porque brave tiene bloqieador de navegadores
     //---- fin clase 90 ---------------
-
+    
+    //---- inicio clase 90 ---------------
+    resposiveTester("resposive-tester");//no usamo # , ya que internamente voy usar getElementById
+    
 });
 
 //principalmente el teclado tiene 3 eventos: keyup:cuando soltamos la tecla, keydown:cuando presionamos y keypress:mientras la precionamos la tecla
