@@ -45,7 +45,7 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
     resposiveTester("resposive-tester");//no usamo # , ya que internamente voy usar getElementById
 
     //---- inicio clase 92 ---------------
-    userDeviceInfo();
+    userDeviceInfo("user-device");
 });
 
 //principalmente el teclado tiene 3 eventos: keyup:cuando soltamos la tecla, keydown:cuando presionamos y keypress:mientras la precionamos la tecla

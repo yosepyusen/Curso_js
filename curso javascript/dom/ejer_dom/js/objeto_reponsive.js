@@ -15,7 +15,7 @@ export default function responsiveMedia(id, mq, mobileContent, desktopContent){ 
             d.getElementById(id).innerHTML = mobileContent;
         }
         //en la sig. linea comentamos solo descomentamos para entender mejor
-        console.log("MQ",e.matches,breakpoint);//imprime:MQ false(si el ancho de la ventana es menor a 900px) y true(si es mayor a 1024px)
+        //console.log("MQ",e.matches,breakpoint);//imprime:MQ false(si el ancho de la ventana es menor a 900px) y true(si es mayor a 1024px)
         //con breakpoint, imprime:MediaQueryList {media: '(min-width: 900px)', matches: false, onchange: null}, si es menor a 900px si es mayor a 900px dentro de MediaQueryList imprime true
     }   
 
