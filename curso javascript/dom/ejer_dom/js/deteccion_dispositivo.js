@@ -52,14 +52,46 @@ export default function userDeviceInfo(id){//id donde captura toda la informacio
             );
         }, 
     };
-    console.log(isMobile.android());//si sale null en consola es porque no hay ese tipo de celular o pc, es mas para validar
+    //console.log(isMobile.android());//si sale null en consola es porque no hay ese tipo de celular o pc, es mas para validar
     //console.log(ua);//imprime: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 , nos buen info. del dispositivo desde que nos visita el usuario, la info. va cambiar segun el navegador en que estas y el pc o mobil  
     //en inspeccionar si cambiamos a mobil nos imprime: Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1 , en este caso dice que estmos en moobil
 
+    //si mobile.any, es verdadero imprime:isMobile.any, caso contrario imprime isDesktop.any
     $id.innerHTML = `
     <ul>
         <li>User Agent: <b>${ua}</b></li>
-        <li>Plataforma: <b>${ua}</b></li>
+        <li>Plataforma: <b>${isMobile.any()? isMobile.any() :isDesktop.any()}</b></li> 
+        <li>Navegador: <b>${isBrowser.any()}</b></li>
     </ul>
     `;
+
+    /* Contenido exclusivo */
+    
+    //cuando esta dentro de que navegador
+    if(isBrowser.chrome()){//si estoy en chrome a verdadero
+        $id.innerHTML += `<p><mark>Este contenido solo se ve en Chrome</mark></p>`;
+    }
+
+    if(isBrowser.firefox()){//
+        $id.innerHTML += `<p><mark>Este contenido solo se ve en Chrome</mark></p>`;
+    }
+    
+    //cuando el usuario viene de que marca de pc
+    if(isDesktop.linux()){//
+        $id.innerHTML += `<p><mark>Descargue nuestro software para Linux</mark></p>`;
+    }
+    
+    if(isDesktop.mac()){
+        $id.innerHTML += `<p><mark>Descargue nuestro software para Mac OS</mark></p>`;
+    }
+    
+    if(isDesktop.windows()){
+        $id.innerHTML += `<p><mark>Descargue nuestro software para Windows</mark></p>`;
+    }
+
+    //redirecciones
+    if(isMobile.android()){//esta redireccion se va a dar siempre y cuando el usuario este dentro deun celular android
+        window.location.href = "https://jonmircha.com/";
+    }
+
 }   
