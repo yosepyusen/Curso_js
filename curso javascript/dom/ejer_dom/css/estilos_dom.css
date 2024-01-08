@@ -230,3 +230,20 @@ img{
 }
 /*************************** fin dark-theme-btn ****************************/
 
+/*************************** Network Status, estilos para la deteccion de linea de internet *********/
+.online,
+.offline {
+    position: sticky; /*para q aparezca encima de la cabecera de la pagina, es como fixed, pero en este caso el menu esta debajo del slider y cuando baja se queda fijado en la parte arriba de la pagina web*/
+    top:0;
+    z-index: 1000;/*los demas esta con z index de 998,999*/
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    background-color: #1b5e20;/*el color de fondo*/
+    color: #fff; /*color de letra*/
+}
+
+.offline{ /*los demas estilos se mantienen solo cambia en rojo el fondo cuando no hay internet*/
+    background-color: #b71c1c;
+}

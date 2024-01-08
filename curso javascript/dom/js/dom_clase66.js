@@ -24,8 +24,8 @@ $whatIsDOM.innerText=text;//con esto reemplazamos el parrafo "loremipsum" por va
 // <p id="que-es">...</p>, dentro de este parrafo reemplaza por el valor de la variable text y ademas añade <br>, porque el template stirng esta mapeando estas tabulaciones que tengo, ademas...
 //dentro del template stirng las etiquetas como <p>,<mark> no lo conocen como etiqueta html
 
-$whatIsDOM1.textContent = text;//con imprime pero ya es mas acomodado y no hay <br> y tbm no interpreta las etiquetas html,reemplazamos de forma estandar
-//pero uso de textContent podemos usar para recibir solo texto y evitar inyeccion
+$whatIsDOM1.tent = text;//con imprime pero ya es mas acomodado y no hay <br> y tbm no interpreta las etiquetas html,reemplazamos de forma estandar
+//pero uso de tent podemos usar para recibir solo texto y evitar inyeccion
 
 //para que dentro de text del template stirng se renderice como html usamos:
 $whatIsDOM1.innerHTML=text;

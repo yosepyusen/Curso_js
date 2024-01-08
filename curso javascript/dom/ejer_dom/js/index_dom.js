@@ -7,6 +7,7 @@ import darkTheme from "./tema_oscuro.js";
 import responsiveMedia from "./objeto_reponsive.js";
 import resposiveTester from "./prueba_resposive.js";
 import userDeviceInfo from "./deteccion_dispositivo.js";
+import networkStatus from "./deteccion_red.js";
 
 const d=document;
 
@@ -75,3 +76,7 @@ darkTheme(".dark-theme-btn","dark-mode");//primer dato obtenemos la clase del bo
 //aumentando srcoll en barra de menu que yo cree, estas dos lineas sig. son de mios le comentamos 
 // var objDiv = document.getElementById("contenedor");//con estoseleccionamos el id
 // objDiv.scrollTop = objDiv.scrollHeight;//con esto creamos un barra de desplazamiento vertical(scrollTop) y barra de desplzamiento horizontal(scrollHeight)
+
+// ---- clase 93 -----
+// como es de detectar la red no es necesario poner de DOMContentLoaded
+networkStatus();
