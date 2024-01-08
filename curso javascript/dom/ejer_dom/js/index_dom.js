@@ -8,6 +8,7 @@ import responsiveMedia from "./objeto_reponsive.js";
 import resposiveTester from "./prueba_resposive.js";
 import userDeviceInfo from "./deteccion_dispositivo.js";
 import networkStatus from "./deteccion_red.js";
+import webCam from "./deteccion_webcam.js";
 
 const d=document;
 
@@ -47,6 +48,9 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
 
     //---- inicio clase 92 ---------------
     userDeviceInfo("user-device");
+
+    //----- clase 94 ------
+    webCam("webcam");
 });
 
 //principalmente el teclado tiene 3 eventos: keyup:cuando soltamos la tecla, keydown:cuando presionamos y keypress:mientras la precionamos la tecla
