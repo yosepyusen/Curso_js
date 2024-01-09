@@ -107,6 +107,8 @@ img{
     /*transform: translate(0,100%);/*menu salga de ABAJO a ARRIBA*/
     /*transform: translate(100%,0);/*menu salga de DERECHA a IZQUIERDA*/
     /*transform: translate(-100%,0);/*menu salga de IZQUIERDA a DERECHA*/
+
+    /*overflow-y: auto;/* todo que se desborde en vertical se acomoda automaticamente, mas que todo es para que crea una barra vertical dentro del panel hamburguer */
 }
 
 .panel.is-active{ /*creamos una clase para que, para agregar o quitar a la clase .panel*/
