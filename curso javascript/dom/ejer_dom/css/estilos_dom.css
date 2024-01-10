@@ -40,9 +40,9 @@ body{/* reseteamos el body con margin cero ya que por defecto tiene 8px */
     overflow-x: hidden; /* para que todo que se desborde en horizontal se oculte y  no nos genere barra de desplazamiento, hidden:esconde un elemento, pero deja (vacío) el espacio donde debería aparecer. */
 }
 
-img{
-    max-width: 100%;
-    height: auto;
+img{/*para uso de imgs, */
+    max-width: 100%; /*se adapten a la maxima anchura*/
+    height: auto;/* height especifica la altura de un elemento */
 }
 
 .header{
@@ -232,7 +232,7 @@ img{
 }
 /*************************** fin dark-theme-btn ****************************/
 
-/*************************** Network Status, estilos para la deteccion de linea de internet *********/
+/*************************** INICIO: Network Status, estilos para la deteccion de linea de internet *********/
 .online,
 .offline {
     position: sticky; /*para q aparezca encima de la cabecera de la pagina, es como fixed, pero en este caso el menu esta debajo del slider y cuando baja se queda fijado en la parte arriba de la pagina web*/
@@ -249,3 +249,42 @@ img{
 .offline{ /*los demas estilos se mantienen solo cambia en rojo el fondo cuando no hay internet*/
     background-color: #b71c1c;
 }
+/*************************** FIN: Network Status, estilos para la deteccion de linea de internet *********/
+
+
+/************** inicio de searhc filter y tarjetas:cards *************************/  
+
+:root{ /*root representa la etiqueta html que tiene mayor peso especifico que la etiqueta html y dentro de root se crean las variables*/
+    --yellow-color:purple; /*se crea una variable, pero primero se agrega siempre dos veces guion:--, para crear una variable de css, despues, yelow-color:es el nombre*/
+    --dark-color:pink; /*otra variable css y va estar todo los selectores del documento, dichas variables css*/        
+}
+
+.cards {
+    margin-top: 1rem;
+   /* border: thin solid var(--yellow-color); /* tenga un borde delgado=thin, solido y de color=var(--dark-color); */
+    display: grid; /* display: grid te proporciona una cuadrícula de una sola columna, */
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));/*grid-template-columns:permite definir columnas, repeat:funcion que nos permite repetir varias columnas(primer parametro nos hace referencia al # de columnas que quiero repetir y el 2do prametro a su valor que va tener cada columna:250px) */
+    /*resposive automatico, en la linea anterior, al poner auto-fit:en base al # de elementos hijos que tiene el elemento grid, pues como se van apilar las columnas
+    minmax: es para que al elemento grid permite osiclar el tamaño, en este caso la columna, entre el tamaño minimo 250px y tamaño max que es una fraccion*/
+}
+
+.card {
+    background-color: var(--second-color);
+    color: var(--main-color);
+    transition: all 0.3s ease-out;  /*con transicion de todo los estilos, ease-out:es como aceleracion salida creo*/
+    
+}
+.card img{/* adicionalmente damos a la img que esta dentro de la tarjeta */
+    width: 100%;/* tenga el 100% de su contenedor */
+    height: auto; /* y la altura automatica para que la img no se deforme */
+}
+
+.card figcaption {
+    padding: 1rem;
+
+}
+
+.filter{ /* para la busqueda */
+    display: none; /* es como invisibilidad del elemento y quita el espacidado de ese elemento */
+}
+/************** fin de searhc filter  y tarjetas:cards *************************/   

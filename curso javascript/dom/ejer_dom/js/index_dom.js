@@ -10,6 +10,7 @@ import userDeviceInfo from "./deteccion_dispositivo.js";
 import networkStatus from "./deteccion_red.js";
 import webCam from "./deteccion_webcam.js";
 import getGeolocation from "./geolocalizacion.js";
+import searchFilters from "./filtro_busquedas.js";
 
 const d=document;
 
@@ -55,6 +56,9 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
 
     //------ clase 95 -------
     getGeolocation("geolocation");//nombre del id del div de geolocation
+
+    //----- clase 96 -----
+    searchFilters(".filtro-tarjeta",".card");//en elemento que contiene las tarjetas primer arametro y el 2do es sobre cada una de las trajetas o selector
 });
 
 //principalmente el teclado tiene 3 eventos: keyup:cuando soltamos la tecla, keydown:cuando presionamos y keypress:mientras la precionamos la tecla
