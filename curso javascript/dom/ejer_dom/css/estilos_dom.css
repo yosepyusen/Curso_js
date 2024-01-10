@@ -285,6 +285,9 @@ img{/*para uso de imgs, */
 }
 
 .filter{ /* para la busqueda */
-    display: none; /* es como invisibilidad del elemento y quita el espacidado de ese elemento */
+    /*display: none; /* es como invisibilidad del elemento y quita el espacidado de ese elemento */
+    visibility: hidden; /* añadimos visibilidad y con hidden que esconde, pero deja (vacío) el espacio donde debería aparecer */
+    opacity: 0;/* opacidad cero, es decir oculta el elemento */
+    order: 1; /* todas las tarjetas q se oculten se van recorrer al final */
 }
 /************** fin de searhc filter  y tarjetas:cards *************************/   
