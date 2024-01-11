@@ -291,3 +291,15 @@ img{/*para uso de imgs, */
     order: 1; /* todas las tarjetas q se oculten se van recorrer al final */
 }
 /************** fin de searhc filter  y tarjetas:cards *************************/   
+
+/**************************** inicio responsive slider *******************************/
+
+.slider{
+    position: relative; /*es para poner el elemento mas abajo o mas alla pero la posicion original que esta va seguir ocupando el espacio
+    es como poner un clon mas abajo o mas alla dependiendo donde queremos mover pero la posicion origina va estar vacio ocupando espacio*/
+    width: 80%;
+    margin: 1rem auto;
+    text-align: center;
+}
+
+/**************************** Fin responsive slider *******************************/
