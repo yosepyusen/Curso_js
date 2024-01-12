@@ -12,6 +12,7 @@ import webCam from "./deteccion_webcam.js";
 import getGeolocation from "./geolocalizacion.js";
 import searchFilters from "./filtro_busquedas.js";
 import draw from "./sorteo.js";
+import slider from "./carrusel.js";
 
 const d=document;
 
@@ -63,6 +64,9 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
 
     //----- lcase 97 -----
     draw("#winer-btn",".player");//primer parametro es id y 2do es estilo
+
+    // ----- clase 98 ----
+    slider();
 });
 
 //principalmente el teclado tiene 3 eventos: keyup:cuando soltamos la tecla, keydown:cuando presionamos y keypress:mientras la precionamos la tecla

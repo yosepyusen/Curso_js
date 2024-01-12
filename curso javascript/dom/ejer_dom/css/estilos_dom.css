@@ -52,6 +52,7 @@ img{/*para uso de imgs, */
     padding: 0.5rem; /*padding para los 4 lados*/
     background-color: var(--main-color);
     color: var(--second-color); /* color a la letra */
+    z-index: 997;/*agregamos un z-index menos que el menu de navegacion*/
 }
 
 .header h1{ /* reseteamos los estilos del h1 que esta dentro de header */
@@ -296,10 +297,66 @@ img{/*para uso de imgs, */
 
 .slider{
     position: relative; /*es para poner el elemento mas abajo o mas alla pero la posicion original que esta va seguir ocupando el espacio
-    es como poner un clon mas abajo o mas alla dependiendo donde queremos mover pero la posicion origina va estar vacio ocupando espacio*/
+    es como poner un clon mas abajo o mas alla dependiendo donde queremos mover pero la posicion origina va estar vacio ocupando espacio
+    por defecto el posicionamiento es statico*/
     width: 80%;
     margin: 1rem auto;
     text-align: center;
+    border: thin solid black;
 }
+
+.slider-slides{
+    position: relative;
+    height: 360px; /* con este tamaño de height el contenido se desborda y se apilas los << y >> , 360 es el alto de la img*/
+}
+
+.slider-slide{
+    height: 100%;/*una altura total de su contenedor y anchura total*/
+    width: 100%;
+    position: absolute; /* se posiciona respecto al 1mer elemento padre  q encuentre en el arbol de dom que sea relativo, y si no encuentra ningun elemento q tenga posicionamiento relativo , entonces se va posicionar respecto al body, por eso anterior se puso a los 2 posicion relative */
+    top: 0;/* te vas posicionar a top cero y left cero para que este posicionado con el origen con el contenedor del slider-slides */
+    left: 0;
+    transition: opacity 1s ease; /*aplicamos transicion a propiedad opaciti, q dure un seg. y efecto de aceleracion ease,  */
+    opacity: 0;/*empezan con opacidad de cero*/
+    visibility: hidden; /* añadimos visibilidad y con hidden que esconde, pero deja (vacío) el espacio donde debería aparecer */
+}
+.slider-slide img{ /* a las imgs que estan dentro de slide */
+    height: inherit; /* tanto la anchura y altura se herede, es cuando la img tiene alto de 400px y see ajuste a 360 de alto*/
+    width: inherit;
+    /*object-fit: contain;/* adapta la img, solo la parte altura, para que no se deforme, pero la parte ancho no llena completamente*/
+    object-fit: cover;/*adapta al ancho del contenedor , pero no se ve todo, es como la img se ve puesto zoom*/
+    object-position: 50% 0%; /* valor por defecto es 50%:X 50%:Y */
+}
+
+.slider-slide.active{ /* a la 1 mer clase activamos la visibilidad */
+    opacity: 1;
+    visibility: visible;
+}
+
+.slider-boton{
+    position: absolute;/*se va posicionar respecto 1mer elemento relativo padre*/
+    top: 40%;/*a la mitad posicionamos os btns*/
+    display: flex;/*los dos elementos btn se ponen en fila */
+    justify-content: space-between; /*propiedad de alineacion justify-content, damos valor de space-betwen:el espacio sobrante reparta entre los elementos, ademas para que haga este efecto ponemos width:100%*/
+    width:100%;
+    font-size: 3em;/*1em=16px*/
+    font-weight: bold;
+}
+
+.slider a{
+    display: block; /*convitiendo de display en line en bloque de un enlace*/
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%; /* 4rem de width y height mas border de color negro solido crea un circulo negro*/
+    border: thin solid #000;
+    text-decoration: none; 
+    background-color: #fff; /*fondo blanco del circulo*/
+    color: #000; /* color negro de << y >>*/
+}
+
+.slider a:hover{
+    color: #4d4d4d;
+}
+
 
 /**************************** Fin responsive slider *******************************/
