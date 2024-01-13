@@ -357,6 +357,59 @@ img{/*para uso de imgs, */
 .slider a:hover{
     color: #4d4d4d;
 }
-
-
 /**************************** Fin responsive slider *******************************/
+
+/**************************** inicio scroll spy *******************************/
+@media screen and (min-width:1024px){ /*cuando la min anchura sean 1024px, que cargue estos estilos*/
+   body{
+        display: grid; /* display: grid te proporciona una cuadrícula de una sola columna, */
+        grid-template-columns: 80% 20%; /* dfinimos las dos columnas una de 80 y el otro de 20%  */
+        grid-template-rows: 4rem auto;/* definimos las filas 1mer fila 4rem que tamaño del header y el 2do al tamaño automatico */
+        
+        grid-template-areas: /*cada entre comillado es una fila para el grid y alineamos panel con header*/
+        "header header" /* definimos areas, header va estar en las dos primeras columnas de la primera fila */
+        "main   panel"; /* en la segunda fila de la 1ra columna va estar el main y en la 2do columna de la 2da fila va estar elemento panel */
+    } 
+    /* para que obedezca esa maquetacion de grid anteriores, le decimos en... */
+    main{
+        grid-area: main; /* grid area que va ocupar es main */
+    }
+    .header{
+        grid-area: header;
+    }
+    .panel{
+        grid-area: panel;
+        align-self: start; /*para que se alinee al inicio de donde empieza la celda el contenido y para la barra de menu cubra todo el alto*/
+        position: sticky;/*sticky:el elemento se comporta como position: relative, hasta que se desplaza a una posición determinada, luego se fija en esa posición y se comporta como position: fixed */
+        top: 4rem;/* es decir cuando alcance un posicion de 4rem al igual q tmño d header se va posicionar el panel en posicion fija:fixed */
+        justify-content: flex-start; /*aplica para grid y felx box, y flex-start:para que el contenido que son los enlaces empiecen al inicio*/
+        background-color: var(--second-color);
+        /*las dos sig. lineas viene del estilo: .panel.is-active*/
+        opacity: 1;
+        visibility: visible;
+    }
+    .panel-btn{
+        display: none;
+    }
+
+    .menu{
+        justify-content: start;/* el contenido que son los enlaces empiecen al inicio */
+        text-align: right;
+    }
+
+    .menu a{
+        font-size: 1rem;
+        padding: .75rem;
+    } 
+    .menu a:hover,
+    .menu a.active{ /* los mismos estilos aplica a la clase menu con etiqueta a y con la clase .active */
+        color: var(--second-color);
+        background-color: var(--main-color);
+    }
+    .scroll-top-btn{
+        right: initial; /* toma el valor inicial por defecto */
+        left: calc(4.25rem + 1vw);
+    }
+}
+
+/**************************** fin scroll spy *******************************/

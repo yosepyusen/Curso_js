@@ -13,6 +13,7 @@ import getGeolocation from "./geolocalizacion.js";
 import searchFilters from "./filtro_busquedas.js";
 import draw from "./sorteo.js";
 import slider from "./carrusel.js";
+import scrollSpy from "./scroll_espia.js";
 
 const d=document;
 
@@ -67,6 +68,9 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
 
     // ----- clase 98 ----
     slider();
+    
+    // ----- clase 99 ----
+    scrollSpy();
 });
 
 //principalmente el teclado tiene 3 eventos: keyup:cuando soltamos la tecla, keydown:cuando presionamos y keypress:mientras la precionamos la tecla

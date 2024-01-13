@@ -30,28 +30,29 @@
     <!-- INICIO panel de navegacion -->
     <aside class="panel">
         <nav class="menu" id="scroll"> <!-- para aumentar el barra de desplazamiento en menu solo agregamos id de esta linea y aumentar en css "#scroll" -->
-            <a href="#seccion1">Reloj Digital y Alarma</a>
-            <a href="#seccion2">Eventos del teclado</a>
-            <a href="#seccion3">Cuenta Regresiva</a>
-            <a href="#seccion4">Resposive con Javascript</a>
-            <a href="#seccion5">Responsive tester</a>
-            <a href="#seccion6">Detección de Dispositivos(User Agent)</a>
-            <a href="#seccion7">Detección de la Conexión</a>
-            <a href="#seccion8">Detección de la cámara web</a>
-            <a href="#seccion9">Geolocalización</a>
-            <a href="#seccion10">Filtros de Búsquedas</a>
-            <a href="#seccion11">Sorteo Digital</a>
-            <a href="#seccion12">Responsive Slider</a>
-            <a href="#seccion13">Seccion 13</a>
-            <a href="#seccion14">Seccion 14</a>
-            <a href="#seccion15">Seccion 15</a>
+            <!-- agregamos atributos a todo lo enlaces a del menu -->
+            <a href="#seccion1"  data-scroll-spy>Reloj Digital y Alarma</a>
+            <a href="#seccion2"  data-scroll-spy>Eventos del teclado</a>
+            <a href="#seccion3"  data-scroll-spy>Cuenta Regresiva</a>
+            <a href="#seccion4"  data-scroll-spy>Resposive con Javascript</a>
+            <a href="#seccion5"  data-scroll-spy>Responsive tester</a>
+            <a href="#seccion6"  data-scroll-spy>Detección de Dispositivos(User Agent)</a>
+            <a href="#seccion7"  data-scroll-spy>Detección de la Conexión</a>
+            <a href="#seccion8"  data-scroll-spy>Detección de la cámara web</a>
+            <a href="#seccion9"  data-scroll-spy>Geolocalización</a>
+            <a href="#seccion10" data-scroll-spy>Filtros de Búsquedas</a>
+            <a href="#seccion11" data-scroll-spy>Sorteo Digital</a>
+            <a href="#seccion12" data-scroll-spy>Responsive Slider</a>
+            <a href="#seccion13" data-scroll-spy>Seccion 13</a>
+            <a href="#seccion14" data-scroll-spy>Seccion 14</a>
+            <a href="#seccion15" data-scroll-spy>Seccion 15</a>
         </nav>
     </aside>
     <!-- FIN panel de navegacion -->
         
     <!-- inico main -->
     <main>
-        <section id="seccion1" class="section">
+        <section id="seccion1" class="section" data-scroll-spy>
             <h2>Reloj Digital y Alarma Sonora</h2>
             <div id="reloj"></div>
             <div>
@@ -61,22 +62,22 @@
                 <button id="desactivar-alarma">Detener Alarma</button>
             </div>
         </section> 
-        <section id="seccion2" class="section">
+        <section id="seccion2" class="section" data-scroll-spy>
             <h2>Eventos del teclado</h2>
             <article class="stage">
                 <div class="ball"></div>
             </article>
         </section>
-        <section id="seccion3" class="section">
+        <section id="seccion3" class="section" data-scroll-spy>
             <h2>Cuenta Regresiva</h2>
             <div id="countdown"></div>
         </section>
-        <section id="seccion4" class="section">
+        <section id="seccion4" class="section" data-scroll-spy>
             <h2>Resposive con Javascript</h2>
             <div id="youtube"></div> <!-- cada elemento va capturar un contenido particular, por eso uso id, es decir se va ejecutar una vez la funcion por cada elemento que yo quiero estar  revisando o evaluando  -->
             <div id="gmaps"></div>
         </section>
-        <section id="seccion5" class="section">
+        <section id="seccion5" class="section" data-scroll-spy>
             <h2>Responsive tester</h2>
             <form id="resposive-tester"> <!-- todo los elementos que estan dentro del formulario podemos acceder con el punto ver mas en file prueba_resposive.js -->
                 <input name="direccion" type="url" placeholder="URL" required><!-- tipo:url que valida el contenido https, placeholder:para una forma escrita en el input y es requerido-->
@@ -89,24 +90,24 @@
                 <input name="cerrar" type="button" value="Cerrar"> <!-- tbm se crea con <button  name="cerrar" type="button" value="Cerrar">Cerrar</button>  -->
             </form>
         </section>
-        <section id="seccion6" class="section">
+        <section id="seccion6" class="section" data-scroll-spy>
             <h2>Detección de Dispositivos<br>(User Agent)</h2>
             <div id="user-device"></div>
         </section>
-        <section id="seccion7" class="section">
+        <section id="seccion7" class="section" data-scroll-spy>
             <h2>Detección de la Conexión</h2>
         </section>
-        <section id="seccion8" class="section">
+        <section id="seccion8" class="section" data-scroll-spy>
             <h2>Detección de la cámara web</h2>
             <video src="" id="webcam"> <!-- controls, es para que aparezca un especie de video con sus controles, pero en este caso quitamos -->
 
             </video>
         </section>
-        <section id="seccion9" class="section">
+        <section id="seccion9" class="section" data-scroll-spy>
             <h2>Geolocalización</h2>
             <div id="geolocation"></div> <!-- en este div vamos pintar dinamicamente la info. de geolocation -->
         </section>
-        <section id="seccion10" class="section">
+        <section id="seccion10" class="section" data-scroll-spy>
             <h2>Filtros de Búsquedas</h2>
             <input type="search" placeholder="Buscar..." class="filtro-tarjeta">
             <article class="cards">
@@ -137,7 +138,7 @@
                 </figure>
             </article>   
         </section>
-        <section id="seccion11" class="section">
+        <section id="seccion11" class="section" data-scroll-spy>
             <h2>Sorteo Digital</h2>
             <ul class="players">
                 <li class="player">JavaScript</li>
@@ -153,7 +154,7 @@
             </ul>
             <button id="winer-btn">Obtener Ganador</button>
         </section>
-        <section id="seccion12" class="section">
+        <section id="seccion12" class="section" data-scroll-spy>
             <h2>Responsive Slider</h2>
             <div class="slider">
                 <div class="slider-slides"> <!-- se puede agregar mas slider -->
@@ -180,13 +181,13 @@
                 </div>
             </div>
         </section>
-        <section id="seccion13" class="section">
+        <section id="seccion13" class="section" data-scroll-spy>
             <h2>seccion 13</h2>
         </section>
-        <section id="seccion14" class="section">
+        <section id="seccion14" class="section" data-scroll-spy>
             <h2>seccion 14</h2>
         </section>
-        <section id="seccion15" class="section">
+        <section id="seccion15" class="section" data-scroll-spy>
             <h2>seccion 15</h2>
         </section>
     </main>
