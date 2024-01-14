@@ -32,8 +32,23 @@ export default function scrollSpy(){
     }
     
     const observer = new IntersectionObserver(cb,{ //parametro que recibe es 1ro:callback, adicional recibe una serie de opciones
+        
         //el primer opcion es
-        root
+        //root, hace referencia root principal, es el documento html
+        
+        //segundo opion es
+        //rootMargin: "-250px"//oberver tiene una propiedad de rootMargin: "0px(margin top) 0px(margin rigth) 0px(margin buttom) 0px(margin left)", es necesario poner px, no se puede poner rem
+        //esos -250px le estamos dando margenes a los 4 lados
+        //rootMargin, es para que cuando al estar en medio de dos secciones el panel de navegacion no se me pinten ambos secciones en el menu de navegacion
+        //esos -250px, es hasta que no pasa por mas de 250px la seccion de filtro de busqueda, no se va iluminar esa seccion  
+    
+        //3cer opcion es:
+        //threshold:0.5 //threshold:es limite con un valor que va de cero a uno, 
+        //tbm podemos expresar como un arreglo, significa q podemos pasar varios parametros como: 
+        threshold:[0.5 , 0.75] //actives es IntersectionObserver cuando el elemento este entre un 50% y 75% de su contenido , se puede manejar max y minimos
+        //cuando pongo cero en cuanto el elemento se visualice ejecuta la IntersectionObserver
+        //0.5: es cuando tiene el 50% de su contenido visible en view port
+        //mientras si ponemos entre dos secciones y ninguno llega a un 50% entonces se mantiene despintado la barra de menus
     });
     //el observer: necesita asignarse a un elemento, para que dicho observer pueda observar dicha IntersectionObserver, en este caso me interesa seguir observando a las "secciones", que voy scroleando
     //la sig. linea de cod. comentamos a modo aprendizaje
