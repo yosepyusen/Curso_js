@@ -14,6 +14,7 @@ import searchFilters from "./filtro_busquedas.js";
 import draw from "./sorteo.js";
 import slider from "./carrusel.js";
 import scrollSpy from "./scroll_espia.js";
+import smartVideo from "./video_inteligente.js";
 
 const d=document;
 
@@ -71,6 +72,9 @@ d.addEventListener("DOMContentLoaded",(e)=>{ //cuando carga el documento, ya que
     
     // ----- clase 99 ----
     scrollSpy();
+    
+    // ----- clase 100 ----
+    smartVideo();//no va requerir pasar datos, porque vamos hacer uso de data-smart-video
 });
 
 //principalmente el teclado tiene 3 eventos: keyup:cuando soltamos la tecla, keydown:cuando presionamos y keypress:mientras la precionamos la tecla

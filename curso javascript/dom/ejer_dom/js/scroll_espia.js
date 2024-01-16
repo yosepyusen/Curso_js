@@ -31,7 +31,7 @@ export default function scrollSpy(){
         })
     }
     
-    const observer = new IntersectionObserver(cb,{ //parametro que recibe es 1ro:callback, adicional recibe una serie de opciones
+    const observer = new IntersectionObserver(cb,{ //parametro que recibe es 1ro:callback(funcion q recibe un evento, un add event listener), adicional recibe una serie de opciones
         
         //el primer opcion es
         //root, hace referencia root principal, es el documento html

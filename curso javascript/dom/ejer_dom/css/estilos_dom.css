@@ -412,3 +412,9 @@ img{/*para uso de imgs, */
     }
 }
 /**************************** fin scroll spy *******************************/
+
+video{
+    max-width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
