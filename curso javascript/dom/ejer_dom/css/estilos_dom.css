@@ -344,7 +344,7 @@ img{/*para uso de imgs, */
 }
 
 .slider a{
-    display: block; /*convitiendo de display en line en bloque de un enlace*/
+    display: block; /*convirtiendo en bloque de un enlace*/
     width: 4rem;
     height: 4rem;
     border-radius: 50%; /* 4rem de width y height mas border de color negro solido crea un circulo negro*/
@@ -418,3 +418,51 @@ video{
     height: 100%;
     cursor: pointer;
 }
+
+/************** inicio contact form validaciones ********************/
+
+.contact_form{
+    --form-ok-color:#4caf50; /* creamos dos colores con variables */
+    --form-error-color:#f44336;
+    margin-left: auto; /* aplicamos margenes laterales*/
+    margin-right: auto;
+    width: 80%;
+}
+.contact_form > *{ /*asterisco significa todos los elementos que son hijos directos del formulario de contacto */
+    padding: 0.5rem; /*para que no estan apegados los textos internos dentro de la caja de los inputs*/
+    margin: 1rem auto;
+    display: block; /*en bloques y cada elemento ponemos en filas*/
+    width: 100%; /*tamaño del 100*/
+}
+.contact_form textarea{ /*el textarea dentro del form*/
+    resize: none; /* le quite la redimencion */
+    font-family: arial;
+}
+.contact_form legend,
+.contact-form-response{ /* doy estilos a la etiqueta legend y la clase: contact-form-response(la div donde colocaremos la respuesta despues del envio)*/
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.contact_form input,
+.contact_form textarea{ /* todo los elementos de input y textarea */
+    font-size: 1rem;
+    font-family: sans-serif;
+}
+
+/*los inputs tiene como un hoover de negrita al poner dentro de ello el click*/
+.contact_form input[type="submit"]{ /* los inputs de tipo submit dentro del formulario */
+    width: 50%;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 1rem;
+}
+.contact_form *::placeholder{ /*todo los elementos del formulario(hace referencia el *), que tenga el atributo placeholder(::placeholder) */
+    color: #1a1919 ;  
+}
+
+.contact_form [required]:valid{ /* todo los elementos que sean hijo y tenga atributo required y su contenido sea valido */
+    border: thin solid var(--form-ok-color);/*borde delgado(thin), aplicamos color creado*/
+}
+/************** fin contact form validaciones ********************/
