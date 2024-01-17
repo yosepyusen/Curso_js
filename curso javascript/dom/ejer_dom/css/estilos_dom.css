@@ -428,16 +428,19 @@ video{
     margin-right: auto;
     width: 80%;
 }
+
 .contact_form > *{ /*asterisco significa todos los elementos que son hijos directos del formulario de contacto */
     padding: 0.5rem; /*para que no estan apegados los textos internos dentro de la caja de los inputs*/
     margin: 1rem auto;
     display: block; /*en bloques y cada elemento ponemos en filas*/
     width: 100%; /*tamaño del 100*/
 }
+
 .contact_form textarea{ /*el textarea dentro del form*/
     resize: none; /* le quite la redimencion */
     font-family: arial;
 }
+
 .contact_form legend,
 .contact-form-response{ /* doy estilos a la etiqueta legend y la clase: contact-form-response(la div donde colocaremos la respuesta despues del envio)*/
     font-size: 1.5rem;
@@ -458,11 +461,45 @@ video{
     cursor: pointer;
     border-radius: 1rem;
 }
+
 .contact_form *::placeholder{ /*todo los elementos del formulario(hace referencia el *), que tenga el atributo placeholder(::placeholder) */
     color: #1a1919 ;  
 }
 
 .contact_form [required]:valid{ /* todo los elementos que sean hijo y tenga atributo required y su contenido sea valido */
     border: thin solid var(--form-ok-color);/*borde delgado(thin), aplicamos color creado*/
+}
+
+.contact_form [required]:invalid{ /* lo mismo que anterior pero cuando sea invalid*/
+    border: thin solid var(--form-error-color);
+}
+
+.contact-form-error{ /*vamos a tener una clase con ese nombre*/
+    margin-top: -1rem; /* para que este pegado al input el mensaje de cuando valide */
+    font-size: 80%; /*tamaño de letra ms pequeño*/
+    background-color: var(--form-error-color);
+    color: #fff;
+    transition: all 800ms ease; /* transicion de de 800 milisegundos, para que aparezca y desaparezca con animacion */
+}
+
+.contact-form-error.is-active{ /* cuando se tengan que mostrar en validacion js, se va agregar una clase is-active */
+    display: block;
+    animation: show-message 1s 1 normal 0s ease-out both; /* e va crear una animacion show-message, q va durar 1segundo, se vaejecutar unasola vez:1,  de forma normal y no va tener retardo(0s),
+    efecto de animacion ease-out y both que va conservar los estilos con los que la animacion termine */
+}
+
+.none{
+    display: none;/* invisibilidad y quita espaciado y ya no se muestra la clase .contact-form-loader, .contact-form-response */
+}
+
+@keyframes show-message{ /* animacion "show-message" llamado anterior mente */
+    0%{ /* que empiece con...*/
+        visibility: hidden; /*esconde pero deja vacio el espacio*/
+        opacity: 0; 
+    }
+    100%{ /*y q terminen... */
+        visibility: visible;
+        opacity: 1;
+    }
 }
 /************** fin contact form validaciones ********************/
