@@ -467,11 +467,11 @@ video{
 }
 
 .contact_form [required]:valid{ /* todo los elementos que sean hijo y tenga atributo required y su contenido sea valido */
-    border: thin solid var(--form-ok-color);/*borde delgado(thin), aplicamos color creado*/
+    border: thin solid var(--form-ok-color);/*borde delgado(thin), aplicamos color verde*/
 }
 
 .contact_form [required]:invalid{ /* lo mismo que anterior pero cuando sea invalid*/
-    border: thin solid var(--form-error-color);
+    border: thin solid var(--form-error-color); /*color rojo*/
 }
 
 .contact-form-error{ /*vamos a tener una clase con ese nombre*/
