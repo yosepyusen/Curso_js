@@ -51,7 +51,10 @@ export default function contacFormValidation(){
             }
 
             if(!pattern){ //2do caso cuando no tienen patron o atributo patern
-                console.log("El input NO tiene patrón");
+                // console.log("El input NO tiene patrón");
+                return $input.value == "" //cuando escribe dentro del input, mas q todo es para el asunto que no vaya en blanco
+                ? d.getElementById($input.name).classList.add("is-active")
+                : d.getElementById($input.name).classList.remove("is-active")
             }
         }
         }); 
