@@ -16,6 +16,7 @@ import slider from "./carrusel.js";
 import scrollSpy from "./scroll_espia.js";
 import smartVideo from "./video_inteligente.js";
 import contacFormValidation from "./validaciones_formulario.js";
+import speechReader from "./narrador.js";
 
 const d=document;
 
@@ -112,3 +113,7 @@ darkTheme(".dark-theme-btn","dark-mode");//primer dato obtenemos la clase del bo
 // ---- clase 93 -----
 // como es de detectar la red no es necesario poner de DOMContentLoaded
 networkStatus();
+
+//------ clase 104 -------
+//no podemos usar un DOMContentLoad dentro de otro DOMContentLoad
+speechReader();
