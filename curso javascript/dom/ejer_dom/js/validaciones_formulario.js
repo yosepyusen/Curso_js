@@ -58,4 +58,29 @@ export default function contacFormValidation(){
             }
         }
         }); 
+
+    d.addEventListener("submit", (e)=>{ //cuando dea click en btn submit realice el sig. evento
+        //comentamos el prevent default para que funciona el encio al correo
+        //e.preventDefault();//con esto prevenimos la accion(procesar datos) predeterminada del formulario:submit
+        alert("Enviando formulario");
+
+        const $loader = d.querySelector(".contact-form-loader"), //seleccionamos las dos calases que hay en html: .contact-form-response y contact-form-loader
+            $response = d.querySelector(".contact-form-response");
+        
+        // al dar click en submit y aceptar la alerta, despues hacemos...
+        $loader.classList.remove("none");//quitamos la clase none que oculta al $loader
+
+        //despues de haber pasao 3 seg. despues de dar submit, simulamos q recibimos la respuesta en settimeout
+        setTimeout(() => {
+            $loader.classList.add("none");//con esto ocultamos la carga(loader)
+            //y mostramos el mensaje de respuesta q los datos han sido enviados, removiendo la clase none que lo oculta 
+            $response.classList.remove("none");
+            //ademas despues receteamos el formulario con reset
+            $form.reset();
+
+            //dentro de ese mismo settimeout
+            setTimeout(() => $response.classList.add("none"), 3000); //luego de 3seg. va desaparecer el mensaje de respuesta
+        }, 3000);
+
+    });
 }

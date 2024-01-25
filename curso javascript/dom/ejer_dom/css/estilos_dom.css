@@ -477,6 +477,7 @@ video{
 .contact-form-error{ /*vamos a tener una clase con ese nombre*/
     margin-top: -1rem; /* para que este pegado al input el mensaje de cuando valide */
     font-size: 80%; /*tamaño de letra ms pequeño*/
+    font-family: sans-serif;
     background-color: var(--form-error-color);
     color: #fff;
     transition: all 800ms ease; /* transicion de de 800 milisegundos, para que aparezca y desaparezca con animacion */

@@ -193,7 +193,8 @@
         </section>
         <section id="seccion14" class="section" data-scroll-spy>
             <h2>Validaciones de Formulario</h2>
-            <form class="contact_form">
+            <!-- para enviar a correo usamos:formsubmit, tiene varias opciones para explorar y va funcionar en servidor local pero con live server -->
+            <form class="contact_form" action="https://formsubmit.co/yaguirreobregon@gmail.com" method="POST" target="_blank"> <!-- agregamos: el action y post y el correo a cual quieren que llegue la informacion -->
                 <legend>Envíanos tus comentarios</legend>
                 <!-- required es como un campo requerido a llenarse
                 se puede trabajar expresiones regulares de html con pattern
