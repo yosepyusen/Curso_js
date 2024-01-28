@@ -24,7 +24,7 @@
             
             if(xhr.readyState !== 4) return; //cuando el readyState del xhr sea diferente de 4
                 
-                console.log(xhr);//ahora solo imprime un XMLHttpRequest y en pestaña network debe de salir 200, que es un cod. de ok , 404 es de not found
+                //console.log(xhr);//ahora solo imprime un XMLHttpRequest y en pestaña network debe de salir 200, que es un cod. de ok , 404 es de not found
                 //ademas es un json responseText:"[\n  {\n.. , del XMLHttpRequest 
                 /*
                 Respuestas informativas (100 - 199)
@@ -35,16 +35,36 @@
                 */
             if(xhr.status >= 200 && xhr.status < 300) { ; //cuando el xhr.status es mayor a 200 y menor a 300
                 
-                console.log("exito"); //saldra cuando la url este bien
+                //console.log("exito"); //saldra cuando la url este bien
+                //console.log(xhr.responseText); //imprime todo los datos en formato json del url
+                //$xhr.innerHTML = xhr.responseText; //con esto pondriamos todo los datos en la pagina en formato json
+                let json = JSON.parse(xhr.responseText); //JSON.parse() analiza una cadena de texto como JSON, transformando opcionalmente el valor producido por el análisis.
+                console.log(json); // lo interpreta como array de 10 elementos
+
+                json.forEach(e => { //por cada elemento:"e" del json
+                    const $li = document.createElement("li");
+                    $li.innerHTML = ` ${e.name} -- ${e.email} -- ${e.phone}`; //al contenido del del etiqueta "li", ponemos el nombre, email, phone
+                    $fragment.appendChild($li);//a ese variable le agregamos li que se a creado con appendChild
+                });
+
+                $xhr.appendChild($fragment);//dentro de la etiqueta ol insertamos el fragmento, una sola insercio del DOM
                 
             }else{
                 console.log("error");//cuando el url esta mal
+                //si fuera en servidor, la propiedad statusText del(XMLHttpRequest) no vendria vacio sino dice como "not found"
+                let message = xhr.statusText || "Ocurrió un error"; //si el statusText viene vacio Ó ponemos el mensaje Ocurrio un error
+                $xhr.innerHTML = `Error ${xhr.status}: ${message}`; //imprimimos el status q en este caso es 404 o not found
             }
+
+            console.log("mensaje ejecutar si o si independiente de q tiene exito o no el XHR");
         }); 
 
         //PASO N°3
         //instruccion q va abrir la peticion, pueder ser por get(accede por URL), post...
-        xhr.open("GET","https://jsonplaceholder.typicode.com/users"); //primer param: es el metodo y el 2do parametro el URL, RECURSO, END POINT
+        
+        //PETICION EXTERNA O INTERNA SE PUEDE HACER
+        //xhr.open("GET","https://jsonplaceholder.typicode.com/users"); //primer param: es el metodo y el 2do parametro el URL, RECURSO, END POINT
+        xhr.open("GET","./assets/users.json");
 
         //PASO N°4
         //enviar la peticicion con send
