@@ -1,4 +1,4 @@
-
+//******************************************** usando: XMLHttpRequest --- inicio ****************************/
 //creamos una funcion anonima auto ejecutable
 (()=>{ //encapsulamos o clausurar
 
@@ -69,4 +69,15 @@
         //PASO N°4
         //enviar la peticicion con send
         xhr.send();
+})();
+
+//******************************************** XMLHttpRequest --- fin ****************************/
+
+
+//******************************************** Fetch API --- fin ****************************/
+(()=>{
+    const $fetch = document.getElementById("fetch"), 
+        $fragment = document.createDocumentFragment();
+    
+    
 })();
