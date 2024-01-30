@@ -39,7 +39,7 @@
                 //console.log(xhr.responseText); //imprime todo los datos en formato json del url
                 //$xhr.innerHTML = xhr.responseText; //con esto pondriamos todo los datos en la pagina en formato json
                 let json = JSON.parse(xhr.responseText); //JSON.parse() analiza una cadena de texto como JSON, transformando opcionalmente el valor producido por el análisis.
-                console.log(json); // lo interpreta como array de 10 elementos
+                //console.log(json); // lo interpreta como array de 10 elementos
 
                 json.forEach(e => { //por cada elemento:"e" del json
                     const $li = document.createElement("li");
@@ -56,7 +56,7 @@
                 $xhr.innerHTML = `Error ${xhr.status}: ${message}`; //imprimimos el status q en este caso es 404 o not found
             }
 
-            console.log("mensaje ejecutar si o si independiente de q tiene exito o no el XHR");
+            //console.log("mensaje ejecutar si o si independiente de q tiene exito o no el XHR");
         }); 
 
         //PASO N°3
@@ -76,8 +76,49 @@
 
 //******************************************** Fetch API --- fin ****************************/
 (()=>{
-    const $fetch = document.getElementById("fetch"), 
-        $fragment = document.createDocumentFragment();
+    const $fetch = document.getElementById("fetch"), //obtenemos el id de la etiqueta ol con id fetch
+        $fragment = document.createDocumentFragment();//para hacer una sola insercion en el dom
     
-    
+    fetch("./assets/users.json") //puede usarse el url:https://jsonplaceholder.typicode.com/users o file: ./assets/users.json
+    /******  PRIMERA FORMA Y PRIMER THEN *******
+    .then( rpta =>{ //fetch(mecanismo q trabaja con promesas:then y catch), ponemos un 2do parametro como opcion(metodo,cabecera...)
+        //catch espera recibir la respuesta
+        //console.log(rpta);//imprime:Response {type: 'cors', url: 'https://jsonplaceholder.typicode.com/users', redirected: false, status: 200, ok: true, …}, ok es cuando no hay error y sale a true
+        
+        //la rpta lo convertimos en un formato valido con: rpta.json();      
+        //return rpta.text(); //retorna en formato texto el json
+        
+        //validamos cuando haya error vaya directo al catch
+        return rpta.ok ? rpta.json(): Promise.reject(rpta); //el body de Response es ReadableStream, para convertir rpta(ReadableStream) a json(ponemos .json()), si deseamos convertir a texto si recibimos cod. html con .text(), o blob, para q no son texto 
+        //como la respuesta en este caso espero recibir un dato json ejecuto metodo .json() de la URL
+        //si la respuesta en su parametro ok es verdad a true, entonces pasate al sig. then y convierte la rpta en json,
+        //caso contrario rechaza la peticion: Promise.reject()
+
+    })//este primer then se puede ejecutar en una sola liea de cod.*/
+    /*******  SEGUNDA FORMA Y PRIMER THEN *********/
+    .then((rpta)=> rpta.ok ? rpta.json(): Promise.reject(rpta))
+
+    //SEGUNDO THEN 
+    .then( json =>{
+        console.log(json); //imprime un array con 10 datos ya que convertimos con: return rpta.json();
+        //$fetch.innerHTML = json; //cuando queremos pegar dentro de la etiqueta html, la info convertido en texto:return rpta.text()
+        
+        json.forEach(e => { //por cada elemento:"e" del json
+            const $li = document.createElement("li");
+            $li.innerHTML = ` ${e.name} -- ${e.email} -- ${e.phone}`; //al contenido del del etiqueta "li", ponemos el nombre, email, phone
+            $fragment.appendChild($li);//a ese variable le agregamos li que se a creado con appendChild
+        });
+
+        $fetch.appendChild($fragment);//dentro de la etiqueta ol insertamos el fragmento, una sola insercio del DOM
+        
+    })
+    .catch(err=>{
+        //catch espera recibir el error
+        console.log("Estamos en el catch",err);//imprime: Response {type: 'cors', url: 'https://jsonplaceholder.typicode.com/user', redirected: false, status: 404, ok: false, …}, y el ok es falso porque hay error(404)
+        let message = err.statusText || "Ocurrió un error";//el err: es el objeto ReadableStream Y statusText es para escribir dentro de la etiqueta html 
+        $fetch.innerHTML = `Error ${err.status}: ${message}`;//imprime: Error 404: Ocurrió un error
+    })
+    .finally(()=> console.log("Esto se ejecutará independientemente del resultado de la Promesa Fetch")); //
+   
+
 })();
