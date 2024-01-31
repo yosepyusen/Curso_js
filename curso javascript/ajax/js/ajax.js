@@ -1,3 +1,4 @@
+//clase 107
 //******************************************** usando: XMLHttpRequest --- inicio ****************************/
 //creamos una funcion anonima auto ejecutable
 (()=>{ //encapsulamos o clausurar
@@ -73,7 +74,7 @@
 
 //******************************************** XMLHttpRequest --- fin ****************************/
 
-
+//clase 108
 //******************************************** Fetch API --- fin ****************************/
 (()=>{
     const $fetch = document.getElementById("fetch"), //obtenemos el id de la etiqueta ol con id fetch
@@ -100,7 +101,7 @@
 
     //SEGUNDO THEN 
     .then( json =>{
-        console.log(json); //imprime un array con 10 datos ya que convertimos con: return rpta.json();
+        //console.log(json); //imprime un array con 10 datos ya que convertimos con: return rpta.json();
         //$fetch.innerHTML = json; //cuando queremos pegar dentro de la etiqueta html, la info convertido en texto:return rpta.text()
         
         json.forEach(e => { //por cada elemento:"e" del json
@@ -114,11 +115,64 @@
     })
     .catch(err=>{
         //catch espera recibir el error
-        console.log("Estamos en el catch",err);//imprime: Response {type: 'cors', url: 'https://jsonplaceholder.typicode.com/user', redirected: false, status: 404, ok: false, …}, y el ok es falso porque hay error(404)
+        //console.log("Estamos en el catch",err);//imprime: Response {type: 'cors', url: 'https://jsonplaceholder.typicode.com/user', redirected: false, status: 404, ok: false, …}, y el ok es falso porque hay error(404)
         let message = err.statusText || "Ocurrió un error";//el err: es el objeto ReadableStream Y statusText es para escribir dentro de la etiqueta html 
         $fetch.innerHTML = `Error ${err.status}: ${message}`;//imprime: Error 404: Ocurrió un error
     })
-    .finally(()=> console.log("Esto se ejecutará independientemente del resultado de la Promesa Fetch")); //
+    .finally(()=>{
+       // console.log("Esto se ejecutará independientemente del resultado de la Promesa Fetch");
+    }
+         ); //
    
+})();
+
+//clase 109
+//USANDO API DE FETCH CON ASYNC
+(()=>{
+    const $fetchAsync = document.getElementById("fetch-async"),
+    $fragment = document.createDocumentFragment();
+
+    async function getData(){ //funcion declarada
+        
+        try{
+
+            //antes q ejecute la sig. linea de cod. espere
+            let res = await fetch("https://jsonplaceholder.typicode.com/users"),//res va hacer peticion a ese api de fetch
+                json = await res.json(); //json estaria esperando la rpta(res), json es para que convierta a json, y await para q ejecute la sig. linea de cod. una vez terminado este linea de cod. o termina de convertir los datos
+
+                console.log("respuesta y json")
+                console.log(res,json);//imprime, res:Response y json: array de 10 datos, caso q es erro un array vacio
+                
+                //1ra forma
+                //para manipular el error; res.ok viene en true(no hay error), con ! negamos o sea que es diferente a true,  false(hay err)
+                //if(!res.ok) throw new Error("Ocurrió un erorr al solicitar los Datos");//throw: para volver a lanzar una excepción después de cogerla 
+                
+                //2da forma
+                //throw es como un return q envia flujo de la programacion al catch, el Error(), solo recibe msjes y no objeto
+                if(!res.ok) throw { status: res.status, statusText: res.statusText} //vas a tener propiedad status con valor de status de la variable "res"...
+                
+
+                json.forEach(e => { //por cada elemento:"e" del json
+                    const $li = document.createElement("li");
+                    $li.innerHTML = ` ${e.name} -- ${e.email} -- ${e.phone}`; //al contenido del del etiqueta "li", ponemos el nombre, email, phone
+                    $fragment.appendChild($li);//a ese variable le agregamos li que se a creado con appendChild
+                });
+        
+                $fetchAsync.appendChild($fragment);//dentro de la etiqueta ol insertamos el fragmento, una sola insercio del DOM
+
+        }catch (err){
+
+            console.log(err);
+            let message = err.statusText || "Ocurrió un error";//el err: es el objeto ReadableStream Y statusText es para escribir dentro de la etiqueta html 
+            $fetchAsync.innerHTML = `Error ${err.status}: ${message}`;//imprime: Error 404: Ocurrió un error
+
+        }finally{
+            console.log("Esto se ejecutará independientemente del resultado del try--catch");
+        }
+        
+
+    }
+
+    getData();//ejecutamos la funcion
 
 })();
