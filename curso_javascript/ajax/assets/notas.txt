@@ -1,0 +1,89 @@
+//creamos la estrucutra q queramos, en db.json, 
+
+//************** ejemplo  de db.json *******************
+{
+  "posts": [
+    { "id": "1", "title": "a title", "views": 100 },
+    { "id": "2", "title": "another title", "views": 200 }
+  ],
+  "comments": [
+    { "id": "1", "text": "a comment about post 1", "postId": "1" },
+    { "id": "2", "text": "another comment about post 1", "postId": "1" }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
+
+//************** ejemplo  de db.json5 *******************
+{
+  posts: [
+    { id: '1', title: 'a title', views: 100 },
+    { id: '2', title: 'another title', views: 200 },
+  ],
+  comments: [
+    { id: '1', text: 'a comment about post 1', postId: '1' },
+    { id: '2', text: 'another comment about post 1', postId: '1' },
+  ],
+  profile: {
+    name: 'typicode',
+  },
+}
+
+//creamos...
+//cada uno de los elementos q creas van a tener un atributo id dentro de db.json y podemos tanto elementos como queramos
+
+// *************** inicio ************
+{ 
+  "santos":[ //santos hace referencia a los santos de atena o caballeros y q eran cinco y por eso hacemos 5 arreglos
+    {
+        "id": 1,  //despues ponemos la informacion de los 5 santos principales, q es el id nombre y constelacion
+        "nombre": "",
+        "constelacion": ""
+    },
+    {
+        "id": 1,
+        "nombre": "",
+        "constelacion": ""
+    },
+    {
+        "id": 1,
+        "nombre": "",
+        "constelacion": ""
+    },
+    {
+        "id": 1,
+        "nombre": "",
+        "constelacion": ""
+    },
+    {
+        "id": 1,
+        "nombre": "",
+        "constelacion": ""
+    }
+  ],
+  "dioses":[ //creamos los dioses principales de cella 
+    {
+        "id": 1,
+        "nombre": "Seiya",
+        "constelacion": "Pegaso"
+    },
+    {
+        "id": 2,
+        "nombre": "Shiryu",
+        "constelacion": "Dragón"
+    },
+    {
+        "id": 3,
+        "nombre": "Hyoga",
+        "constelacion": "Cisne"
+    },
+    {
+        "id": 4,
+        "nombre": "Shun",
+        "constelacion": "Andrómeda"
+    }
+  ]
+}
+//vemos que en este dato tenemos dos objetos de modelos diferentes  
+// *************** fin ************
