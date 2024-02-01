@@ -57,7 +57,7 @@
                 $xhr.innerHTML = `Error ${xhr.status}: ${message}`; //imprimimos el status q en este caso es 404 o not found
             }
 
-            console.log("mensaje ejecutar si o si independiente de q tiene exito o no el XHR");
+            //console.log("mensaje ejecutar si o si independiente de q tiene exito o no el XHR");
         }); 
 
         //PASO N°3
@@ -120,9 +120,9 @@
         $fetch.innerHTML = `Error ${err.status}: ${message}`;//imprime: Error 404: Ocurrió un error
     })
     .finally(()=>{
-        console.log("Esto se ejecutará independientemente del resultado de la Promesa Fetch");
+        //console.log("Esto se ejecutará independientemente del resultado de la Promesa Fetch");
     }
-         ); //
+         ); 
    
 })();
 
@@ -137,7 +137,7 @@
         try{
 
             //antes q ejecute la sig. linea de cod. espere
-            let res = await fetch("https://jsonplaceholder.typicode.com/users"),//res va hacer peticion a ese api de fetch
+            let res = await fetch("https://jsonplaceholder.typicode.com/users"),//res va hacer peticion a ese api de fetch, tbm se puede usar fet("./assets/users.json")
                 json = await res.json(); //json estaria esperando la rpta(res), json es para que convierta a json, y await para q ejecute la sig. linea de cod. una vez terminado este linea de cod. o termina de convertir los datos
 
                 //comentamos...
@@ -170,7 +170,7 @@
 
         }finally{
             //comentamos ....
-            console.log("Esto se ejecutará independientemente del resultado del try--catch-async");
+            //console.log("Esto se ejecutará independientemente del resultado del try--catch-async");
         }   
     }
 
@@ -179,6 +179,7 @@
 })();
 
 //clase 110
+//USANDO AXIOS
 //este axios funciona  con mandar llamar la libreria axios en el html con el script
 (()=>{
 
@@ -186,7 +187,7 @@
     $fragment = document.createDocumentFragment();
 
     // en la variable se llama axios
-    axios.get("https://jsonplaceholder.typicode.com/users")
+    axios.get("https://jsonplaceholder.typicode.com/users") //se puede usar : ./assets/users.json
     .then(res=>{
 
         //comentamos ....
@@ -207,7 +208,7 @@
     .catch((err)=>{
 
         //comentamos ....
-        console.log("Estamos en el catch",err.response);//dentro de err hay una propiedad reponse, donde la dat viene vacia
+        //console.log("Estamos en el catch",err.response);//dentro de err hay una propiedad reponse
         
         let message = err.response.statusText || "Ocurrió un error";//el err: es el objeto y statusText es una propiedad dentro de response y asu vez este esta dentro de err 
         $axios.innerHTML = `Error ${err.response.status}: ${message}`;//imprime: Error 404: Ocurrió un error, dentro de axios del html por el innerHTML
@@ -216,8 +217,52 @@
     .finally(()=>{
 
         //comentamos ....
-        console.log("Esto se ejecutará independientemente del resultado del axios");
+        //console.log("Esto se ejecutará independientemente del resultado del axios");
 
     });
+
+})();
+
+//clase 110
+//USANDO AXIOS CON FUNCIONES ASYNC
+(()=>{
+
+    const $axiosAsync = document.getElementById("axios-async"), //obtenemos el id(axios) de la etiqueta ol 
+    $fragment = document.createDocumentFragment();
+
+    async function getData(){
+
+        try{
+
+            //url: tambien se puede usar, en axios.get(""./assets/users.json"")
+            let res = await axios.get("https://jsonplaceholder.typicode.com/users"),//res va hacer peticion a ese api con axios y get
+            json = await res.data; //espera a q axios nos devuelva el objeto parseado de la data, q es un atributo de res
+
+            //comentamos...
+            //console.log(res,json);
+
+            json.forEach(e => { //por cada elemento:"e" del json
+                const $li = document.createElement("li");
+                $li.innerHTML = ` ${e.name} -- ${e.email} -- ${e.phone}`; //al contenido del del etiqueta "li", ponemos el nombre, email, phone
+                $fragment.appendChild($li);//a ese variable le agregamos li que se a creado con appendChild
+            });
+
+            $axiosAsync.appendChild($fragment);//dentro de la etiqueta ol insertamos el fragmento, una sola insercio del DOM
+
+        }catch (err){
+
+            //comentamos ....
+            //console.log("Estamos en el catch",err.response);//dentro de err hay una propiedad reponse
+            
+            let message = err.response.statusText || "Ocurrió un error";//el err: es el objeto y statusText es una propiedad dentro de response y asu vez este esta dentro de err, 
+            //si "err.response.statusText", viene vacio, entonces pone: "Ocurrió un error" 
+            $axiosAsync.innerHTML = `Error ${err.response.status}: ${message}`;//imprime: Error 404: Ocurrió un error, dentro de axios del html por el innerHTML
+
+        }finally{
+            console.log("Esto se ejecutará independientemente del resultado del axios-async");
+        }
+    }
+
+    getData();//ejecutamos la funcion asinc declarada
 
 })();
