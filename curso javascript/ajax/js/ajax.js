@@ -57,7 +57,7 @@
                 $xhr.innerHTML = `Error ${xhr.status}: ${message}`; //imprimimos el status q en este caso es 404 o not found
             }
 
-            //console.log("mensaje ejecutar si o si independiente de q tiene exito o no el XHR");
+            console.log("mensaje ejecutar si o si independiente de q tiene exito o no el XHR");
         }); 
 
         //PASO N°3
@@ -71,7 +71,6 @@
         //enviar la peticicion con send
         xhr.send();
 })();
-
 //******************************************** XMLHttpRequest --- fin ****************************/
 
 //clase 108
@@ -116,11 +115,12 @@
     .catch(err=>{
         //catch espera recibir el error
         //console.log("Estamos en el catch",err);//imprime: Response {type: 'cors', url: 'https://jsonplaceholder.typicode.com/user', redirected: false, status: 404, ok: false, …}, y el ok es falso porque hay error(404)
-        let message = err.statusText || "Ocurrió un error";//el err: es el objeto ReadableStream Y statusText es para escribir dentro de la etiqueta html 
+        
+        let message = err.statusText || "Ocurrió un error";// statusText es una propiedad dentro de err, que tiene como valor:"Not Found", pero en caso que esta vacio va imprimir: "Ocurrió un error"
         $fetch.innerHTML = `Error ${err.status}: ${message}`;//imprime: Error 404: Ocurrió un error
     })
     .finally(()=>{
-       // console.log("Esto se ejecutará independientemente del resultado de la Promesa Fetch");
+        console.log("Esto se ejecutará independientemente del resultado de la Promesa Fetch");
     }
          ); //
    
@@ -140,8 +140,9 @@
             let res = await fetch("https://jsonplaceholder.typicode.com/users"),//res va hacer peticion a ese api de fetch
                 json = await res.json(); //json estaria esperando la rpta(res), json es para que convierta a json, y await para q ejecute la sig. linea de cod. una vez terminado este linea de cod. o termina de convertir los datos
 
-                console.log("respuesta y json")
-                console.log(res,json);//imprime, res:Response y json: array de 10 datos, caso q es erro un array vacio
+                //comentamos...
+                //console.log("respuesta y json")
+                //console.log(res,json);//imprime, res:Response y json: array de 10 datos, caso q es erro un array vacio
                 
                 //1ra forma
                 //para manipular el error; res.ok viene en true(no hay error), con ! negamos o sea que es diferente a true,  false(hay err)
@@ -162,17 +163,61 @@
 
         }catch (err){
 
-            console.log(err);
-            let message = err.statusText || "Ocurrió un error";//el err: es el objeto ReadableStream Y statusText es para escribir dentro de la etiqueta html 
-            $fetchAsync.innerHTML = `Error ${err.status}: ${message}`;//imprime: Error 404: Ocurrió un error
+            //comentamos ....
+            //console.log(err);
+            let message = err.statusText || "Ocurrió un error";//imptime: {status: 404, statusText: ''} y el statusText es una propiedad de err 
+            $fetchAsync.innerHTML = `Error ${err.status}: ${message}`;//imprime: Error 404: Ocurrió un error, dentro del html por el innerHTML
 
         }finally{
-            console.log("Esto se ejecutará independientemente del resultado del try--catch");
-        }
-        
-
+            //comentamos ....
+            console.log("Esto se ejecutará independientemente del resultado del try--catch-async");
+        }   
     }
 
     getData();//ejecutamos la funcion
+
+})();
+
+//clase 110
+//este axios funciona  con mandar llamar la libreria axios en el html con el script
+(()=>{
+
+    const $axios = document.getElementById("axios"), //obtenemos el id(axios) de la etiqueta ol 
+    $fragment = document.createDocumentFragment();
+
+    // en la variable se llama axios
+    axios.get("https://jsonplaceholder.typicode.com/users")
+    .then(res=>{
+
+        //comentamos ....
+        //console.log(res); //imprime: {data: Array(10), status: 200, statusText: '', headers: le, config: {…}, …} . donde el metodo q envies es get, ademas la data(array de 10 datos) estan parseados
+        //usa request: XMLHttpRequest, tbm manda statusText, status...
+        
+        let json = res.data; // q guarde todo los datos que estan dentro de la propiedad "data", y esta data a su vez esta contenido en res
+
+        json.forEach(e => { //por cada elemento:"e" del json
+            const $li = document.createElement("li");
+            $li.innerHTML = ` ${e.name} -- ${e.email} -- ${e.phone}`; //al contenido del del etiqueta "li", ponemos el nombre, email, phone
+            $fragment.appendChild($li);//a ese variable le agregamos li que se a creado con appendChild
+        });
+
+        $axios.appendChild($fragment);//dentro de la etiqueta ol insertamos el fragmento, una sola insercio del DOM
+
+    })
+    .catch((err)=>{
+
+        //comentamos ....
+        console.log("Estamos en el catch",err.response);//dentro de err hay una propiedad reponse, donde la dat viene vacia
+        
+        let message = err.response.statusText || "Ocurrió un error";//el err: es el objeto y statusText es una propiedad dentro de response y asu vez este esta dentro de err 
+        $axios.innerHTML = `Error ${err.response.status}: ${message}`;//imprime: Error 404: Ocurrió un error, dentro de axios del html por el innerHTML
+
+    })
+    .finally(()=>{
+
+        //comentamos ....
+        console.log("Esto se ejecutará independientemente del resultado del axios");
+
+    });
 
 })();
