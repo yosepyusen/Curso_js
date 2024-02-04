@@ -57,10 +57,11 @@
             $fragment = d.createDocumentFragment();//para hacer una sola insercion al dom
 
             //creamos una funcion expresada 
+            //la funcion ajax nos sabe de elementos del DOM, por eso se crea una funcion de tipo exito:succes
             const ajax = (option)=>{ //dentro de una constante voy a guardar un obj.:option
                 
                 //usamos la destructuracion el obj. option
-                let { url, method, success, error, data} =option;
+                let {url, method, success, error, data} = option;
                 //url: q voy solicitar; el metodo, una funcion succes en caso de exito se va ejecutar, err en caso de no hay exito, data:para actualizar, insertar registros...
                 
                 //creamos el obj, XMLHttpRequest
@@ -68,15 +69,79 @@
 
                 xhr.addEventListener("readystatechange", e=>{ //readystatechange, se lanza cuando detecta cualquier cambio, cuando hay error, abortado, completado
 
+                    //esos 4 veces es porque hay 5 estados la cual el 1mero no cuenta: READY_STATE_UNINITIALIZED, READY_STATE_LOADING, READY_STATE_LOADED, READY_STATE_INTERACTIVE, READY_STATE_COMPLETE
+                    if(xhr.readyState !== 4) return; //cuando el readyState del xhr sea diferente de 4
+
+                    if(xhr.status >= 200 && xhr.status < 300) { ; //cuando el xhr.status tiene exito
+                    
+                        //console.log(xhr.responseText); //imprime todo los datos en formato json del url
+                        let json = JSON.parse(xhr.responseText); // con .parse: transformar a obj. javascript la respuesta en formato json y guardar en variable json
+                        
+                        //ejecutamos el metodo success de la funcion y le vamos a pasar a obj. js:"json"
+                        success(json);
+                        
+
+                    }else{
+
+                        let message = xhr.statusText || "Ocurrió un error"; //si el statusText viene vacio Ó ponemos el mensaje Ocurrio un error
+                        error(`Error ${xhr.status}: ${message}`);//recordamos que xhr.status: es cod. de exito o error
+
+                    }
+
                 });
 
                 xhr.open(method || "GET",url);//si el usuario no especifica un metodo en particular, o viene vacio entonces q acceda al metodo GET y abrimos la url que venga en la variable "url"
                 
-                //añadimos cabecera
-                xhr.setRequestHeader(); //El método XMLHttpRequest setRequestHeader() establece el valor de un encabezado de solicitud HTTP. Al usar
-                //setRequestHeader(header, value); header:El nombre de la cabecera cuyo valor se va a establecer.
+                //añadimos cabecera, "Content-type": tipo de contenido y valor va en minusculas: "aplication/json; charset utf-8": todo lo q enviamos sea en formato:utf8 ; y con esta cabecera va funcionar si quitamos no va funcionar
+                xhr.setRequestHeader("Content-type","aplication/json; charset=utf-8"); //El método XMLHttpRequest setRequestHeader() establece el valor de un encabezado de solicitud HTTP. Al usar
+                //setRequestHeader(header, value); header:El nombre de la cabecera cuyo valor se va a establecer. valor:q se va a establecer como cuerpo del encabezado.
+                
+                //como la api falsa esta esperando recibir json
+                //estamos enviando un obj. javascript, pero le vamos a convertir en cadena de texto: la data, con JSON.stringify()
+                xhr.send(JSON.stringify(data));//caso que no necesitamos enviar datos ponemos NULL, o simplemente omitimos el parametro data
 
             }
-    </script>
+            
+            const getAllSaints = ()=>{
+
+                //aqui ejecutamos funcion ajax creada anterior... mente..
+                ajax({//AJAX pide un obj. option
+                    //method: "GET", //como el obj ajax creamos que si no establece un metodo por default pones GET
+                    url: "http://localhost:5555/santos", //url creada con node.js
+                    success: (res)=>{ 
+                        console.log(res);//imprime: array de 5 datos:(5) [{…}, {…}, {…}, {…}, {…}], de db.json
+                        res.forEach(elemento => {
+                            //usamos el template creada en html anterior
+                            $template.querySelector(".name").textContent = elemento.nombre //entra al contenido del $template y busca el selector con la clase ".name" y ahi en su contenido textual:textContent pones lo q viene en el nombre: elemento.nombre
+                            $template.querySelector(".constellation").textContent = elemento.constelacion //entra al contenido del $template y busca el selector con la clase ".constellation" y ahi en su contenido textual:textContent pones lo q viene en constelacion: elemento.constelacion
+                            
+                            $template.querySelector(".edit").dataset.id = elemento.id//entra al contenido del $template y busca el selector con la clase ".edit" y le voy a crear un data atribute:dataset, el id: q me interesa afectar igualamos : elemento.id(que viene de la respuesta:res obj.)
+                            $template.querySelector(".edit").dataset.name = elemento.nombre; //agregamos un atributo dataset.name y le pasamos lo q viene en elemento.nombre del obj. res:respuesta
+                            $template.querySelector(".edit").dataset.constellation = elemento.constelacion; //agregamos un atributo dataset.constellation y le pasamos lo q viene en elemento.constelacion del obj. res:respuesta
+                            
+                            //btn para eliminar necesitamos saber el id
+                            $template.querySelector(".delete").dataset.id = elemento.id //entra al contenido del $template y busca el selector con la clase ".constellation" y ahi agregamos un atributo dataset.id y le pasamos lo q viene en elemento.id del obj. res:respuesta
+                            
+                            //este template tiene q clonar para q se quede en memoria
+                            let $clone = d.importNode($template, true); //creamos un nodo clonado
+                            $fragment.appendChild($clone); //agregamos fragmento para que se vaya agregando el $clone con cada uno de su elementos
+                        });
+
+                        $table.querySelector("tbody").appendChild($fragment); //dentro de la tabla busca la etiqueta "tbody", y como contenido agrega el fragmento clonado agrega al tbody de la tabla
+                    }, 
+                    error: (err)=>{ 
+                        console.log(err); //y el error maneja un string: ponemos variable "err", imprime cuando error: Error 404: Not Found
+                        $table.insertAdjacentHTML("afterend",`<p><b>${err}</b></p>`);//dentro del html:insertAdjacentHTML, de etiqueta $table inserta en afterend(hermano siguiente), el error, ademas imprime: Error 404: Not Found
+                    }, 
+                    //data: null //si omito la data va dar igual
+                });
+            }
+
+            //aqui no conviene crear un arrow function, porque al insertar el dato nuevo, tendra que ejecutar el pitar todo los caballeros para q aparezca el nuevo santo, por eso es crear mejor una funcion primero 
+            d.addEventListener("DOMContentLoaded", getAllSaints);
+            
+
+   </script>
+   
 </body>
 </html>
