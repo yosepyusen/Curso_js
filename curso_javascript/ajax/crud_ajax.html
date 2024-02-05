@@ -17,7 +17,7 @@
                 <input type="text" name="constelacion" placeholder="Constelación" required>
                 <br>
                 <input type="submit" value="Enviar">
-                <input type="hidden" name="id"> <!-- elem. de tipo oculto:hidden -->
+                <input type="hidden" name="id"> <!-- elem. de tipo oculto:hidden, cuando el elem, tenga el valor vacio hacemos la operacion de create con metod post o cuando venga el id competado ahi hacemos put para actualizar -->
             </form>
         </article>
         <article>
@@ -106,7 +106,7 @@
 
                 //aqui ejecutamos funcion ajax creada anterior... mente..
                 ajax({//AJAX pide un obj. option
-                    //method: "GET", //como el obj ajax creamos que si no establece un metodo por default pones GET
+                    method: "GET", //como el obj ajax creamos que si no establece un metodo por default pones GET
                     url: "http://localhost:5555/santos", //url creada con node.js
                     success: (res)=>{ 
                         console.log(res);//imprime: array de 5 datos:(5) [{…}, {…}, {…}, {…}, {…}], de db.json
@@ -133,13 +133,42 @@
                         console.log(err); //y el error maneja un string: ponemos variable "err", imprime cuando error: Error 404: Not Found
                         $table.insertAdjacentHTML("afterend",`<p><b>${err}</b></p>`);//dentro del html:insertAdjacentHTML, de etiqueta $table inserta en afterend(hermano siguiente), el error, ademas imprime: Error 404: Not Found
                     }, 
-                    //data: null //si omito la data va dar igual
+                    data: null //si omito la data va dar igual
                 });
             }
 
             //aqui no conviene crear un arrow function, porque al insertar el dato nuevo, tendra que ejecutar el pitar todo los caballeros para q aparezca el nuevo santo, por eso es crear mejor una funcion primero 
             d.addEventListener("DOMContentLoaded", getAllSaints);
             
+            d.addEventListener("submit", e=>{
+                if (e.target === $form) { //si el obj. q origina el evento es el formulario que esta en $form
+                    
+                    console.log(e.target.id.value);
+                    //el e.target: imprime : form.crud-form
+                    //e.target.id, imprime:  input , de ese formulario dentro
+                    e.preventDefault(); //detener la ejecucion del envio del formulario de btn
+                    
+                    if(!e.target.id.value){ //si no existe del formulario(e.target), el valor del id
+                        
+                        //hacemos POST-CREATE
+                        //intanciamos el obj. ajax con sus parametro
+                        ajax({
+                            url:"http://localhost:5555/santos",
+                            method: "POST",
+                            success: (res)=>{ location.reload()}, //hacemos recarga la pag. cuando tenga exito con reload
+                            error: ()=> $form.insertAdjacentHTML("afterend",`<p><b>${err}</b></p>`),//dentro del html:insertAdjacentHTML, de etiqueta $form inserta en afterend(hermano siguiente), el error, ademas imprime: Error 404: Not Found
+                            data:{
+                                //para agregar datos se fija en el ultimo y agrega es como el auto incrementable de sql, para json server ya me da ese id
+                                //lo q dariamos es el nombre de santos y la contelacion
+                                //nombre: e.target.nombre.value,
+                               // constelacion: e.target.nombre.value,
+                            }
+                        });
+                    }else{
+                        //caso q exista el valor del id hacemos PUT: UPDATE
+                    }
+                }
+            });
 
    </script>
    
