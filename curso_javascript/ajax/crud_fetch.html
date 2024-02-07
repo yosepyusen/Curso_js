@@ -16,7 +16,7 @@
                 <br>
                 <input type="text" name="constelacion" placeholder="Constelación" required>
                 <br>
-                <input type="submit" value="Enviar">
+                <input type="submit" name="enviar" value="Enviar">
                 <input type="hidden" name="id"> <!-- elem. de tipo oculto:hidden -->
             </form>
         </article>
@@ -65,7 +65,7 @@
                     if(!res.ok) throw { status: res.status, statusText: res.statusText} //creamos dos propiedades: status y statusText; a su vez "res.status", es la respuesta de json, que viene en su propiedad status y statusText                
 
                     //cuanto tiene exito hacemos...
-                    console.log(json); //imprimene array: (4) [{…}, {…}, {…}, {…}]
+                    console.log(json,res); //imprimene array: (4) [{…}, {…}, {…}, {…}]
 
                     // para LEER DATOS DE JSON
                     json.forEach(e => {
@@ -95,7 +95,7 @@
             //llamamos aqui cuando carga el dom, la funcion getAllSaints
             d.addEventListener("DOMContentLoaded",getAllSaints);
 
-            d.addEventListener("submit", e=>{
+            d.addEventListener("submit", async e=>{
                 if(e.target === $form){ //cuando el obj. q origino el evento es igual a la etiqueta $form
                     //primer paso
                     e.preventDefault();//para evitar el comportamiento por defecto del btn
@@ -103,18 +103,115 @@
                     if(!e.target.id.value){ //si dentro del formulario el input con nombre id no tiene valor
                         //create - POST
                         try {
-                            let res =  fetch("http://localhost:5555/santos");//primer parametro es url, 2do parametro serie de opciones, cuando no especificamos el 2do paramtro significa q estamos haciendo una peticion por metodo GET
-                            json = res.json(); //convertimos esa rpta a json
+                            let options = { //options:opciones de peticiones fetch
+                                method : "POST", //especificamos el metodo
+                                headers: { //dentro de las opciones de fetch hay una que se llama headers, hace referencia al las cabeceras
+                                    "Content-type":"application/json; charset=utf-8"
+                                },
+                                
+                                //el atributo fetch, en las opciones se llama body
+                                body:JSON.stringify({ //te vamos a mandar a sintaxis json, pero convertido en cadena y convertido a stringify
+                                    nombre: e.target.nombre.value, //necesito mandar el "nombre" del santo, que lo obtengo de e.target(formulario), dentro de ello esta el input con clase nombre y accedemos al valor:value
+                                    constelacion: e.target.constelacion.value //necesito mandar el "constelacion" del santo, que lo obtengo de e.target(formulario), dentro de ello esta el input con clase constelacion y accedemos al valor:value
+                                }) 
 
-                        } catch (err) {
+                            }, 
+                            res = await fetch("http://localhost:5555/santos", options),//primer parametro es url, 2do parametro serie de opciones, cuando no especificamos el 2do paramtro significa q estamos haciendo una peticion por metodo GET
+                            json = await res.json(); //convertimos esa rpta a json
                             
+                            //si tiene exito
+                            //!res.ok : es cuando dentro de la respuesta:res obtenido de fetch, en su atributo ok que tiene por defecto el true es diferente
+                            //throw es como un return q envia flujo de la programacion al catch, el Error(), solo recibe msjes y no objeto
+                            if(!res.ok) throw { status: res.status, statusText: res.statusText} //creamos dos propiedades: status y statusText; a su vez "res.status", es la respuesta de json, que viene en su propiedad status y statusText               
+                            
+                            location.reload();//para q recarge la pagina , cuando usas json server no es necesario ya que actualiza la pagina cuando hay cambios
+                            
+                        } catch (err) {
+                            let message = err.statusText || "Ocurrió un error";//imptime: {status: 404, statusText: ''} y el statusText es una propiedad de err 
+                            $form.insertAdjacentHTML("afterend",`<p><b>Error ${err.status}: ${message}</b></p>`);//dentro del html:insertAdjacentHTML, de etiqueta $form inserta en afterend(hermano siguiente), el error, ademas imprime: Error 404: Not Found
                         }
                     }else{
-                        //update - PUT
 
+                        //update - PUT
+                        try {
+                            let options = { //options:opciones de peticiones fetch
+                                method : "PUT", //especificamos el metodo
+                                headers: { //dentro de las opciones de fetch hay una que se llama headers, hace referencia al las cabeceras
+                                    "Content-type":"application/json; charset=utf-8"
+                                },
+                                
+                                //el atributo fetch, en las opciones se llama body
+                                body:JSON.stringify({ //te vamos a mandar a sintaxis json, pero convertido en cadena y convertido a stringify
+                                    nombre: e.target.nombre.value, //necesito mandar el "nombre" del santo, que lo obtengo de e.target(formulario), dentro de ello esta el input con clase nombre y accedemos al valor:value
+                                    constelacion: e.target.constelacion.value //necesito mandar el "constelacion" del santo, que lo obtengo de e.target(formulario), dentro de ello esta el input con clase constelacion y accedemos al valor:value
+                                }) 
+
+                            }, 
+                            res = await fetch(`http://localhost:5555/santos/${e.target.id.value}`, options), //e.tragte:formulario, dentro de ello acceder al dataset:atribute con name:id, 
+                            json = await res.json(); //convertimos esa rpta a json
+                            
+                            //si tiene exito
+                            //!res.ok : es cuando dentro de la respuesta:res obtenido de fetch, en su atributo ok que tiene por defecto el true es diferente
+                            //throw es como un return q envia flujo de la programacion al catch, el Error(), solo recibe msjes y no objeto
+                            if(!res.ok) throw { status: res.status, statusText: res.statusText} //creamos dos propiedades: status y statusText; a su vez "res.status", es la respuesta de json, que viene en su propiedad status y statusText               
+                            
+                            location.reload();//para q recarge la pagina , cuando usas json server no es necesario ya que actualiza la pagina cuando hay cambios
+                            
+                        } catch (err) {
+                            let message = err.statusText || "Ocurrió un error";//imptime: {status: 404, statusText: ''} y el statusText es una propiedad de err 
+                            $form.insertAdjacentHTML("afterend",`<p><b>Error ${err.status}: ${message}</b></p>`);//dentro del html:insertAdjacentHTML, de etiqueta $form inserta en afterend(hermano siguiente), el error, ademas imprime: Error 404: Not Found
+                        }
                     }
                 }
             });
+
+
+            /******** inicio: para editar y eliminar datos ***********/
+            d.addEventListener("click", async e=>{
+                if(e.target.matches(".edit")){ //dentro del form:e.target, q busca el selector con clase ".edit"
+                    //alert("presionaste el btn editar");
+                    
+                    //lo unico que estoy haciendo es poner los datos de dataset a los inputs del formulario
+
+                    $title.textContent = "Editar Santos"; //dentro de la clase: .crud-title, en su textcontend
+                    $form.nombre.value = e.target.dataset.name; //vas ingresar al fomulario con clase: .crud-form, dentro ello acceder a su input: nombre, y en su valor vas poner lo q venga en e.target(el btn), en su lista de data-atrubute:dataset poner el nombre
+                    $form.constelacion.value = e.target.dataset.constellation; //vas ingresar al fomulario con clase: .crud-form, dentro ello acceder a su input: constelacion, y en su valor vas poner lo q venga en e.target(el btn), en su lista de data-atrubute:dataset poner constellation
+                    $form.id.value = e.target.dataset.id; //vas ingresar al fomulario con clase: .crud-form, dentro ello acceder a su input: id, y en su valor vas poner lo q venga en e.target(el btn), en su lista de data-atrubute:dataset poner id
+                    
+                    $form.enviar.value = "Actualizar";
+                }    
+
+                if(e.target.matches(".delete")){ //dentro del form:e.target, q busca el selector con clase ".delete"
+                    let isDelete = confirm(`¿Estás seguro de eliminar el id ${e.target.dataset.id}?`); 
+                    //si el usuario preciona aceptar:true en caso contrario false
+                    
+                    if (isDelete) { //si la variable delete es verdadera 
+                       // metodo DELETE
+                       try {
+                            let options = { //options:opciones de peticiones fetch
+                                method : "DELETE", //especificamos el metodo
+                                headers: { //dentro de las opciones de fetch hay una que se llama headers, hace referencia al las cabeceras
+                                    "Content-type":"application/json; charset=utf-8"
+                                } 
+                            }, 
+                            res = await fetch(`http://localhost:5555/santos/${e.target.dataset.id}`, options), //e.tragte:formulario, dentro de ello acceder al dataset:atribute con name:id, 
+                            json = await res.json(); //convertimos esa rpta a json
+                            
+                            //si tiene exito
+                            //!res.ok : es cuando dentro de la respuesta:res obtenido de fetch, en su atributo ok que tiene por defecto el true es diferente
+                            //throw es como un return q envia flujo de la programacion al catch, el Error(), solo recibe msjes y no objeto
+                            if(!res.ok) throw { status: res.status, statusText: res.statusText} //creamos dos propiedades: status y statusText; a su vez "res.status", es la respuesta de json, que viene en su propiedad status y statusText               
+                            
+                            location.reload();//para q recarge la pagina , cuando usas json server no es necesario ya que actualiza la pagina cuando hay cambios
+                            
+                        } catch (err) {
+                            let message = err.statusText || "Ocurrió un error";//imptime: {status: 404, statusText: ''} y el statusText es una propiedad de err 
+                            alert(`Error ${err.status}: ${message}`);//dentro de alert porque no elimino el registro
+                        }
+                    }
+                }
+            });
+            /******** fin: para editar y eliminar datos ***********/
             
     </script>
 </body>

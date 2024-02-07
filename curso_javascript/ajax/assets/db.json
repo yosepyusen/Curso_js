@@ -24,6 +24,26 @@
       "id": "be6b",
       "nombre": "Ikki",
       "constelacion": "Fénix"
+    },
+    {
+      "nombre": "Atenea",
+      "constelacion": "Jupiter",
+      "id": "eab9"
+    },
+    {
+      "nombre": "Sol",
+      "constelacion": "Poseidon",
+      "id": "b77e"
+    },
+    {
+      "nombre": "Asmita",
+      "constelacion": "Virgo",
+      "id": "a1dc"
+    },
+    {
+      "id": "7d60",
+      "nombre": "Senosama",
+      "constelacion": "Jupiter"
     }
   ],
   "dioses": [
