@@ -39,7 +39,7 @@
     <!-- para insertar informacion -->
     <template id="crud-template">
         <tr>
-            <td class="name">Seiya</td>
+            <td class="name">Seiya</td> <!-- este nombre de seiya es ta como ejemplo, esto va cambiar dependiendo como esta el base de datos JSON -->
             <td class="constellation">Pegaso</td>
             <td>
                 <button class="edit">Editar</button>
@@ -55,8 +55,6 @@
             $title = d.querySelector(".crud-title"),
             $template = d.getElementById("crud-template").content,//del template es lo que me interesa su estructura dentro de ello
             $fragment = d.createDocumentFragment();//para hacer una sola insercion al dom
-
-            
 
             //creamos una funcion expresada 
             //la funcion ajax nos sabe de elementos del DOM, por eso se crea una funcion de tipo exito:succes
@@ -114,15 +112,15 @@
                         
                         res.forEach(elemento => {
                             //usamos el template creada en html anterior
-                            $template.querySelector(".name").textContent = elemento.nombre //entra al contenido del $template y busca el selector con la clase ".name" y ahi en su contenido textual:textContent pones lo q viene en el nombre: elemento.nombre
-                            $template.querySelector(".constellation").textContent = elemento.constelacion //entra al contenido del $template y busca el selector con la clase ".constellation" y ahi en su contenido textual:textContent pones lo q viene en constelacion: elemento.constelacion
+                            $template.querySelector(".name").textContent = elemento.nombre; //entra al contenido del $template y busca el selector con la clase ".name" y ahi en su contenido textual:textContent pones lo q viene en el nombre: elemento.nombre
+                            $template.querySelector(".constellation").textContent = elemento.constelacion; //entra al contenido del $template y busca el selector con la clase ".constellation" y ahi en su contenido textual:textContent pones lo q viene en constelacion: elemento.constelacion
                             
-                            $template.querySelector(".edit").dataset.id = elemento.id//entra al contenido del $template y busca el selector con la clase ".edit" y le voy a crear un data atribute:dataset, el id: q me interesa afectar igualamos : elemento.id(que viene de la respuesta:res obj.)
+                            $template.querySelector(".edit").dataset.id = elemento.id;//entra al contenido del $template y busca el selector con la clase ".edit" y le voy a crear un data atribute:dataset, el id: q me interesa afectar igualamos : elemento.id(que viene de la respuesta:res obj.)
                             $template.querySelector(".edit").dataset.name = elemento.nombre; //agregamos un atributo dataset.name y le pasamos lo q viene en elemento.nombre del obj. res:respuesta
                             $template.querySelector(".edit").dataset.constellation = elemento.constelacion; //agregamos un atributo dataset.constellation y le pasamos lo q viene en elemento.constelacion del obj. res:respuesta
                             
                             //btn para eliminar necesitamos saber el id
-                            $template.querySelector(".delete").dataset.id = elemento.id //entra al contenido del $template y busca el selector con la clase ".constellation" y ahi agregamos un atributo dataset.id y le pasamos lo q viene en elemento.id del obj. res:respuesta
+                            $template.querySelector(".delete").dataset.id = elemento.id; //entra al contenido del $template y busca el selector con la clase ".constellation" y ahi agregamos un atributo dataset.id y le pasamos lo q viene en elemento.id del obj. res:respuesta
                             
                             //este template tiene q clonar para q se quede en memoria
                             let $clone = d.importNode($template, true); //creamos un nodo clonado
@@ -134,6 +132,7 @@
                     error: (err)=>{ 
                         console.log(err); //y el error maneja un string: ponemos variable "err", imprime cuando error: Error 404: Not Found
                         $table.insertAdjacentHTML("afterend",`<p><b>${err}</b></p>`);//dentro del html:insertAdjacentHTML, de etiqueta $table inserta en afterend(hermano siguiente), el error, ademas imprime: Error 404: Not Found
+                        
                     } 
                     //data: null //si omito la data va dar igual
                 });
@@ -225,8 +224,9 @@
            
             // ******** id_autoincrement f *************
             
-            // const $ids = d.querySelectorAll("input");
-            // console.log($ids.length +1);
+            // const $ids = d.querySelectorAll("template .name");
+            // //console.log($ids.length +1);
+            // console.log($ids);
 
             // ******** id_autoincrement *************
            

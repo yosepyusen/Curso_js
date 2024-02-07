@@ -56,6 +56,47 @@
             $template = d.getElementById("crud-template").content,//del template es lo que me interesa su estructura dentro de ello
             $fragment = d.createDocumentFragment();//para hacer una sola insercion al dom
 
+            const getAllSaints = async()=>{
+                try{
+                    let res = await fetch("http://localhost:5555/santos");//primer parametro es url, 2do parametro serie de opciones, cuando no especificamos el 2do paramtro significa q estamos haciendo una peticion por metodo GET
+                    json = await res.json(); //convertimos esa rpta a json
+
+                    //throw es como un return q envia flujo de la programacion al catch, el Error(), solo recibe msjes y no objeto
+                    if(!res.ok) throw { status: res.status, statusText: res.statusText} //creamos dos propiedades: status y statusText; a su vez "res.status", es la respuesta de json, que viene en su propiedad status y statusText                
+
+                    //cuanto tiene exito hacemos...
+                    console.log(json); //imprimene array: (4) [{…}, {…}, {…}, {…}]
+
+                    // para LEER DATOS DE JSON
+                    json.forEach(e => {
+                        $template.querySelector(".name").textContent = e.nombre; //dentro del template busca etiqueta con class: .name y en su textContent pone e.nombre(elemento de json con propiedad nombre), pero si es input se pone: $template.nombre
+                        $template.querySelector(".constellation").textContent = e.constelacion; //dentro del template busca etiqueta con class: .name y en su textContent pone e.constelacion(elemento de json con propiedad constelacion)
+
+                        $template.querySelector(".edit").dataset.id = e.id;//entra al contenido del $template y busca el selector con la clase ".edit" y le voy a crear un data atribute:dataset, el id: q me interesa afectar igualamos : elemento.id(que viene de la respuesta:res obj.)
+                        $template.querySelector(".edit").dataset.name = e.nombre; //agregamos un atributo dataset.name y le pasamos lo q viene en elemento.nombre del obj. res:respuesta
+                        $template.querySelector(".edit").dataset.constellation = e.constelacion; //agregamos un atributo dataset.constellation y le pasamos lo q viene en elemento.constelacion del obj. res:respuesta
+                        
+                        //btn para eliminar necesitamos saber el id
+                        $template.querySelector(".delete").dataset.id = e.id; //entra al contenido del $template y busca el selector con la clase ".constellation" y ahi agregamos un atributo dataset.id y le pasamos lo q viene en elemento.id del obj. res:respuesta 
+
+                        //este template tiene q clonar para q se quede en memoria
+                        let $clone = d.importNode($template, true); //creamos un nodo clonado y true para q copie la estructura del contenido
+                            $fragment.appendChild($clone); //agregamos fragmento para que se vaya agregando el $clone con cada uno de su elementos
+                    });
+
+                    $table.querySelector("tbody").appendChild($fragment) //dentro de mi etiqueta tabla, busca el tbody y agrega el fragmento
+
+                    //
+
+                }catch (err){
+                    let message = err.statusText || "Ocurrió un error";//imptime: {status: 404, statusText: ''} y el statusText es una propiedad de err 
+                    $table.insertAdjacentHTML("afterend",`<p><b>Error ${err.status}: ${message}</b></p>`);//dentro del html:insertAdjacentHTML, de etiqueta $table inserta en afterend(hermano siguiente), el error, ademas imprime: Error 404: Not Found
+                }
+            }
+
+            //llamamos aqui cuando carga el dom, la funcion getAllSaints
+            d.addEventListener("DOMContentLoaded",getAllSaints);
+            
     </script>
 </body>
 </html>
