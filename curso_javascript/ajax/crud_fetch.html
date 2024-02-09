@@ -81,14 +81,15 @@
 
                         //este template tiene q clonar para q se quede en memoria
                         let $clone = d.importNode($template, true); //creamos un nodo clonado y true para q copie la estructura del contenido
-                            $fragment.appendChild($clone); //agregamos fragmento para que se vaya agregando el $clone con cada uno de su elementos
+                        $fragment.appendChild($clone); //agregamos fragmento para que se vaya agregando el $clone con cada uno de su elementos
                     });
 
                     $table.querySelector("tbody").appendChild($fragment) //dentro de mi etiqueta tabla, busca el tbody y agrega el fragmento
 
                 }catch (err){
-                    let message = err.statusText || "Ocurrió un error";//imptime: {status: 404, statusText: ''} y el statusText es una propiedad de err 
-                    $table.insertAdjacentHTML("afterend",`<p><b>Error ${err.status}: ${message}</b></p>`);//dentro del html:insertAdjacentHTML, de etiqueta $table inserta en afterend(hermano siguiente), el error, ademas imprime: Error 404: Not Found
+                    //el status y statusText, son enviados desde el throw
+                    let message = err.statusText || "Ocurrió un error";//imptime: {status: 404, statusText: ''} , el err.statusText y err.status es una propiedad de err, que se creo en throw
+                    $table.insertAdjacentHTML("afterend",`<p><b>Error ${err.status}: ${message}</b></p>`);//dentro del html:insertAdjacentHTML, de etiqueta $table inserta en afterend(hermano siguiente), el error, ademas imprime, Error undefined: Ocurrió un error
                 }
             }
 
@@ -127,6 +128,7 @@
                             location.reload();//para q recarge la pagina , cuando usas json server no es necesario ya que actualiza la pagina cuando hay cambios
                             
                         } catch (err) {
+                            //el status y statusText, son enviados desde el throw
                             let message = err.statusText || "Ocurrió un error";//imptime: {status: 404, statusText: ''} y el statusText es una propiedad de err 
                             $form.insertAdjacentHTML("afterend",`<p><b>Error ${err.status}: ${message}</b></p>`);//dentro del html:insertAdjacentHTML, de etiqueta $form inserta en afterend(hermano siguiente), el error, ademas imprime: Error 404: Not Found
                         }
@@ -158,6 +160,7 @@
                             location.reload();//para q recarge la pagina , cuando usas json server no es necesario ya que actualiza la pagina cuando hay cambios
                             
                         } catch (err) {
+                            //el status y statusText, son enviados desde el throw
                             let message = err.statusText || "Ocurrió un error";//imptime: {status: 404, statusText: ''} y el statusText es una propiedad de err 
                             $form.insertAdjacentHTML("afterend",`<p><b>Error ${err.status}: ${message}</b></p>`);//dentro del html:insertAdjacentHTML, de etiqueta $form inserta en afterend(hermano siguiente), el error, ademas imprime: Error 404: Not Found
                         }
@@ -205,6 +208,7 @@
                             location.reload();//para q recarge la pagina , cuando usas json server no es necesario ya que actualiza la pagina cuando hay cambios
                             
                         } catch (err) {
+                            //el status y statusText, son enviados desde el throw
                             let message = err.statusText || "Ocurrió un error";//imptime: {status: 404, statusText: ''} y el statusText es una propiedad de err 
                             alert(`Error ${err.status}: ${message}`);//dentro de alert porque no elimino el registro
                         }

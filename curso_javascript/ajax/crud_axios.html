@@ -16,7 +16,7 @@
                 <br>
                 <input type="text" name="constelacion" placeholder="Constelación" required>
                 <br>
-                <input type="submit" value="Enviar">
+                <input type="submit" name="enviar" value="Enviar">
                 <input type="hidden" name="id"> <!-- elem. de tipo oculto:hidden -->
             </form>
         </article>
@@ -48,6 +48,7 @@
         </tr>
     </template>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script>
         const d = document,
             $table = d.querySelector(".crud-table"),
@@ -56,7 +57,148 @@
             $template = d.getElementById("crud-template").content,//del template es lo que me interesa su estructura dentro de ello
             $fragment = d.createDocumentFragment();//para hacer una sola insercion al dom
 
-            
+        const getAllSaints = async () =>{
+            try {
+                
+                //como usamos AXIOS, ya no es necesario mandar THROW:throw, ya q tenemos un mejor manejo de los errores
+                let res = await axios.get("http://localhost:5555/santos"); //await: espere la respuesta de la funcion axios. get
+                json = await res.data; //espera a q axios nos devuelva el objeto parseado de la data, q es un atributo de res
+
+                console.log(json,res);
+                json.forEach(e => { //por cada elemento:"e" del json
+
+                $template.querySelector(".name").textContent = e.nombre; //dentro del template busca etiqueta con class: .name y en su textContent pone e.nombre(elemento de json con propiedad nombre), pero si es input se pone: $template.nombre
+                $template.querySelector(".constellation").textContent = e.constelacion; //dentro del template busca etiqueta con class: .name y en su textContent pone e.constelacion(elemento de json con propiedad constelacion)
+
+                $template.querySelector(".edit").dataset.id = e.id;//entra al contenido del $template y busca el selector con la clase ".edit" y le voy a crear un data atribute:dataset, el id: q me interesa afectar igualamos : elemento.id(que viene de la respuesta:res obj.)
+                $template.querySelector(".edit").dataset.name = e.nombre; //agregamos un atributo dataset.name y le pasamos lo q viene en elemento.nombre del obj. res:respuesta
+                $template.querySelector(".edit").dataset.constellation = e.constelacion; //agregamos un atributo dataset.constellation y le pasamos lo q viene en elemento.constelacion del obj. res:respuesta
+                        
+                //btn para eliminar necesitamos saber el id
+                $template.querySelector(".delete").dataset.id = e.id; //entra al contenido del $template y busca el selector con la clase ".constellation" y ahi agregamos un atributo dataset.id y le pasamos lo q viene en elemento.id del obj. res:respuesta 
+
+                //este template tiene q clonar para q se quede en memoria
+                let $clone = d.importNode($template, true); //creamos un nodo clonado y true para q copie la estructura del contenido
+                $fragment.appendChild($clone); //agregamos fragmento para que se vaya agregando el $clone con cada uno de su elementos
+                
+                });
+
+            $table.querySelector("tbody").appendChild($fragment);//dentro de la etiqueta ol insertamos el fragmento, una sola insercio del DOM
+
+            } catch (err) {
+                //console.log(err);
+                let message = err.response.statusText || "Ocurrió un error";//el err: es el objeto y statusText es una propiedad dentro de response y asu vez este esta dentro de err, 
+                //si "err.response.statusText", viene vacio, entonces pone: "Ocurrió un error" 
+                $table.insertAdjacentHTML("afterend",`<p><b>Error ${err.response.status}: ${message}</b></p>`);;//imprime: Error 404: Ocurrió un error, dentro de axios del html por el innerHTML
+            }
+        }
+
+        d.addEventListener("DOMContentLoaded",getAllSaints);    
+        
+        d.addEventListener("submit", async e=>{
+            if(e.target === $form){ //cuando el obj. q origino el evento es igual a la etiqueta $form
+
+                e.preventDefault();//para evitar el comportamiento por defecto del btn
+
+                if(!e.target.id.value){ //si dentro del formulario el input con nombre id no tiene valor
+                        //create - POST
+                        try {
+                            let options = { //options:opciones de peticiones axios
+                                method : "POST", //especificamos el metodo
+                                headers: { //dentro de las opciones de axios hay una que se llama headers, hace referencia al las cabeceras
+                                    "Content-type":"application/json; charset=utf-8"
+                                },
+                                
+                                //data es un atributo donde estan todo los datos de db.json en forma de array, data es un atributo de la variable "res", creado anteriormente
+                                data:JSON.stringify({ //te vamos a mandar a sintaxis json, pero convertido en cadena y convertido a stringify
+                                    nombre: e.target.nombre.value, //necesito mandar el "nombre" del santo, que lo obtengo de e.target(formulario), dentro de ello esta el input con clase nombre y accedemos al valor:value
+                                    constelacion: e.target.constelacion.value //necesito mandar el "constelacion" del santo, que lo obtengo de e.target(formulario), dentro de ello esta el input con clase constelacion y accedemos al valor:value
+                                })
+
+                            }, 
+                            //como el metodo ya estamos dando que es method: POST, en la sig. linea solo ponemos axios() y el url dentro
+                            res = await axios("http://localhost:5555/santos", options),//primer parametro es url, 2do parametro serie de opciones, cuando no especificamos el 2do paramtro significa q estamos haciendo una peticion por metodo GET
+                            json = await res.data; //axios ya nos devuelve en json y ese datos en formato array estan dentro de res en su propiedad data
+                            
+                            location.reload();//para q recarge la pagina , cuando usas json server no es necesario ya que actualiza la pagina cuando hay cambios
+                            
+                        } catch (err) {
+                            //console.log(err); //imprime: {message: 'Request failed with status code 404 ...
+                            let message = err.response.statusText || "Ocurrió un error";//imptime: {status: 404, statusText: ''} y el statusText es una propiedad de response y este a su vez es propiedad de err, lo mismo pasa con: status, es propiedad de response y este a su vez de err
+                            $form.insertAdjacentHTML("afterend",`<p><b>Error ${err.response.status}: ${message}</b></p>`);//dentro del html:insertAdjacentHTML, de etiqueta $form inserta en afterend(hermano siguiente), el error, ademas imprime: Error 404: Not Found
+                        }
+                    }else{
+
+                        //update - PUT
+                        try {
+                            let options = { //options:opciones de peticiones axios
+                                method : "PUT", //especificamos el metodo
+                                headers: { //dentro de las opciones de axios hay una que se llama headers, hace referencia al las cabeceras
+                                    "Content-type":"application/json; charset=utf-8"
+                                },
+                                
+                                //data es un atributo donde estan todo los datos de db.json en forma de array, data es un atributo de la variable "res", creado anteriormente
+                                data:JSON.stringify({ //te vamos a mandar a sintaxis json, pero convertido en cadena y convertido a stringify
+                                    nombre: e.target.nombre.value, //necesito mandar el "nombre" del santo, que lo obtengo de e.target(formulario), dentro de ello esta el input con clase nombre y accedemos al valor:value
+                                    constelacion: e.target.constelacion.value //necesito mandar el "constelacion" del santo, que lo obtengo de e.target(formulario), dentro de ello esta el input con clase constelacion y accedemos al valor:value
+                                }) 
+
+                            }, 
+                            res = await axios(`http://localhost:5555/santos/${e.target.id.value}`, options), //e.tragte:formulario, dentro de ello acceder al dataset:atribute con name:id, 
+                            json = await res.data; //axios ya nos devuelve en json y ese datos en formato array estan dentro de res en su propiedad data
+                            
+                            location.reload();//para q recarge la pagina , cuando usas json server no es necesario ya que actualiza la pagina cuando hay cambios
+                        } catch (err) {
+                            //console.log(err); //imprime: {message: 'Request failed with status code 404', name: 'AxiosError', code
+                            let message = err.response.statusText || "Ocurrió un error";//imptime: {status: 404, statusText: ''} y el statusText es una propiedad de response y este a su vez es propiedad de err, el status es una propiedad de response y este a su vez es una propiedad de err
+                            $form.insertAdjacentHTML("afterend",`<p><b>Error ${err.response.status}: ${message}</b></p>`);//dentro del html:insertAdjacentHTML, de etiqueta $form inserta en afterend(hermano siguiente), el msje, imprime: Error 404: Not Found
+                        }
+                    }
+            }
+        });
+
+        /******** inicio: para editar y eliminar datos ***********/
+        d.addEventListener("click", async e=>{
+                if(e.target.matches(".edit")){ //dentro del form:e.target, q busca el selector con clase ".edit"
+                    //alert("presionaste el btn editar");
+                    
+                    //lo unico que estoy haciendo es poner los datos de dataset a los inputs del formulario
+
+                    $title.textContent = "Editar Santos"; //dentro de la clase: .crud-title, en su textcontend
+                    $form.nombre.value = e.target.dataset.name; //vas ingresar al fomulario con clase: .crud-form, dentro ello acceder a su input: nombre, y en su valor vas poner lo q venga en e.target(el btn), en su lista de data-atrubute:dataset poner el nombre
+                    $form.constelacion.value = e.target.dataset.constellation; //vas ingresar al fomulario con clase: .crud-form, dentro ello acceder a su input: constelacion, y en su valor vas poner lo q venga en e.target(el btn), en su lista de data-atrubute:dataset poner constellation
+                    $form.id.value = e.target.dataset.id; //vas ingresar al fomulario con clase: .crud-form, dentro ello acceder a su input: id, y en su valor vas poner lo q venga en e.target(el btn), en su lista de data-atrubute:dataset poner id
+                    
+                    $form.enviar.value = "Actualizar";
+                }    
+
+                if(e.target.matches(".delete")){ //dentro del form:e.target, q busca el selector con clase ".delete"
+                    let isDelete = confirm(`¿Estás seguro de eliminar el id ${e.target.dataset.id}?`); 
+                    //si el usuario preciona aceptar:true en caso contrario false
+                    
+                    if (isDelete) { //si la variable delete es verdadera 
+                       // metodo DELETE
+                       try {
+                            let options = { //options:opciones de peticiones fetch
+                                method : "DELETE", //especificamos el metodo
+                                headers: { //dentro de las opciones de fetch hay una que se llama headers, hace referencia al las cabeceras
+                                    "Content-type":"application/json; charset=utf-8",
+                                }
+                            }, 
+                            res = await axios(`http://localhost:5555/santos/${e.target.dataset.id}`, options), //e.tragte:formulario, dentro de ello acceder al dataset:atribute con name:id, 
+                            json = await res.data; //axios ya nos devuelve en json y ese datos en formato array estan dentro de res en su propiedad data
+                            
+                            location.reload();//para q recarge la pagina , cuando usas json server no es necesario ya que actualiza la pagina cuando hay cambios
+                            
+                        } catch (err) {
+                            //el status y statusText, son enviados desde el throw
+                            let message = err.statusText || "Ocurrió un error";//imptime: {status: 404, statusText: ''} y el statusText es una propiedad de err 
+                            alert(`Error ${err.status}: ${message}`);//dentro de alert porque no elimino el registro
+                        }
+                    }
+                }
+            });
+            /******** fin: para editar y eliminar datos ***********/
 
     </script>
 </body>

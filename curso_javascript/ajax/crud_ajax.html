@@ -81,7 +81,7 @@
                         success(json);                        
 
                     }else{
-
+                        
                         let message = xhr.statusText || "Ocurrió un error"; //si el statusText viene vacio Ó ponemos el mensaje Ocurrio un error
                         error(`Error ${xhr.status}: ${message}`);//recordamos que xhr.status: es cod. de exito o error
 
@@ -129,7 +129,7 @@
 
                         $table.querySelector("tbody").appendChild($fragment); //dentro de la tabla busca la etiqueta "tbody", y como contenido agrega el fragmento clonado agrega al tbody de la tabla
                     }, 
-                    error: (err)=>{ 
+                    error: (err)=>{ //este msje de error fue creado antes
                         console.log(err); //y el error maneja un string: ponemos variable "err", imprime cuando error: Error 404: Not Found
                         $table.insertAdjacentHTML("afterend",`<p><b>${err}</b></p>`);//dentro del html:insertAdjacentHTML, de etiqueta $table inserta en afterend(hermano siguiente), el error, ademas imprime: Error 404: Not Found
                         
