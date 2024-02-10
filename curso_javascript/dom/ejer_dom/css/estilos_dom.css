@@ -21,7 +21,7 @@
 
 /* creamos un reseteo basico para etiqueta html */
 html{
-    box-sizing: border-box; /*box-sizing: tamaño de la caja a border-box */
+    box-sizing: border-box; /*box-sizing: dentro del html crea caja de etiqueta, border-box: el borde va ser en forma de caja, encajando dentro del html*/
     font-family: var(--main-color);
     font-size: var(--font-size);
     scroll-behavior: smooth;/*esa navegacion, para dar efecto de transision no subita a la hora de que vamos de una seccion a otra */
@@ -80,7 +80,7 @@ img{/*para uso de imgs, */
     height: 4rem;
     border-radius: 50%; /*redondo el boton*/
     padding: 0%; /*quito padding*/
-    display: flex; /*para empiece desde el margen inicial sobre el eje principal, contraerse    ...*/
+    display: flex; /*para empiece desde el margen inicial sobre el eje principal, contraerse todo los elementos   ...*/
     justify-content: center; /*ajusta el contenido centro de esas 3 lineas del boton*/
     align-items: center;/*alinea los items de las tres lineas del boton*/
     background-color: var(--main-color);
@@ -130,9 +130,9 @@ img{/*para uso de imgs, */
 .menu{
     width: inherit; /*este clase menu herede la anchura de su contenedor()*/
     display: flex; /*display flex direccion columna(flex-direction: column)*/
-    flex-direction: column;
+    flex-direction: column; /* los elementos se apilan en una sola columna */
     justify-content: space-evenly;/*espaciado proporcional entre los espacios de los elementos y las orillas y trabaja en columna*/
-    align-items: center;/*justify-content, trabaja en horizontal"x" */
+    align-items: center;/*justify-content, trabaja en horizontal"x", ademas coloca los items en centro del eje vertical y horizontal */
     text-align: center;/*alinear las letras*/
 }
 #scroll{ /*este #scroll es para generar un barra de dezplazamiento en ele menu*/
@@ -337,7 +337,7 @@ img{/*para uso de imgs, */
     position: absolute;/*se va posicionar respecto 1mer elemento relativo padre*/
     top: 40%;/*a la mitad posicionamos os btns*/
     display: flex;/*los dos elementos btn se ponen en fila */
-    justify-content: space-between; /*propiedad de alineacion justify-content, damos valor de space-betwen:el espacio sobrante reparta entre los elementos, ademas para que haga este efecto ponemos width:100%*/
+    justify-content: space-between; /* propiedad de alineacion justify-content: ajustar el contenido, damos valor de space-betwen:como dentro de esta clase hay dos elementos, se reparten dejando espacio en el medio, el 1mer elemento va a la izquiera y el otro va derecha, ademas para que haga este efecto ponemos width:100%*/
     width:100%;
     font-size: 3em;/*1em=16px*/
     font-weight: bold;

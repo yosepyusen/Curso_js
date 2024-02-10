@@ -1,0 +1,46 @@
+
+html{
+    box-sizing: border-box; /*box-sizing: dentro del html crea caja de etiqueta, border-box: el borde va ser en forma de caja, encajando dentro del html*/
+    font-family: sans-serif;
+    font-size: 16px;
+    /* background-color: black;*/
+}
+
+*,
+*:before,
+*:after{ /* a todo:* los elemento generados antes:after y despues:before*/
+    box-sizing: inherit;/* aplique un box-sizing, heredado con inherit */
+}
+
+body{
+    margin: 0;
+    min-height: 100vh;/*minima(100% view port) altura, hace que cada seccion, aunque el contenido sea mas pequeño ocupe el tamaño del view port*/
+    display: flex; /*para empiece desde el margen inicial sobre el eje principal, contraerse los elementos   ...*/
+    flex-direction: column; /* los elementos se apilan en una sola columna uno debajo del otro, ya q el body tiene a header,main y footer */
+}
+
+img{ /* q las imgs sean responsivas y el max de 100% y  una altura automatica */
+    max-width: 100%;
+    height: auto;
+}
+
+main{
+    flex-grow: 1; /* felx-grow: ocupa el 100% de pantalla y cuando es 1, esta repartiendo el espacio del main haciendo que el footer se vaya abajo parte pie del pagina*/
+}
+.container{ /* para que sea responsive y el contenido se vaya centrando */
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 992px; /* la maxima anchura para todo que tenga clase container */
+    border: 1px solid red ;
+}
+.header{ /* damos color y paddin a la cabecera, aplica para etiqueta header, main, footer */
+    padding: 5rem;
+    background-color: antiquewhite;
+}
+
+.header-content{
+    display: flex;
+    justify-content: space-between; /*propiedad de alineacion justify-content: ajustar el contenido, damos valor de space-betwen:como dentro de esta clase hay dos elementos, se reparten dejando espacio en el medio, el 1mer elemento va a la izquiera y el otro va derecha */
+    align-items: center; /* coloca los items en centro del eje vertical y horizontal */
+}
+
