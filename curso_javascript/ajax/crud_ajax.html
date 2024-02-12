@@ -74,7 +74,7 @@
 
                     if(xhr.status >= 200 && xhr.status < 300) { ; //cuando el xhr.status tiene exito
                     
-                        //console.log(xhr.responseText); //imprime todo los datos en formato json del url
+                        console.log(xhr.responseText); //imprime todo los datos en formato json del url
                         let json = JSON.parse(xhr.responseText); // con .parse: transformar a obj. javascript la respuesta en formato json y guardar en variable json
                         
                         //ejecutamos el metodo success de la funcion y le vamos a pasar a obj. js:"json"
@@ -108,7 +108,7 @@
                     url: "http://localhost:5555/santos", //url creada con node.js
                     success: (res)=>{ 
 
-                        console.log(res);//imprime ejem: array de 5 datos:(5) [{…}, {…}, {…}, {…}, {…}], de db.json
+                        //console.log(res);//imprime ejem: array de 5 datos:(5) [{…}, {…}, {…}, {…}, {…}], de db.json
                         
                         res.forEach(elemento => {
                             //usamos el template creada en html anterior

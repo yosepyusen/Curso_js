@@ -31,5 +31,66 @@
             <small>Sitio diseñado por Yosep</small>
         </p>
     </footer>
+
+    <script>
+        const d = document,
+            $main = d.querySelector("main");
+            
+        const getHTML = (options) => { //es como la funcion ajax
+            let {url, success, error} = options;
+
+            const xhr = new XMLHttpRequest();
+            //console.log(xhr); //imprime: XMLHttpRequest {onreadystatechange: null, readyState: 0, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, …}
+
+            xhr.addEventListener("readystatechange", e=>{
+                if(xhr.readyState !== 4) return; // cuando el readyState del xhr sea diferente de 4
+
+                if(xhr.status >= 200 && xhr.status <300){  //cuando el xhr.status tiene exito
+
+                    //en este caso como es cod. html el resultado de la peticion 
+                    //console.log(xhr.responseText); //imprime todo los datos del contenido html 
+                    let html = xhr.responseText;
+
+                    success(html);//y enviamos dicho contenido html a la funcion success, q nos va pasar como parametro el usuario a la hora que invoque esta funcion getHtML
+                } else{
+                    let message = xhr.status || "Ocurrió un erro";
+                    error(`Error ${xhr.status}: ${message}`);
+                }
+
+            });
+
+            //abrimos la peticion
+            xhr.open("GET", url);//no pedi metodo el metodo get, porque por default y la url eso si tiene que darme el usuario 
+            
+            //establecemos la cabecera
+            xhr.setRequestHeader("content-type","text/html; charset=utf-8");
+
+            //como esta peticion no esta enviando datos sino esta solicitando el cod. html de ese archivo q viene de la variable url
+            xhr.send();
+        }   
+
+        d.addEventListener("DOMContentLoaded",e=>{
+            getHTML({
+                url: "assets/home.html", //accedemos al archivo para extraer
+                success:(html)=> $main.innerHTML = html , //este success devuelve cod. html en formato de texto,  en el contenedor main:$main, en su contenido html quiero q agregues ese cod. html q me traes
+                error: (err)=> $main.innerHTML = `<h1>${err}</h1>` //dentro del etiqueta main pon el error q manda la variable "err"
+            })
+        });
+
+        d.addEventListener("click", e=>{
+            if(e.target.matches(".menu a")){ //cuando el obj. que origino el evento: e.target , el selector coincida e es:matches, un enlace que esta dentro de una clase menu
+                e.preventDefault();//evitamos el comportamiento por default
+
+                //console.log(e.target.href);//imprime: si das click en home , <a href="assets/home.html">Home</a>
+
+                getHTML({
+                url: e.target.href, //del obj. q origino el evento, me interesa extraer es
+                success:(html)=> $main.innerHTML = html , //este success devuelve cod. html en formato de texto,  en el contenedor main:$main, en su contenido html quiero q agregues ese cod. html q me traes
+                error: (err)=> $main.innerHTML = `<h1>${err}</h1>` //dentro del etiqueta main pon el error q manda la variable "err"
+            })
+            }
+        });
+           
+    </script>
 </body>
 </html>

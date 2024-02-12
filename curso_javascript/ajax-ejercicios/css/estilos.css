@@ -44,3 +44,25 @@ main{
     align-items: center; /* coloca los items en centro del eje vertical y horizontal */
 }
 
+.logo img{
+    width: 4rem;
+    height: auto; /* para q no se deforme la img */
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    font-size: 115%;
+}
+
+.menu a{
+    color: chocolate;
+    padding: 0 1vw; /*0:arriba y abajo, 1:separacion de izquierda y derecha*/
+    text-decoration: none;
+    transition: all .3s ease-in-out; /* para q en el estado hover se vea un pequeño efecto de animacion */
+}
+
+.menu a:hover{
+    opacity: .75; /* para q al dar click en menu se pone medio amarillento */
+}
+
