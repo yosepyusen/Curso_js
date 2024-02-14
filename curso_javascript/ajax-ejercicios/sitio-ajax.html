@@ -53,7 +53,7 @@
 
                     success(html);//y enviamos dicho contenido html a la funcion success, q nos va pasar como parametro el usuario a la hora que invoque esta funcion getHtML
                 } else{
-                    let message = xhr.status || "Ocurrió un erro";
+                    let message = xhr.statusText || "Ocurrió un erro";
                     error(`Error ${xhr.status}: ${message}`);
                 }
 

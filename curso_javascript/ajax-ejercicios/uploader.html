@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploader con Ajax</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+    <main>
+        <input type="file" id="files" name="files" multiple> <!-- palabra multiple pueda subir mas de un archivo -->
+
+    </main>
+
+    <script>
+        const d = document,
+            $main = d.querySelector("main"),
+            $file = d.getElementById("files");
+
+        const uploader = (file) =>{ //creamos una funcion expresada, q recibe la variable files:archivo, se va ejecutar por cada archivo tenga el input
+            
+            //console.log(files);// imprime: File {name: 'DIRECCIÓN.docx', lastModified: 1556568454230..., esto va depender del # de archivos subidos y el mismo # de consoles va imprimir
+
+            //empezamos a crear ajax
+            const xhr = new XMLHttpRequest(),
+                formData = new FormData(); //creamos un new obj. de tipo form Data q recibe 1mer parametro el formulario, en este caso q no hay formulario
+                
+                //para agregar el form se hace con METODO APEND()... 
+                formData.append("file", file) //agregamos a este formData una variable = file, y este uploader recibe el archivo:files
+
+            // 
+            xhr.addEventListener("readystatechange", e=>{
+                if(xhr.readyState !== 4) return; // cuando el readyState del xhr sea diferente de 4
+
+                if(xhr.status >= 200 && xhr.status <300){  //cuando el xhr.status tiene exito
+                    
+                    console.log(xhr.responseText);
+                } else{
+                    let message = xhr.statusText || "Ocurrió un erro";
+                    error(`Error ${xhr.status}: ${message}`);
+                }
+            });
+
+            //abrimos la peticion por el methos POST, porque se esta enviando de un formulario y el url
+            xhr.open("POST","assets/uploader.php");
+
+            //se crea la cabecera para q el envio se crea correctamente
+            //si tuviera un formulario en html, yo le pondria el atributo enc-type, al formulario con el valor de "multipart/form-data", para a parte de variables textuales q pueda recibir elemnts de form, le estamos mandando archivos binarios en ese input file
+            xhr.setRequestHeader("enc-type","multipart/form-data");//enc-type: es de los datos q esta enviando el formulario
+            
+            //mandamos la peticion lo q viene en el form data
+            xhr.send(formData);
+        }
+
+        //El evento CHANGE se dispara para elementos <input>, <select>, y <textarea> cuando una alteración al valor de un elemento es 
+        //confirmada por el usuario. A diferencia del evento input (en-US), el evento change no es disparado necesariamente por cada 
+        //alteración al valor value del elemento
+        d.addEventListener("change", e=>{
+
+            //console.log(e.target);//imprime: <input type="file" id="files" name="files" multiple>
+
+            if(e.target === $file){ //si el obj. q origino el evento es igual a la etiqueta $main
+                
+                console.log(e.target.files);//imprime: FileList {0: File, length: 1}, dentro de ello ; (posicion)0: File {name: 'descarga.png', lastModified: 1707519179430... , el length es el tamaño si subes un archivo va ser 1 y si subes 3 archivos el length va ser 3
+                
+                //por cada file que traiga vamos ejecutar la f. uploader
+                const files = Array.from(e.target.files) //ejecutamos el metodo "from"(convierte un obj. q no es arreglo, puede usar metodos de arreglo como map, reviews, foreach) del Array  
+                
+                //primer es ejecutar con el from de array o con el cliclo for, para q al selecionar con e input varios archivos no sale error
+                files.forEach(el => uploader(el));//por cada files q traiga ejecuta el uploader
+            }
+        });
+
+    </script>
+</body>
+</html>
