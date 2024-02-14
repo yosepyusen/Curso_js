@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
+    <!-- ESTE HTML SE DEBE ABRIR CON XAMPP YA Q ESTAMOS USANDO PHP -->
     <main>
         <input type="file" id="files" name="files" multiple> <!-- palabra multiple pueda subir mas de un archivo -->
 
@@ -20,14 +20,14 @@
 
         const uploader = (file) =>{ //creamos una funcion expresada, q recibe la variable files:archivo, se va ejecutar por cada archivo tenga el input
             
-            //console.log(files);// imprime: File {name: 'DIRECCIÓN.docx', lastModified: 1556568454230..., esto va depender del # de archivos subidos y el mismo # de consoles va imprimir
+            //console.log(file);// imprime: File {name: 'DIRECCIÓN.docx', lastModified: 1556568454230..., esto va depender del # de archivos subidos y el mismo # de consoles va imprimir
 
             //empezamos a crear ajax
             const xhr = new XMLHttpRequest(),
                 formData = new FormData(); //creamos un new obj. de tipo form Data q recibe 1mer parametro el formulario, en este caso q no hay formulario
                 
                 //para agregar el form se hace con METODO APEND()... 
-                formData.append("file", file) //agregamos a este formData una variable = file, y este uploader recibe el archivo:files
+                formData.append("file", file); //agregamos a este formData una variable = file, y este uploader recibe el archivo:files
 
             // 
             xhr.addEventListener("readystatechange", e=>{
@@ -35,14 +35,18 @@
 
                 if(xhr.status >= 200 && xhr.status <300){  //cuando el xhr.status tiene exito
                     
-                    console.log(xhr.responseText);
+                    let json = JSON.parse(xhr.responseText); //parseamos para q ese texto q esta en formato json se convierta en obj. js
+                    
+                    // esta respuesta
+                    console.log(json); //imprime: {err: false, status: 200, statusText: 'Archivo CV-YOSEP-30_08_2023.docx subido con éxito', files: {…}} , esto va imprimir las  veces , dependiendo de cuantos, archivos vas enviar
+                    
                 } else{
                     let message = xhr.statusText || "Ocurrió un erro";
-                    error(`Error ${xhr.status}: ${message}`);
+                    console.error(`Error ${xhr.status}: ${message}`);
                 }
             });
 
-            //abrimos la peticion por el methos POST, porque se esta enviando de un formulario y el url
+            //abrimos la peticion por el methos POST, porque se esta enviando de un formulario y el url: q es el archivo uploader.php
             xhr.open("POST","assets/uploader.php");
 
             //se crea la cabecera para q el envio se crea correctamente
@@ -60,8 +64,9 @@
 
             //console.log(e.target);//imprime: <input type="file" id="files" name="files" multiple>
 
-            if(e.target === $file){ //si el obj. q origino el evento es igual a la etiqueta $main
+            if(e.target === $file){ //si el obj. q origino el evento es igual a la etiqueta $file, q es el input con name:files
                 
+                //e.target: es el input ; y del input que sube archivos tiene una propiedad q se llama files 
                 console.log(e.target.files);//imprime: FileList {0: File, length: 1}, dentro de ello ; (posicion)0: File {name: 'descarga.png', lastModified: 1707519179430... , el length es el tamaño si subes un archivo va ser 1 y si subes 3 archivos el length va ser 3
                 
                 //por cada file que traiga vamos ejecutar la f. uploader
