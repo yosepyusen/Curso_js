@@ -19,3 +19,7 @@ main{
     text-align: center;
     min-height: 100vh; /*minima altura de 100 view por heigth, */
 }
+
+progress{
+    margin-top: 1rem;
+}

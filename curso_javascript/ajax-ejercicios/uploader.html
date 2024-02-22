@@ -11,6 +11,10 @@
     <!-- es te archivo es como un API,  q estoy consumiendo y q devuelve la informacion en formato javascript  -->
     <main>
         <input type="file" id="files" name="files" multiple> <!-- palabra multiple pueda subir mas de un archivo -->
+        
+        <!-- este etiqueta progress se va crear de modo dinamicamente con js -->
+        <!--progress value="70" max="100"></progress> recibe  atributos value: valor actual de carga y max:maxima anchura -->
+        <!--70% - nombre_archivo.txt -->
 
     </main>
 
@@ -58,6 +62,51 @@
             xhr.send(formData);
         }
 
+        const progressUpload = (file) =>{ //vamos a crear una funcion expresada y va recibir un archivo:file
+            const $progress = d.createElement("progress"), //creamos una etiqueta progres
+                $span = d.createElement("span");
+
+            $progress.value = 0; //valor inicial con el cual va empezar, desde cero
+            $progress.max = 100; //el atributo max de valor q va aceptar q es 100
+
+            $main.insertAdjacentElement("beforeend",$progress); //inserta de manera adjacente la etiqueta $progres, beforeend(ultimo hijo)
+            $main.insertAdjacentElement("beforeend",$span); //inserta de manera adjacente la etiqueta $span, beforeend(ultimo hijo)
+            
+            const fileReader = new FileReader();//fileReader, permite detectando los bits, q van cargados y de ello hace el calculo de porcenjate de cada archivo
+            
+            fileReader.readAsDataURL(file); //como se va leer ese archivo, como bufer, data string binaria, o como texto, 
+            //en este caso se va leer como dataURL y el archivo que va leer es el file
+            
+            //fileReader tiene varios eventos que estan ligado al obj. file reader
+            fileReader.addEventListener("progress",e=>{ // mientras hay un progreso:progress de carga
+                //cuando ya termino la carga entonces ejecutar la funcion uploader, la cual permite conectar con php, para q el php subiera archivo al servidor
+                
+                //console.log(e); //imprime: ProgressEvent {isTrusted: true, lengthComputable: true, loaded: 207927, total: 207927, type: 'progress', …}
+                //una propiedad de ProgressEvent total(peso total): 207927 bytes ; loaded(como carga terminado del peso): 207927 , estos valores de sus propiedades va a cambiar de a cuerdo al tipo de archivo q subas y cuantos subas y el tamaño
+
+                //console.log(file);//imprime: File {name: 'foto_yosep.png', lastModified: 1619752544633, lastModifiedDate: Thu Apr 29 2021 22:15:44 GMT-0500 (hora estándar de Perú), webkitRelativePath: '', size: 207927, …} , imprime varias veces si el archivo es pesado
+
+                let progress = parseInt((e.loaded*100)/(e.total))//parseInt, toma la parte entera, dividir la carga:loaded*100 entre el total del peso
+                $progress.value = progress //pegamos ese variable progress
+                $span.innerHTML = `<b>${file.name} - ${progress}%</b>`;//ponemos dentro del html de span el nombre del archivo y el progress que se creo como variable en el antior linea de cod.
+
+            });
+
+            fileReader.addEventListener("loadend",e=>{ // cuando ha finalizado el progreso de carga, q es el loadend  
+                
+                //ESTE ARCHIVO SOLO SUBE DOC. NO MUY PESADOS, EN CASO DE VIDEOS, INSTALADORES QUE PESAN NO SUBE 
+                uploader(file);//con esto ejecutamos el uploader que sube con el php el archivo:file
+                
+                //despues de 3 o 2 seg de completado la carga limpiamos el $main y $file
+                setTimeout(()=>{
+                    
+                    $main.removeChild($progress); //removeChild, es para remover la etiqueta div creada dinamicamente 
+                    $main.removeChild($span);//removemos la etiqueta $progress, $span, q se creo dinamicamente
+                    $file.value = ""; //limpiamos el valor del input que se guardo en la variable $file
+                },3000);
+            });
+        }
+
         //El evento CHANGE se dispara para elementos <input>, <select>, y <textarea> cuando una alteración al valor de un elemento es 
         //confirmada por el usuario. A diferencia del evento input (en-US), el evento change no es disparado necesariamente por cada 
         //alteración al valor value del elemento
@@ -68,13 +117,13 @@
             if(e.target === $file){ //si el obj. q origino el evento es igual a la etiqueta $file, q es el input con name:files
                 
                 //e.target: es el input ; y del input que sube archivos tiene una propiedad q se llama files 
-                console.log(e.target.files);//imprime: FileList {0: File, length: 1}, dentro de ello ; (posicion)0: File {name: 'descarga.png', lastModified: 1707519179430... , el length es el tamaño si subes un archivo va ser 1 y si subes 3 archivos el length va ser 3
+                //console.log(e.target.files);//imprime: FileList {0: File, length: 1}, dentro de ello ; (posicion)0: File {name: 'descarga.png', lastModified: 1707519179430... , el length es el tamaño si subes un archivo va ser 1 y si subes 3 archivos el length va ser 3
                 
                 //por cada file que traiga vamos ejecutar la f. uploader
                 const files = Array.from(e.target.files) //ejecutamos el metodo "from"(convierte un obj. q no es arreglo, puede usar metodos de arreglo como map, reviews, foreach) del Array  
                 
                 //primer es ejecutar con el from de array o con el cliclo for, para q al selecionar con e input varios archivos no sale error
-                files.forEach(el => uploader(el));//por cada files q traiga ejecuta el uploader
+                files.forEach(el => progressUpload(el));//por cada files q traiga ejecuta el progressUpload
             }
         });
 

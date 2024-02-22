@@ -1,7 +1,10 @@
+
 document.addEventListener("DOMContentLoaded",(e)=>{
-    const includeHTML = (el, url)=>{ //creamos una f. expresada y espera recibir el elemento y se va ejecutar por cada elemento q traiga el data-atribute: el y la url: q tiene q cargar
+    
+    const includeHTML = (el, url)=>{ //creamos una f. expresada y espera recibir el elemento y se va ejecutar por cada elemento q traiga el data-atribute: el(elemento) y la url: q tiene q cargar
         
         const xhr = new XMLHttpRequest();
+        
 
         xhr.addEventListener("readystatechange",(e)=>{
 
@@ -19,7 +22,7 @@ document.addEventListener("DOMContentLoaded",(e)=>{
 
         });
 
-        //abrimos la peticion, tiene q ser por metod GET y la url
+        //abrimos la peticion, tiene q ser por metod GET y la url q se obtiene de: el.getAttribute("data-include")
         xhr.open("GET",url);
 
         //establecemos la misma cabecera
@@ -29,8 +32,9 @@ document.addEventListener("DOMContentLoaded",(e)=>{
         xhr.send();
     }
 
+    //ESTE PRIMERO SE EJECUTA, PQ LLAMA A LA FUNCION "includeHTML"
     document
         .querySelectorAll("[data-include]") //traeme todo los selectores que taigan el atributo [data-include]
         .forEach(el=> includeHTML(el, el.getAttribute("data-include"))); //por cada uno de ellos, por cada elemento que traiga un data include, entonces vamos ejecutar la funcion html
-        //el elemnto es:"el" 1mer parametro del foreach y 2do parametro es url:el.getAttribute("data-include"), getAttribute:para obtener el atributo
+        //el ELEMENTO es:"el" 1mer parametro del foreach y 2do parametro es URL:el.getAttribute("data-include"), getAttribute:para obtener el atributo
 });
