@@ -22,8 +22,8 @@ export default function scrollSpy(){
             if(entrada.isIntersecting){ //si de entrada en su propiedad isIntersecting, entonces...
                 //cuando isIntersecting tenga true, es porque se esta visualizando dicha seccion, caso false es porque ya esta en otra seccion
                 d.querySelector(`a[data-scroll-spy][href="#${id}"]`).//busco el 1mer elemento valido de css que corresponda con este selector que sea enlace "a" y tenga su atributo[data-srcroll-spy]: a[data-srcroll-spy] y que aparte valide que en su atributo href tenga el #id(que es el numero de seccion)
-                classList.add("active"); //ademas que sele agrega la clase active a la seccion
                 //en la anterior estamos casando la seccion con el enlace correspondiente
+                classList.add("active"); //ademas que sele agrega la clase active a la seccion
             }else{
                 d.querySelector(`a[data-scroll-spy][href="#${id}"]`).
                 classList.remove("active");//caso contrario al if quitamos la clase active
