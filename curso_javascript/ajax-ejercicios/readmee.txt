@@ -19,3 +19,5 @@
 
 //clas 139: static generitor es para acelerar el tiempor de carga de tu sitios 
 
+//para subir una carpeta en js ponemos "../", para entrar a una carpeta en js ponemos "./"
+
