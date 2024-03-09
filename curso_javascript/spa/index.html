@@ -8,7 +8,39 @@
     <link rel="icon" href="app/assets/logo.jpeg"> <!--para icono, en rel se pone "icon" -->
 </head>
 <style>
+    html{
+        box-sizing: border-box;/*box-sizing: dentro del html crea caja de etiqueta, border-box: el borde va ser en forma de caja, encajando dentro del html*/
+        font-family: 'Raleway', 'sans-serif';/* palicando tipografia de raleway sino sanserif va detectar */
+        font-size: 16px;
+    }
+
+    *,
+    *:after,
+    *:before{
+     
+        box-sizing: inherit;/*inherit, es heredar forzadamente a todo los elementos html */
+    }
     
+    body{
+        margin: 0;
+        overflow-x: hidden; /* todo desborde en horizontal se oculte y  no nos genere barra de desplazamiento, hidden:esconde un elemento, pero deja (vacío) el espacio donde debería aparecer. */
+    }
+    a{
+        color: #01579b;
+        transition: color 0.3s ease;  /* aplicando una transition al color de tiempo 0.3seg y efecto de aceleracion: ease, all es cuando queremos aplicar a transition a todo creo*/
+    }
+
+    a:hover{
+        color: #00b0ff;
+    }
+    h1{
+        text-align: center;
+    }
+    img{
+        max-width: 100%;/* para q no se deforme la img */
+        height: auto;
+    }
+
 </style>
     <body>
         <!-- 
