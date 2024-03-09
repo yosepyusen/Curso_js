@@ -3,6 +3,7 @@ import saludar, {Saludar, PI, pass, usuario} from "./constantes.js" // se import
 // "../constantes.js", para subir una carpeta mas pone un punto más
 
 //importa de la funcion que se exportó: |multiplicar, aritmetica| del archivo aritmetica.js
+//entre {} es para destructuracion ya q no se exporto por defecto
 import {multiplicar, aritmetica as calc} from "./aritmetica.js" //asignamos una alias a artimetica que es calc
 //primerpo se exporta y despues aqui improtamos las variables
 console.log("Archivo modulo.js");
