@@ -14,6 +14,7 @@ export function App(){
     
     console.log(api); //imprime rutas de api {NAME: 'lucylara', DOMAIN: 'https://lucylara.com', SITE: 'https://lucylara.com/wp-json', API_WP: 'https://lucylara.com/wp-json/wp/v2', POSTS: 'https://lucylara.com/wp-json/wp/v2/posts?_embed', …}
 
+    //PARA POSTS
     ajax({ //ajax creado en ajax.js, tiene dos param. tiene que ser EXACTAMENTE IGUAl que es: url y cbSuccess
         url: api.POST, //dentro de api hay variable POST creada
         cbSucces:(posts)=>{//en ajax.js nos pasan json => cbSuccess(json), json que es la data en este caso es posts
@@ -21,5 +22,12 @@ export function App(){
             console.log(posts);// imprime: (10) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}], porque en url le pasamo el url de post
             
         }
+    });
+
+    //PARA CTEGORIES
+    ajax({
+        url: api.CATEGORIES, 
+        cbSucces:(categories)=>console.log(categories)// imprime: (5) [{…}, {…}, {…}, {…}, {…}] , pq hay 5 categorias y este carga mas rapido del posts
+
     });
 }
