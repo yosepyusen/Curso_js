@@ -23,3 +23,42 @@ main{
 progress{
     margin-top: 1rem;
 }
+
+/* inicio --- aumentamos estilos para el html: uploader-drag-and-drop.html */
+
+.drop-zone{
+    margin-left: auto; /* para q s centre la etiqueta article */
+    margin-right: auto;
+    border: thin dotted #000; /*da un borde de color negro con puntos en la etiqueta article*/
+    width: 80%; /*ancho de 80% y alto(height): 40 de tamaño de la pantalla*/
+    height: 40vh;
+    display: flex;/*para empiece desde el margen inicial sobre el eje principal, contraerse los elementos..., tambien para pueda centrarse*/
+    justify-content: center; /* para que el parrafo escrito dentro del article se centre perfectamente con:justify-content, text-align, align-items */
+    text-align: center;
+    align-items: center;
+}
+
+.drop-zone.is-active{ /* clase:.drop-zone ; .is-active: es una clase aparte */
+    border: thick dashed #000; /* con esta clase activado va cambiar a un borde grueso:thick, y de linea segementada:dashed */
+    background-color: rgba(0, 128, 0, 0.5);
+    animation: pulse 1.5s infinite; /* animacion de pulse y va durar minuto y medio:1.5s y va ser infinita */
+    animation-timing-function: linear; /* con una funcion lineal a la hora de ejecutarse */
+}
+
+/* Cada fotograma describe cómo se muestra cada elemento animado en un momento dado durante la secuencia de la animación. */
+
+@keyframes pulse{ /*Animación se crea con @keyframes, ejem: se crea animación con nombre:pulse */
+
+    /* decimos que en el fotograma 0% (cuando esta inciciando) y 100%(cuando esta al final), de la animacion la escala(scale), de la drop-zone sea 1 */
+    0%,
+    100%{
+        transform: scale(1); /* transforma a una escala de 1 o sea a igual mismo */
+    }
+
+    /* decimos que en el fotograma 50% (cuando esta a la mitad del fotograma), de la animacion la escala(scale), de la drop-zone sea 1.1 */
+    50%{
+        transform: scale(1.1); /* transforma a una escala de 1 o sea un poco mas a igual mismo */
+    }
+}
+
+/* fin --- aumentamos estilos para el html: uploader-drag-and-drop.html */

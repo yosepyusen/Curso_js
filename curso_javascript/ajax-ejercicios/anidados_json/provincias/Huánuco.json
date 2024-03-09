@@ -1,0 +1,22 @@
+{
+    "error": false,
+    "code_error": 0,
+    "error_message": null,
+    "response": {
+        "provincias": [
+            
+            "Huánuco",
+            "Ambo",
+            "Dos de Mayo",
+            "Huacaybamba",
+            "Huamalíes",
+            "Leoncio Prado",
+            "Marañón",
+            "Pachitea",
+            "Puerto Inca",
+            "Lauricocha",
+            "Yarowilca"        
+
+        ]
+    }
+}

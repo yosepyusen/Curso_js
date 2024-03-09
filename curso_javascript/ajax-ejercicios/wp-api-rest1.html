@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <style>
+
+    html{
+        box-sizing: border-box;/*box-sizing: dentro del html crea caja de etiqueta, border-box: el borde va ser en forma de caja, encajando dentro del html*/
+        font-family: 'Raleway', 'sans-serif';/* palicando tipografia de raleway sino sanserif va detectar */
+        font-size: 16px;
+    }
+
+    *,
+    *:after,
+    *:before{
+        box-sizing: inherit;/*inherit, es heredar forzadamente de etiqueta raiz html */
+    }
+    a{
+        color: #01579b;
+        transition: all .3s ease-out;
+    }
+    a:hover{
+        opacity: .75;
+    }
+
+    img{
+        max-width: 100%;
+        height: auto;
+    }
+    h1{
+        text-align: center;
+    }
+    hr{
+        border: thin solid #01579b;
+        margin: 3rem auto;
+        width: 80%;
+    }
+    .site{
+        margin: 1rem auto;
+        padding: 1rem;
+        max-width: 50%;
+        text-align: center;
+    }
+    
+    .post{ /* donde estan las publicaciones desde la img hasta "Ver contenido de la publicación"*/
+        margin: 1rem auto;
+        padding: 1rem;
+        border-radius: .5rem;
+        max-width: 80%;
+        text-align: center;
+        background-color: #eceff1;
+    }
+    
+    .post-autor img{
+        border-radius: 50%;
+    }
+    .post-date{
+        margin: 1rem auto;
+        display: block; /*en bloques y cada elemento ponemos en filas*/
+    }
+
+    .post-excerpt,
+    .post-categories,
+    .post-tags,
+    .post-content{
+        text-align: left;
+    }
+
+    .post-content summary{ /* Ver contenido de la publicación: ese es el summary */
+        font-size: 1.5 rem;
+        font-weight: bold;
+    }
+    
+    .post-content > article{ /* <details class="post-content">, dentro de este etiqueta hay un etiqueta article */
+        padding: 1rem;
+        background-color: #e3f2fd;
+    }
+    .post-content img{
+        display: block; /*en bloque*/
+        margin: auto; /* centre los imgs */
+        border-radius: 5%;
+    }
+
+    .loader{
+        display: none;
+        margin: 2rem auto;
+    }
+
+    </style>
+</head>
+<body>
+    
+    <h1>WordPress REST API</h1>
+    <article id="site" class="site"></article>
+    <section id="posts" class="posts"></section>
+    <img class="loader" src="assets/loader.svg" alt="Cargando...">
+    
+    <template id="post-template"> <!-- con es template no definimos atributos cono alt="" -->
+        <article class="post">
+            <img class="post-image">
+            <aside>
+                <h2 class="post-title"></h2>
+                <figure class="post-autor"></figure>
+                <small class="post-date"></small>
+                <a class="post-link" target="_blank">Ver publicación</a>
+                <p class="post-excerpt"></p><!-- estracto de texto q da wordpress -->
+                <div class="post-categories"></div>
+                <div class="post-tags"></div>
+                <details class="post-content"> <!--  -->
+                    <summary>Ver contenido de la publicación</summary>
+                    <article></article><!-- todo el contenido del posts -->
+                </details>
+            </aside>
+        </article>
+        <hr>
+    </template>
+
+    <script>
+         const d = document,
+            w = window,
+            $site = d.getElementById("site"),
+            $posts = d.getElementById("posts"),
+            $loader = d.querySelector(".loader"),
+            $template = d.getElementById("post-template").content, //el $template hace referencia al contenido y no al nodo
+            $fragment = d.createDocumentFragment(),
+            
+            //ponemos link: https://www.whitehouse.gov ,para ver si el catch funciona, en este caso esta pag. esta echo en wordpress pero no deja sacar info
+            //link de https://css-tricks.com, si permite users, pero me da varios errores en console, https://malvestida.com/, este link no deja imprimir users con fetch
+            DOMAIN = "https://lucylara.com",//van ir en mayusculas pq durante flujo no van a cambiar y aca va ir el dominio del api
+            SITE = `${DOMAIN}/wp-json`, //aqui me da la informacion acerca del sitio como es el name, home, namespace, etc.
+            API_WP = `${SITE}/wp/v2`,//acceso a la info nativa de la api de wordpress
+            
+            //POSTS = `${API_WP}/posts`
+            //para no hacer pesticiones para posts y aparte para pages o categories u otro, es por ello usar EMBED
+            //este EMBED:nos va traer el id, nombre de las categorias, etiquetas, usuarios, url, etc. , de las imgs destacadas
+            
+            //${API_WP}/posts?_embed imprime adicional mente: _embedded:{author: Array(1), wp:featuredmedia: Array(1), wp:term: Array(2)}
+            //author : estan los datos de autores, featuredmedia:donde esta archivo, medias, imgs, term: estan las categorias
+            POSTS = `${API_WP}/posts?_embed`, //accedemos a los publicaciones de pag_web de wordpress, ?(este signo para pasar info), embed: para hacer una sola peticion, ya sea para posts, paginas,..., etc, 
+
+            PAGES = `${API_WP}/pages`, // para las paginas
+            CATEGORIES = `${API_WP}/categories`, // para las paginas
+            MEDIA = `${API_WP}/media/`; //para media como img
+
+            let page = 1,
+                per_page = 5;
+
+        function getSiteData(){ //f. para obtener info. del sitio
+
+            fetch(SITE) //res.json(): para q convierta en formato json la info.
+            .then(res => res.ok ? res.json() : Promise.reject(res))
+            .then(json=>{
+
+                console.log(json);//imprime: {name: 'Malvestida', description: '', url: 'https://malvestida.com', home: 'https://malvestida.com', gmt_offset: -6, …}
+                
+                //url, description, name son propiedades de json
+                $site.innerHTML = `
+                    <h3>Sitio Web</h3>
+                    <h2>
+                        <a href="${json.url}" target="_blank" rel="noopener noreferrer">${json.name}</a>
+                    </h2>
+                    <p>${json.description}</p>
+                    <p>${json.timezone_string}</p>
+                `;
+            })
+            .catch(err=>{
+
+                console.log(err);
+                let message = err.statusText || "Ocurrió un error"; //si el statusText viene vacio Ó ponemos el mensaje Ocurrio un error
+                $site.innerHTML = `<p>Error ${err.status}: ${message}</p>`;//recordamos que xhr.status: es cod. de exito o error
+
+            });
+        }
+
+        function getPosts(){ //f. para obtener publicaciones del sitio
+
+            //loader carga en bloque cuando empieza hacer peticion de posts
+            $loader.style.display = "block";
+
+            
+            //&:es sinonimo de y; per_page:# de articulos en devolver, &per_page=5: con esto le decimos q nos devuelve 5 articulos
+            //&pages=10 , llevame a la pagina 10
+            //POSTS = `${API_WP}/posts?_embed&per_page=5&page=10`
+            fetch(`${POSTS}&page=${page}&per_page=${per_page}`) //le decimos que llama a la ruta declarado en POSTS ; &page=${page}&per_page=${per_page} : que me traiga la pagina 1 y ademas me traiga los posts de 5 en 5
+            //fetch(POSTS) //antes solo era eso, pero para agregar mas post hacemos...
+            .then(res => res.ok ? res.json() : Promise.reject(res))//res.json(): para q convierta en formato json la info.
+            .then(json=>{
+
+                console.log(json); //imprime: (10) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]               
+
+                json.forEach(el => {
+                    
+                    let categorias = "", //para las categorias
+                    tags = ""; //para etiquetas
+
+                    //en su propiedad de json=el, tiene _embedded y dentro de este hay ["wp:term"] y en la posicion 0 donde estan las categorias, ejecutamos el foreach
+                    //_embedded , dentro de esto esta wp:term, donde qui estan las categorias en posicion 0 y posicion 1: son etiquetas
+                    //el._embedded["wp:term"][0] : dentro de este arreglo ejecutamos el foreach y vamos agregando el.name dentro de "categorias"  
+                    el._embedded["wp:term"][0].forEach(el => categorias +=`<li>${el.name}</li>`);// en el foreach agregamos el.name(dentro de este viene el nombre de la categoria)
+                    
+                    //aqui viene las etiqeutas en posicion 1 de _embedded["wp:term"][1]
+                    el._embedded["wp:term"][1].forEach(el => tags +=`<li>${el.name}</li>`);
+
+                    //en su atributo "src" de ".post-image", pega el "source_url" que esta dentro del array:[0] y este a su vez dentro de:["wp:featuredmedia"] y este contenido en propiedad "_embedded", del "obj. json=el"    
+                    //si el._embedded["wp:featuredmedia"]:hay datos entonces signo de interrogacion ?, ponga el._embedded["wp:featuredmedia"][0].source_url ; caso contrario dos puntos: pon cadena vacio = ""
+                    $template.querySelector(".post-image").src = el._embedded["wp:featuredmedia"] ? el._embedded["wp:featuredmedia"][0].source_url : ""; 
+                    $template.querySelector(".post-image").alt = el.title.rendered ; //en su atributo "alt" de ".post-title", pega el rendered que esta dentro de title y este a su vez de obj. "el"     
+                    $template.querySelector(".post-title").innerHTML = el.title.rendered ; //en su contenido de ".post-title", pega el rendered que esta dentro de title y este a su vez de obj. "el"     
+                    
+                    //una publicacion puede haber mas de un autor por esto muestra en obj.: _embedded: author: [{…}]
+                    //el._embedded.author[0].avatar_urls[48] : dentro de "_embedded", este a su vez de "author[0]": tomamos la posicion 0 del author y dentro de esta "avatar_urls[48]": avatar_urls en la posicion 48
+                    //atributo name de _embedded.author[0]
+                    $template.querySelector(".post-autor").innerHTML = `
+                        <img src="${el._embedded.author[0].avatar_urls[48]}" alt="${el._embedded.author[0].name}">
+                        <figcaption>${el._embedded.author[0].name}</figcaption>
+                    `;
+                    //agregamos datos las estiquetas ".post-date" , ".post-link" , ".post-excerpt" , creadas anteriormente
+                    $template.querySelector(".post-date").innerHTML =  new Date(el.date).toLocaleString(); //"date" es de "el" esto lo convertimos da Date() y con toLocaleString para q nos imprime en fecha y hora
+                    $template.querySelector(".post-link").href = el.link ; //con esto imprime "Ver publicación" en el html, "link" atributo de "el"
+                    $template.querySelector(".post-excerpt").innerHTML = el.excerpt.rendered.replace("[&hellip;]","...") ; // render es de excerpt y este a su vez de el
+                    //replace(), 1mre parametro a reemplazar y 2do por que vas remplazar
+                    //[&hellip;]: en html se ve como [...]
+
+                    // agregamos categories y etiquetas
+                    $template.querySelector(".post-categories").innerHTML = `
+                        <p>Categorias:</p>
+                        <ul>${categorias}</ul>
+                    `;
+
+                    $template.querySelector(".post-tags").innerHTML = `
+                        <p>Etiquetas:</p>
+                        <ul>${tags}</ul>
+                    `;
+
+                    //".post-content > article", dentro de "".post-content" hay etiqueta <article>
+                    $template.querySelector(".post-content > article").innerHTML = el.content.rendered;//el rendered esta dentro de content y asu vez de obj.json
+
+                    let $clone = d.importNode($template, true);
+                    $fragment.appendChild($clone);
+
+                });
+
+                $posts.appendChild($fragment);//una sola insercion del dom
+            
+                //cuando termina de cargar la peticion de posts 
+                $loader.style.display = "none";
+
+            })
+            .catch(err=>{
+
+                console.log(err);
+                let message = err.statusText || "Ocurrió un error"; //si el statusText viene vacio Ó ponemos el mensaje Ocurrio un error
+                $posts.innerHTML = `<p>Error ${err.status}: ${message}</p>`;//recordamos que xhr.status: es cod. de exito o error
+                
+                //tarda mas en cargar la f. getSiteData(), por eso ocultamos el loader
+                $loader.style.display = "none"; //dentro de este etiqueta damos un estilo con displya igual a none para invisibilidad y quita espaciado
+
+            });
+
+        }
+
+        d.addEventListener("DOMContentLoaded",e=>{ 
+
+            getSiteData();
+            getPosts();
+            
+        });
+        
+        //se va ejecutar esto cuando movemos el scroll
+        d.addEventListener("scroll",e=>{
+
+            //scrollTop: obtiene o establece el número de pixels que el contenido de un elemento ha sido desplazado (enrollado) hacia arriba
+            //clientHeight: devuelve la altura de un elemento en píxeles, incluyendo el padding pero no las barras horizontales, el borde o el margen. ver mas:https://developer.mozilla.org/es/docs/Web/API/Element/clientHeight
+            //scrollHeight:Muestra la altura de deslizamiento del elemento.
+            const { scrollTop, clientHeight, scrollHeight } = d.documentElement;
+            //console.log(d.documentElement);//imprime cada vez q escroleas todo el html y su etiquetas dentro 
+            
+            //scrollTop: cuanto me alejado del margen-top con la barra del desplazamiento vertical
+            //clientHeight: altura del view port de mi navegador o sea la altura de la vanetana visible del pc, por eso es fijo
+            //scrollHeight: nos esta dando el total que tengo de distancia del srcoll, por eso es fijo
+            
+            //console.log(scrollTop,clientHeight, scrollHeight); //imprime en ese orden respectivamente: 4px , 654px, 7289px,
+            //cuando el scroll llevamos al final del view port nos imprime del anterior scroll: 6635 654 7289
+            
+            //si sumamos nos da 6635 + 654 = 7289 , 
+            if((scrollTop + clientHeight)>= scrollHeight ){ 
+                //console.log("Cargar mas posts");
+                
+                //antes de llamar a la funcion incrementamos 
+                page++; // aumentamos la pagina en 1 y asi creamos un bucle infinito
+                getPosts();
+            }
+        });
+    </script>
+
+</body>
+</html>

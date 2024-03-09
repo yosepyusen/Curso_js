@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Anidados</title>
+</head>
+<body>
+    
+    <h1>Select Anidados</h1>
+    <h2>Huánuco</h2>
+
+    <label for="select-primary"></label>
+    <select name="primary" id="select-primary">
+        <option value="">Elige un Departamento</option>
+    </select>
+    <p></p> <!-- para la carga del msje cuando da error -->
+
+    <label for="select-secondary">Provinicia</label>
+    <select name="secondary" id="select-secondary">
+        <option value="">Elige una Provinicia</option>
+    </select>
+    <p></p> <!-- para la carga del msje cuando da error -->
+    
+    <label for="select-third">Distritos</label>
+    <select name="secondary" id="select-third">
+        <option value="">Elige un Distrito</option>
+    </select>
+    <p></p> <!-- para la carga del msje cuando da error -->
+
+    <script>
+
+        const d = document,
+            $selectPrimary = d.getElementById("select-primary"),
+            $selectSecondary = d.getElementById("select-secondary"),
+            $selectThird = d.getElementById("select-third");
+
+        function loadState(){ //va cargar los estados de la republica
+
+            fetch("anidados_json/Departamentos.json") //api para obtener estados:https://api.copomex.com/query/get_estados?token=pruebas , pero da en codificado y no da nombres 
+            
+            .then(res => res.ok ? res.json(): Promise.reject(res))
+            .then( json =>{
+
+                console.log(json);//imprime: {error: false, code_error: 0, error_message: null, response: {…}}
+                let $options = `<option value="">Elige un Departamento</option>`; //creamos un option
+                
+                //dentro de json hay response y dentro de este hay departamendos
+                //$options +=`<option value="${el}">${el}</option> ; $option se va agregando(+=) por cada iteración en su valor=value y la escritura dentro del option
+                //console.log(json.response);
+                
+                json.response.departamentos.forEach(elem => $options +=`<option value="${elem}">${elem}</option>`); 
+                $selectPrimary.innerHTML = $options;
+
+            })
+            .catch(err=>{ //va dar error cuando ponemos mal el link en el fetch
+
+                console.log(err);
+                let message = err.statusText || "Ocurrió un error";//
+                $selectPrimary.nextElementSibling.innerHTML = `Error ${err.status}: ${message}`; //en el sig. elemento hermano:nextElementSibling
+                
+            });
+
+        }
+
+        function loadTown(state){ //carga de los paises y recibe el variable el estado:state
+           
+            fetch(`anidados_json/provincias/${state}.json`) //api para obtener estados:https://api.copomex.com/query/get_estados?token=pruebas , pero da en codificado y no da nombres 
+            .then(res => res.ok ? res.json(): Promise.reject(res))
+            .then( json =>{
+
+                console.log(json);//imprime: {error: false, code_error: 0, error_message: null, response: {…}}
+                let $options = `<option value="">Elige una Provincia</option>`; //creamos un option
+                
+                //por cada municipios(distritos), dentro de json hay response y dentro de este hay municipios
+                //$options +=`<option value="${el}">${el}</option> ; $option se va agregando(+=) por cada iteración en su valor=value y la escritura dentro del option
+                //console.log(json.response);
+                json.response.provincias.forEach(elem => $options +=`<option value="${elem}">${elem}</option>`); 
+                $selectSecondary.innerHTML = $options;
+
+            })
+            .catch(err=>{ //va dar error cuando ponemos mal el link en el fetch
+
+                console.log(err);
+                let message = err.statusText || "Ocurrió un error";//
+                $selectSecondary.nextElementSibling.innerHTML = `Error ${err.status}: ${message}`; //en el sig. elemento hermano:nextElementSibling
+                
+            });
+        }
+
+        function loadDistritos(state){ //carga de los paises y recibe el variable el estado:state
+           
+            fetch(`anidados_json/distritos/${state}.json`) //api para obtener estados:https://api.copomex.com/query/get_estados?token=pruebas , pero da en codificado y no da nombres 
+            .then(res => res.ok ? res.json(): Promise.reject(res))
+            .then( json =>{
+
+                //console.log(json);//imprime: {error: false, code_error: 0, error_message: null, response: {…}}
+                let $options = `<option value="">Elige un Distrito</option>`; //creamos un option
+                
+                //por cada municipios(distritos), dentro de json hay response y dentro de este hay municipios
+                //$options +=`<option value="${el}">${el}</option> ; $option se va agregando(+=) por cada iteración en su valor=value y la escritura dentro del option
+                //console.log(json.response);
+                
+                json.response.distritos.forEach(elem => $options +=`<option value="${elem}">${elem}</option>`); 
+                $selectThird.innerHTML = $options;
+
+            })
+            .catch(err=>{ //va dar error cuando ponemos mal el link en el fetch
+
+                console.log(err);
+                let message = err.statusText || "Ocurrió un error";//
+                $selectThird.nextElementSibling.innerHTML = `Error ${err.status}: ${message}`; //en el sig. elemento hermano:nextElementSibling
+                
+            });
+        }
+
+        d.addEventListener("DOMContentLoaded", e=>loadState()); //a la carga del html ejecuta loadState
+        
+        $selectPrimary.addEventListener("change",e=>{ //cuando hay un cambio en <select name="primary"...>
+            //el valor del estado lo obtenemos: e.target.value (es el valor que viene dentro del option)
+            loadTown(e.target.value);//entonces cargamos la f. loadTown
+            //console.log(e.target.value);
+        });
+
+        $selectSecondary.addEventListener("change", e=>{
+            loadDistritos(e.target.value); //cuando el select de provincia haya seleccionado trae su valor de este select
+        });
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog con Markdown y Showdown.js</title>
+</head>
+<body>
+    
+    <h1>Blog con Markdown y Showdown.js</h1>
+    <main>
+
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script> <!-- mandamos a llamar la libreria externa de showdownjs en este caso para que convierta el cod. markdown en html -->
+    <script>
+
+        const d = document,
+            $main = d.querySelector("main");
+        
+            //peticion ajax
+        fetch("assets/javascript.md") //mandamos a llamr al fichero .md
+        
+        //si la rpta es res.ok, entonces convierte en formato texto la respuesta; caso contrario rechaza la promesa con: Promise.reject(res), para que la respuesta se vaya como error al metodo catch
+        .then(res => res.ok ? res.text(): Promise.reject(res))//primer then recibe la rpta. 
+        //si va todo bien...
+        .then(text =>{ //text es una variable que se asigna puede ser otro variable
+            console.log(text); //imprime todo contenido de javascript.md
+
+            $main.innerHTML = new showdown.Converter().makeHtml(text); // creamos una instancia de la libreria showdown y ejecutamos el obj. Converter y ejecutamos el makeHTML y dentro de ello le pasamos la variable "text"
+        })
+        .catch(err=>{
+            console.log(err); //tanto el statusText y status , son propiedades de "err" que manda fetch
+            let message = err.statusText || "Ocurrió un error";
+            
+            $main.innerHTML = `<p>Error ${err.status}: ${message}</p>`; //pegamos a la etiqueta main en su innerHTML
+        })
+    </script>
+
+</body>
+</html>

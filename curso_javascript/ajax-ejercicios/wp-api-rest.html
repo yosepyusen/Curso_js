@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>WordPress REST API</h1>
+    
+    <script>
+        //consumir info de nuestro sitio
+        //the loop, es funcion php q tiene worpres para traer la info de cada uno de las paginas o entradas de tu blog o sitio
+        //the loop:con este podemos hacer, INSERT, UPDATE, CREATE, DELETE o sea el CRUD, con API  de tipo REST DE wordpress pero tbm se hace internamente de wordpres 
+        //para consumir info. no necesitas credenciales, va depender de la se. d tu wordpres y si permites peticiones de tipo rest
+        //the_permalink(): url de lo q estamos leendo
+        //php the_content(): contenido 
+        // https://css-tricks.com/ ; https://www.whitehouse.gov/: dice que estan hecho en wordpres
+        // api rest:https://developer.wordpress.org/rest-api/ 
+        // https://developer.wordpress.org/rest-api/reference/ donde estan : Referencia del punto final del desarrollador de API REST
+        // https://developer.wordpress.org/rest-api/reference/posts/ : dentro de posts
+
+        
+        fetch("https://malvestida.com/wp-json/wp/v2/pages") 
+        // https://malvestida.com/wp-json/wp/v2/tags ; https://malvestida.com/wp-json/wp/v2/pages ; https://malvestida.com/wp-json/wp/v2/users (no esta permitido)
+        //para categorias https://malvestida.com/wp-json/wp/v2/categories, imprime un arreglo de 10 pero solo de categorias
+        //para acceder a POSTS:https://malvestida.com/wp-json/wp/v2/posts , imprime: arreglo de 10 valores ; estos arreglos son mostrados independiente si estan publicado o no  y en status: "publish" , es porque esta publicado
+        //para acceder a POSTS:https://malvestida.com/wp-json/wp/v2 , imprime:{namespace: 'wp/v2', routes: {…}, _links: {…}}
+        //para acceder al api seria nombre de dominio:https://malvestida.com más wp-json 
+        //otro link(https://lucylara.com/wp-json) para consumir info es que imprime:{name: 'Lucy Lara', description: 'Conoce las reglas para romperlas', url: 'https://lucylara.com', home: 'https://lucylara.com', gmt_offset: -6, …}
+        //otro link(https://css-tricks.com/wp-json) , imprime: {name: 'CSS-Tricks', description: 'Tips, Tricks, and Techniques on using Cascading Style Sheets.', url: 'https://css-tricks.com', home: 'https://css-tricks.com', gmt_offset: -8, …}
+        //otro link(https://wordpress.org/wp-json) , imprime: {name: 'WordPress.org', description: 'Blog Tool and Publishing Platform', url: 'https://wordpress.org', home: 'https://wordpress.org', gmt_offset: 0, …}
+        //otro link(https://www.mientrastantoenmexico.mx/)
+        
+        .then(res => res.ok ? res.json(): Promise.reject(res))
+        .then(json=>{
+            console.log(json);//imprime: {name: 'Malvestida', description: '', url: 'https://malvestida.com', home: 'https://malvestida.com', gmt_offset: -6, …}
+            //namespaces : va variar dependiendo del plugins instalado el sitio
+            //ejem pluguins: 0:"oembed/1.0" ; 1:"contact-form-7/v1"
+            //routes: rutas todo esos endpoint a los q yo puedo acceder a traves de api wordpres, y estos va depender de los pluguins y opciones de config. q tengan 
+        })
+
+    </script>
+
+</body>
+</html>

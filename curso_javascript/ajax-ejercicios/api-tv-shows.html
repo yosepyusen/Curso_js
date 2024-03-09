@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Shows de TV</title>
+    <style>
+        .grid-fluid{
+            display: grid; /* para responsive desing con display grid */
+            /*filas se van generar de manera automatica, grid-template-columnspara generar columnas */
+            grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); /*con funcion repeat decimos cuantas columnas necesito, poner (auto-fit:una por cada elemento hijo del componente grid, es decir una por cada figure que genere) */
+            /* repeat recibe dos parametros, el 1ro:auto-fit; el 2do:minmax es una funcion de grid, cuanto de tamaño max:1fr y minimo:200px de la columna */
+            /* 1fr: es una medida de grid css */
+            text-align: center;
+        }
+        .loader{
+            display: block;/*convirtimos en bloque el elemento*/
+            margin: auto;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <h1>Buscador de Shows de TV</h1>
+    <input type="search" id="search" placeholder="Buscar Shows de tv..." autocomplete="off"> <!-- buscador -->
+    <section id="shows" class="grid-fluid"></section>
+    <template id="show-template">
+        <article class="show">
+            <h3></h3>
+            <div></div>
+            <img src="" alt=""><br>
+            <a href=""></a>
+        </article> 
+    </template>
+
+    <!-- son link usados para traer info con fetch y async
+    http://www.tvmaze.com/
+    http://api.tvmaze.com/        
+     -->
+
+    <script>
+
+        const d = document,
+            $shows = d.getElementById("shows"),
+            $template = d.getElementById("show-template").content, //del $template nos interesa el contenido por eso content
+            $fragmento = d.createDocumentFragment();//creamos un fragmento para hacer una sola insercion
+
+            //como vamos esperar la rpta de api, vamos a solicitar datos con fetch con ayuda f. asincrona 
+        d.addEventListener("keypress", async e=>{ //evento cuando pulsa la tecla:keypress  
+            if(e.target.matches("#search")){ //cuando el obj. q origina el evento es igual a id="search"
+                
+                //console.log(e.key, e.keyCode); //key nos da la tecla que pulsaste, e.keyCode nos da el codigo de la tecla 
+                
+                if (e.key === "Enter") {
+
+                    try {
+                        //mientra esperamos le rpta del api
+                        $shows.innerHTML = `<img class="loader" src="assets/loader.svg" alt="Cargando...">`;  
+                        
+                        let query = e.target.value.toLowerCase(), //el valor del input search lo convertimos a minuscula lo q escribe
+                            api = `https://api.tvmaze.com/search/shows?q=${query}`, //?q : es una forma de busqueda,
+                            res = await fetch(api), //espera a que termine hacer peticion a ese api de fetch
+                            json = await res.json(); //transformamos los datos en json
+
+                            console.log(api, res, json); //imprime: en ese orden sig.
+                            //https://api.tvmaze.com/search/shows?q=hola 
+                            //Response {type: 'cors', url: 'https://api.tvmaze.com/search/shows?q=hola', redirected: false, status: 200, ok: true, …} 
+                            //(10) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+
+                            //manipulacion de error
+                            if(!res.ok) throw { status: res.status, statusText: res.statusText} //es un standar en ajax este linea de cod.
+
+                            if(json.length === 0){ // si tamaño de json es cero, es por que es un arreglo vacio []
+                                $shows.innerHTML = `<h2>No existen resultados para <mark>${query}</mark></h2>`;
+                            }else{ //si existen resultados
+                                json.forEach(el => {
+                                    //agregamos contenido patiquetas h3,div,img y a del article
+                                    $template.querySelector("h3").textContent = el.show.name; //dentro del h3 en su contenido pon los datos del array json, y dentro de ello hay una propieda "show" y este a su ves tiene un nombre:name
+                                    $template.querySelector("div").innerHTML = el.show.summary ? el.show.summary : "Sin descripción"; //en este caso el sumary del show de json viene en formato html
+                                    //(viene pon el.show.summary), caso contario pon "Sin descripción"; 
+                                    $template.querySelector("img").src = el.show.image ? el.show.image.medium: "https://static.tvmaze.com/images/no-img/no-img-portrait-text.png"; //ponemos el img el atributo "src", dentro de show tiene propedad de medium y original q esta dentro de image
+                                    $template.querySelector("img").alt=el.show.name; //en su atributo alt de la img ponemos el nombre del show.name
+                                    $template.querySelector("img").style.maxWidth="100%"; //en su propiedad del stilo pon un max ancho de 100%
+                                    
+                                    $template.querySelector("a").href = el.show.url ? el.show.url : "#";
+                                    $template.querySelector("a").target = el.show.url ? "_blank" : "_self"; //cauando del show del url viene en su target pon "_blank":abre una pestaña nueva ; caso contrario "_self": q abra la misma pagina 
+                                    
+                                    $template.querySelector("a").textContent = el.show.url ? "\n Ver más..." : ""; //si viene la url pon "ver mas..." sino pon vacio "" 
+                                    
+                                    //este template tiene q clonar para q se quede en memoria
+                                    let $clone = d.importNode($template, true); //creamos un nodo clonado
+                                    $fragmento.appendChild($clone); //agregamos fragmento para que se vaya agregando el $clone con cada uno de su elementos
+
+                                });
+                            }
+
+                            $shows.innerHTML = ""; //limpiar el show para no salga el loader 
+                            $shows.appendChild($fragmento); //pegamos el fragmento
+
+                    } catch (err) {
+                        
+                        //esto como tal no seria un error, porque al introducir cualquier cosa en el buscador no es error sino no hay datos con esa busqueda,
+                        //pero si daria error cuando ponemos mal el link en api
+                        //console.log(err);
+                        let message = err.statusText || "Ocurrió un error";//imptime: {status: 404, statusText: ''} y el statusText es una propiedad de err 
+                        $shows.innerHTML = `<p>Error ${err.status}: ${message}</p>`;//imprime: Error 404: Ocurrió un error, dentro del html por el innerHTML
+                        
+                    }
+                }
+            }
+        });
+
+    </script>
+
+</body>
+</html>

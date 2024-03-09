@@ -1,0 +1,24 @@
+{
+    "error": false,
+    "code_error": 0,
+    "error_message": null,
+    "response": {
+        "distritos": [
+            
+            "Huánuco",
+            "Amarilis",
+            "Chinchao",
+            "Churubamba",
+            "Margos",
+            "Pillco Marca",
+            "Quisqui (Kichki)",
+            "San Francisco de Cayrán",
+            "San Pedro de Chaulán",
+            "Santa María del Valle",
+            "Yarumayo",
+            "Yacus",
+            "San Pablo de Pillao"          
+
+        ]
+    }
+}

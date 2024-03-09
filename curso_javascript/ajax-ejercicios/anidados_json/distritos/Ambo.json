@@ -1,0 +1,19 @@
+{
+    "error": false,
+    "code_error": 0,
+    "error_message": null,
+    "response": {
+        "distritos": [
+            
+            "Ambo",
+            "Cayna",
+            "Colpas",
+            "Conchamarca",
+            "Huácar",
+            "San Francisco",
+            "San Rafael",
+            "Tomay Kichwa"       
+
+        ]
+    }
+}

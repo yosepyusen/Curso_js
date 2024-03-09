@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de canciones</title>
+    <style>
+        html{
+            font-family: sans-serif;
+        }
+        img{
+            max-width: 100%;
+            height: auto; /*para q no se deforme la proporcion*/
+        }
+        main{
+            display: flex; /*agrupe o contraen los elementos html*/
+            flex-direction: column-reverse; /*va alinaear en columna a revez para que muestra 1ro:Letra de la Canción */
+        }
+        .loader{
+            display: none;/* invisibilidad y quita espaciado*/
+            margin: auto;
+        }
+        .song blockquote{ /* dentro la clase .song hay un blockquote, que se creó dinamicamiente */
+            white-space: pre-wrap; /*La propiedad white-space de CSS, determina cómo se maneja el espacio en blanco dentro de un elemento. 
+            pre-wrap: La aplicación de este valor de la propiedad hace que el navegador deje todos los espacios en blanco del contenido
+            */
+        }
+        @media screen and (min-width:800px){ /*es para dispositivos con tamaño min de ancho 800px */
+            main{
+                flex-direction: row; /* la direccion del main cambian de columna reverse a normal */
+            }
+
+            main > *{ /* lo hijos directos de main son los dos article, pero pueden ser cualquier cosa por eso el asterisco */
+                flex-basis: 50%; /*flex-basis: determina el tamaño del elemento de flex-box hijo(o sea creo los aticles), sea 50% */
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ESTE HTML no busca bien o tarda en buscar por tema de www.theaudiodb.com, para funcione mejor es buscar una pag. similar a este www.theaudiodb.com-->
+    <h1>Buscador de canciones</h1>
+    <form id="song-search">
+    <input type="text" name="artist" placeholder="Nombre del Intérprete" required>
+    <br>
+    <input type="text" name="song" placeholder="Nombre de la Canción" required> <!-- la cancion del artista escribir si es acentuado o no -->
+    <br>
+    <input type="submit">
+    </form>
+    <img class="loader" src="assets/loader.svg" alt="Cargando...">
+    <aside class="err"></aside>
+
+    <main>
+        <article class="artist">
+            <h2>Información del Artista</h2>
+        </article> 
+        <article class="song">
+            <h2>Letra de la Canción</h2>
+        </article> 
+    </main>
+   <p></p>
+    <script>
+
+        const d = document,
+            $form = d.getElementById("song-search"),
+            $loader = d.querySelector(".loader"),
+            $err = d.querySelector(".err"),
+            $main = d.querySelector("main"),
+            $artist = d.querySelector(".artist"),
+            $song = d.querySelector(".song");
+
+        $form.addEventListener("submit",async e=>{
+            e.preventDefault(); //detenemos el auto procesamiento de la pagina
+
+            try {
+                //habilitamos visible el loader
+                $loader.style.display = "block";//dentro del estilo de $loader hay propiedad "display" y dentro de esta propiedad ponemos "block"
+
+                //console.log(e); //imprime submitEvent, dentro de el propiedad "target", trae toda las etiquetas del formulario q son inputs
+                
+                //e.target: es el formulario, dentro de ello hay input con name:"artist" y en su valor:value(es lo q escribe dentro del input), guardamos en variable:artist
+                //con toLowerCase, es para que convierta en minuscula
+                let artist = e.target.artist.value.toLowerCase(), 
+                    song = e.target.song.value.toLowerCase(),
+                    
+                    //creamos dos siguientes variables para cada vez que hacemos ietracion se guarden datos
+                    $artistTemplate = "",
+                    $songTemplate = "",
+
+                    //el link de theaudiodb esta en PRUEBA lo unico ARTISTA que busca es Coldplay
+                    //cual es la ruta del api para obtener la info del artista(https://www.theaudiodb.com/api_guide.php) o de la cancion(https://lyricsovh.docs.apiary.io/#reference/0/lyrics-of-a-song/search)
+                    artistAPI = `https://www.theaudiodb.com/api/v1/json/2/search.php?s=${artist}` , //ponemos el link del API theaudiodb, link original de documentacion de la pagina:https://www.theaudiodb.com/api_guide.php
+                    songAPI = `https://api.lyrics.ovh/v1/${artist}/${song}`, //link original para buscar: https://api.lyrics.ovh/v1/artist/title
+
+                    //ponemos el url en el fetch
+                    artistFetch = fetch(artistAPI),
+                    songFetch = fetch(songAPI),
+
+                    //como son dos peticiones fetch y no se cual van salir de los dos primero, usamos metodo destructuracion
+                    [artistRes, songRes] = await Promise.all([artistFetch,songFetch]), //creamos una variable y ejecutamos el promise y all para que se procese la variable artistFetch y songFetch 
+                    //await para que termine de procesar la peticion de artistFetch en la variable artistRes...
+                    
+                    //despues creamos a que artistRes y songRes se convierte en json()
+                    artistData = await artistRes.json(),
+                    songData = await songRes.json();
+                    
+                    //console.log(typeof(artist),typeof(song));
+                    console.log(artistRes, songRes);//imprime en ese orden: Response {type: 'cors', url: 'https://www.theaudiodb.com/api/v1/json/2/search.php?s=coldplay', redirected: false, status: 200, ok: true, …} ; Response {type: 'cors', url: 'https://api.lyrics.ovh/v1/coldplay/adventure%20of%20a%20lifetime', redirected: false, status: 200, ok: true, …}
+                    console.log(artistData, songData);//en el primero tiene informacion de Coldplay, 2do tiene info de la cancion respectivamente: {artists: Array(1)} ; {lyrics: 'Paroles de la chanson Adventure Of A Lifetime par …with you\n\nI said, oh, say oh\n\nWoo hoo, woo hoo...'}
+
+                    if(artistData.artist === null){//dentro de artistData en su propiedad artist es igual a nulo
+                        
+                        $artistTemplate = `<h2>No existe el intérprete <mark>${artist}</mark></h2>`;//imprime lo que escribio en la caja artist
+                        
+                    } else{ //si existe un artista
+                        
+                        let artist = artistData.artists[0];// creamos una new variable artist y le guardamos lo que hay en artistData.artist en su posicion cero q viene la info de la artist 
+                        
+                        //artist.strArtist : esta el nombre del atista ; artist.strArtistThumb: esta el poster del artista
+                        //artist.intBornYear: año de nacimiento ; artist.intDieYear: año de muerte , en este caso si viene vacio, es decir no se ha muerto el artista va poner "Presente"
+                        //Artist.strCountry: pais de origen ; artist.strGenre: genero de musica ; artist.strStyle: estilo de musica
+                        //artist.srtWebsite: enlace del artista, no es pecifica si http o https entonces podemos poner :// , pero al dar click sale bloqueado ese es parte del api de esa pagina q bloquea
+                        //artist.strBiographyEN: biografia del artista
+                        $artistTemplate = `
+                        <h2>${artist.strArtist}</h2>
+                        <img src="${artist.strArtistThumb}" alt="${artist.strArtist}">
+                        <p>${artist.intBornYear} - ${(artist.intDiedYear || "Presente")}</p>
+                        <p>${artist.strCountry}</p>
+                        <p>${artist.strGenre} - ${artist.strStyle}</p>
+                        <a href="http://${artist.strWebsite}" target="_blank">Sitio Web</a>
+                        <p>${artist.strBiographyEN}</p>
+                        `;
+
+                    }
+                    //en songData si no hay canciones sale: {error: 'No lyrics found'}
+                    if(songData.error){ //cuando songData tenga la propiedad de error
+                        
+                        $songTemplate = `<h2>No existe la canción <mark>${song}</mark></h2>`; //lo q el usuario escribio en song
+
+                    }else{
+                        
+                        //cuando encuentra un musica tiene una propiedad lyrics
+                        //toUpperCase(): para q convierta en mayuscula
+                        $songTemplate = `
+                        <h2>${song.toUpperCase()}</h2>
+                        <blockquote>${songData.lyrics}</blockquote>
+                        `;
+                    }
+
+                    $loader.style.display = "none";//dentro del estilo de $loader hay propiedad "display" y dentro de esta propiedad ponemos "none"
+                    $artist.innerHTML = $artistTemplate; //dentro de etiqueta $artist ponemos...
+                    $song.innerHTML = $songTemplate;
+
+            } catch (err) {
+                //comentamos ....
+                console.log(err);
+
+                let message = err.statusText || "Ocurrió un error";//imptime: {status: 404, statusText: ''} y el statusText es una propiedad de err 
+                $err.innerHTML = `<p>Error ${err.status}: ${message}</p>`;//imprime: Error 404: Ocurrió un error, dentro del html por el innerHTML
+
+                //quitamos el loader
+                $loader.style.display = "none";
+            }
+        })
+
+    </script>
+
+</body>
+</html>

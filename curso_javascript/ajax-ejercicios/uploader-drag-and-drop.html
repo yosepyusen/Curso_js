@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploader Drag & Drop con Ajax</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ESTE HTML SE DEBE ABRIR CON XAMPP YA Q ESTAMOS USANDO PHP -->
+    <!-- es te archivo es como un API,  q estoy consumiendo y q devuelve la informacion en formato javascript  -->
+    <main>
+        
+        <!-- clase: is-active, se va activar con js -->
+        <article class="drop-zone"><!-- zona como vamos a tirar los archivos, es como una caja -->
+            <p>Arrastra y suelta tus archivos...</p>
+        </article> 
+
+    </main>
+
+    <script>
+        const d = document,
+            $main = d.querySelector("main"),
+            $dropZone = d.querySelector(".drop-zone");
+
+        const uploader = (file) =>{ //creamos una funcion expresada, q recibe la variable files:archivo, se va ejecutar por cada archivo tenga el input
+            
+            //console.log(file);// imprime: File {name: 'DIRECCIÓN.docx', lastModified: 1556568454230..., esto va depender del # de archivos subidos y el mismo # de consoles va imprimir
+
+            //empezamos a crear ajax
+            const xhr = new XMLHttpRequest(),
+                formData = new FormData(); //creamos un new obj. de tipo form Data q recibe 1mer parametro el formulario, en este caso q no hay formulario
+                
+                //para agregar el form se hace con METODO APEND()... 
+                formData.append("file", file); //agregamos a este formData una variable = file, y este uploader recibe el archivo:files
+
+            // 
+            xhr.addEventListener("readystatechange", e=>{
+                if(xhr.readyState !== 4) return; // cuando el readyState del xhr sea diferente de 4
+
+                if(xhr.status >= 200 && xhr.status <300){  //cuando el xhr.status tiene exito
+                    
+                    let json = JSON.parse(xhr.responseText); //parseamos para q ese texto q esta en formato json se convierta en obj. js
+                    
+                    // esta respuesta
+                    console.log(json); //imprime: {err: false, status: 200, statusText: 'Archivo CV-YOSEP-30_08_2023.docx subido con éxito', files: {…}} , esto va imprimir las  veces , dependiendo de cuantos, archivos vas enviar
+                    
+                } else{
+                    let message = xhr.statusText || "Ocurrió un erro";
+                    console.error(`Error ${xhr.status}: ${message}`);
+                }
+            });
+
+            //abrimos la peticion por el methos POST, porque se esta enviando de un formulario y el url: q es el archivo uploader.php
+            xhr.open("POST","assets/uploader.php");
+
+            //se crea la cabecera para q el envio se crea correctamente
+            //si tuviera un formulario en html, yo le pondria el atributo enc-type, al formulario con el valor de "multipart/form-data", para a parte de variables textuales q pueda recibir elemnts de form, le estamos mandando archivos binarios en ese input file
+            xhr.setRequestHeader("enc-type","multipart/form-data");//enc-type: es de los datos q esta enviando el formulario
+            
+            //mandamos la peticion lo q viene en el form data
+            xhr.send(formData);
+        }
+
+        const progressUpload = (file) =>{ //vamos a crear una funcion expresada y va recibir un archivo:file
+            const $progress = d.createElement("progress"), //creamos una etiqueta progres
+                $span = d.createElement("span");
+
+            $progress.value = 0; //valor inicial con el cual va empezar, desde cero
+            $progress.max = 100; //el atributo max de valor q va aceptar q es 100
+
+            $main.insertAdjacentElement("beforeend",$progress); //inserta de manera adjacente la etiqueta $progres, beforeend(ultimo hijo)
+            $main.insertAdjacentElement("beforeend",$span); //inserta de manera adjacente la etiqueta $span, beforeend(ultimo hijo)
+            
+            const fileReader = new FileReader();//fileReader, permite detectando los bits, q van cargados y de ello hace el calculo de porcenjate de cada archivo
+            
+            fileReader.readAsDataURL(file); //como se va leer ese archivo, como bufer, data string binaria, o como texto, 
+            //en este caso se va leer como dataURL y el archivo que va leer es el file
+            
+            //fileReader tiene varios eventos que estan ligado al obj. file reader
+            fileReader.addEventListener("progress",e=>{ // mientras hay un progreso:progress de carga
+                //cuando ya termino la carga entonces ejecutar la funcion uploader, la cual permite conectar con php, para q el php subiera archivo al servidor
+                
+                //console.log(e); //imprime: ProgressEvent {isTrusted: true, lengthComputable: true, loaded: 207927, total: 207927, type: 'progress', …}
+                //una propiedad de ProgressEvent total(peso total): 207927 bytes ; loaded(como carga terminado del peso): 207927 , estos valores de sus propiedades va a cambiar de a cuerdo al tipo de archivo q subas y cuantos subas y el tamaño
+
+                //console.log(file);//imprime: File {name: 'foto_yosep.png', lastModified: 1619752544633, lastModifiedDate: Thu Apr 29 2021 22:15:44 GMT-0500 (hora estándar de Perú), webkitRelativePath: '', size: 207927, …} , imprime varias veces si el archivo es pesado
+
+                let progress = parseInt((e.loaded*100)/(e.total))//parseInt, toma la parte entera, dividir la carga:loaded*100 entre el total del peso
+                $progress.value = progress //pegamos ese variable progress
+                $span.innerHTML = `<b>${file.name} - ${progress}%</b>`;//ponemos dentro del html de span el nombre del archivo y el progress que se creo como variable en el antior linea de cod.
+
+            });
+
+            fileReader.addEventListener("loadend",e=>{ // cuando ha finalizado el progreso de carga, q es el loadend  
+                
+                //ESTE ARCHIVO SOLO SUBE DOC. NO MUY PESADOS, EN CASO DE VIDEOS, INSTALADORES QUE PESAN NO SUBE 
+                uploader(file);//con esto ejecutamos el uploader que sube con el php el archivo:file
+                
+                //despues de 3 o 2 seg de completado la carga limpiamos el $main y $file
+                setTimeout(()=>{
+                    
+                    $main.removeChild($progress); //removeChild, es para remover la etiqueta div creada dinamicamente 
+                    $main.removeChild($span);//removemos la etiqueta $progress, $span, q se creo dinamicamente
+                },3000);
+            });
+        }
+
+        
+        //como ya no tenemos un input de tipo file, entonces...
+        //hacemos uso de API de drang y drop, asignando el evento al $drop, directamente 
+        
+        //dragover: es un evento de la api que tiene que estar sobre el pero ademas debes estar tratando de arrastrar una archivo, para q se ejecute
+        $dropZone.addEventListener("dragover", e=>{
+            
+            //descomentamos la siguiente linea para poder ver mas y aprender sus propiedades...
+            //console.log(e);//imprime:DragEvent {isTrusted: true, dataTransfer: DataTransfer, screenX: 402, screenY: 487, clientX: 402, …}; 
+            //imprime varias veces el "DragEvent" si tiene el archivo arrastrado dentro de la zona arrastrable y todavia no sueltas o no sales de esa zona
+            //dentro de DragEvent, por ejemplo en su propiedad "toElement" y asu vez dentro de ello el "firstElementChild", esta p(etiqueta p); tambien dentro de:"offsetParent" esta la etiqueta body
+            
+            //descomentamos para aprender mas...
+            //console.log(e.target);//imprime: <article class="drop-zone">..</article> 
+            
+            e.preventDefault(); //prevenimos el comportamiento por default
+            e.stopPropagation(); //detener la propagacion y se quede en el elemento correspondiente en la drop-zone
+            e.target.classList.add("is-active");//al obj. q origino el evento en su lista de clase agrega(add), la clase "is-active" 
+
+        });
+
+        //dragleave: cuando sales de la zona arrastrable y soltable
+        $dropZone.addEventListener("dragleave", e=>{
+
+            //descomentamos la siguiente linea para poder ver mas y aprender sus propiedades...
+            //console.log(e);//imprime:DragEvent {isTrusted: true, dataTransfer: DataTransfer, screenX: 397, screenY: 395, clientX: 393, …}
+
+            e.preventDefault(); //prevenimos el comportamiento por default
+            e.stopPropagation(); //detener la propagacion y se quede en el elemento correspondiente en la drop-zone
+            e.target.classList.remove("is-active");//al obj. q origino el evento en su lista de clase quita(remove), la clase "is-active" 
+
+        });
+        
+        //drop: evento cuando sueltas el archivo
+        $dropZone.addEventListener("drop", e=>{
+            
+            e.preventDefault(); //prevenimos el comportamiento por default
+            e.stopPropagation(); //detener la propagacion y se quede en el elemento correspondiente en la drop-zone
+            
+            //console.log(e); //imprime el obk. "DragEvent", dentro de DragEvent hay una propiedad de type: "drop", 
+            
+            //lo que nos importa es el atributo "files:FileList", q esta dentro de "dataTransfer", y este a su vez esta dentro del obj. "DragEvent"
+            //que es igual a: e.dataTransfer.files , el files contiene el archivo q se sube cuando suelta el archivo
+            const file = Array.from(e.dataTransfer.files);
+
+            //descomentamos para ver mas a detalle el evento DragEvent
+            //console.log(file); //imprime: (2) [File, File] , va depender del # de archivos que subas, en este caso subi dos por eso sale asi
+
+            file.forEach(elem => progressUpload(elem)); //por cada elemento del "file", ejecuta la funcion progressUpload que le pasamos dentro de ello como parametro el elem
+
+            e.target.classList.remove("is-active");//al obj. q origino el evento en su lista de clase quita(remove), la clase "is-active" 
+        });
+
+    </script>
+</body>
+</html>

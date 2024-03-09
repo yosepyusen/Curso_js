@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html{
+            text-align: center;
+        }
+        .grid-fluid{
+            display: grid; /* para responsive desing con display grid */
+            /*filas se van generar de manera automatica, grid-template-columnspara generar columnas */
+            grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); /*con funcion repeat decimos cuantas columnas necesito, poner (auto-fit:una por cada elemento hijo del componente grid, es decir una por cada figure que genere) */
+            /* repeat recibe dos parametros, el 1ro:auto-fit; el 2do:minmax es una funcion de grid, cuanto de tamaño max:1fr y minimo:200px de la columna */
+            /* 1fr: es una medida de grid css */
+            text-align: center;
+        }
+        
+        .loader{
+            display: block;/*convirtimos en bloque el elemento*/
+            margin: auto;
+        }
+        /* .link{
+            text-align: center;
+        } */
+    </style>
+</head>
+<body>
+    
+    <h1>Pokemons </h1>
+    <nav class="link"></nav>
+    <main class="grid-fluid"></main>
+    
+    <script>
+
+        const d = document,
+            $main = d.querySelector("main"), //etiqueta donde va cargar pokemones
+            $link = d.querySelector(".link");
+
+        let pokeAPI = "https://pokeapi.co/api/v2/pokemon/"
+        //https://pokeapi.co/api/v2/pokemon/1/ //si ingresamos este link nos da toda la info. de bolbasor
+
+        async function loadPokemons(url){ //va recibir la url q vamos a cargar mediante fetch
+            try {
+                $main.innerHTML = `<img class="loader" src="assets/loader.svg" alt="Cargando...">`;
+
+                //antes q ejecute la sig. linea de cod. espere
+                let res = await fetch(url), //res va hacer peticion a ese api de fetch con el url dado
+                json = await res.json(), //json estaria esperando la rpta(res), json es para que convierta a json, y await para q ejecute la sig. linea de cod. una vez terminado este linea de cod. o termina de convertir los datos
+
+                //creamos un variable vacia porque se va llenando conforme vayamos recopilando los pokemones
+                $template ="", //es este variable vamos escribir todo el cod. html, q voy a cargar en el innerHTML de $main 
+                $prevLink,
+                $nextLink;
+
+                //console.log(res); // imprime un: Response {type: 'cors', url: 'https://pokeapi.co/api/v2/pokemon/', redirected: false, status: 200, ok: true, …}
+                console.log(json); //imprime json: {count: 1302, next: 'https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20', previous: null, results: Array(20)} ; 
+                //count: el numero de pokemos que es 1032, next:para la siguiente enlace, ?offset=20&limit=20: es para q empiece en 20 y termina en 20 o sea va mostrar 20 pokemons
+                //previous igual a null porque como es el primer pag. no hay una pag. hacia atras
+                //results, donde estan los datos de cada pokemon, trae el nombre y la url
+                //con "res" imprime:Response {type: 'cors', url: 'https://pokeapi.co/api/v2/pokemon/', redirected: false, status: 200, ok: true, …}
+
+                //si el parametro de res.ok es falso, throw: para volver a lanzar una excepción después de cogerla 
+                if(!res.ok) throw { status: res.status, statusText: res.statusText} //vas a tener propiedad status con valor de status de la variable "res"...
+
+                //en este caso no usamos foreach, por que ejecuta todo los 20 elementos que tiene el arreglo y no se va esperar a que responda la peticion
+                //al usar for, es una estructura bloqueante, hasta q no termina todo el flujo de cada una de sus iteraciones no va pasar a la siguiente
+                //usamos el ciclo for
+                for (let i = 0; i < json.results.length; i++) { //si el i es menor a 20(es el tamaño del array de results)
+                    //console.log(json.results[i]);//imprime cada elemento del array, ejem:{name: 'bulbasaur', url: 'https://pokeapi.co/api/v2/pokemon/1/'}
+                    try {
+                        //await es para que hasta que no termine de procesar la linea de cod pasa al siguiente
+                        let res = await fetch(json.results[i].url), //a la url que vas a conectar por este fetch es json.results[i].url, results esta dentro de json y el url esta dentro results
+                            pokemon = await res.json();// convertimos la respuesta en json
+
+                        //console.log(pokemon);//imprime 20 habilidades de cada pokemon ejem:{abilities: Array(2), base_experience: 64, cries: {…}, forms: Array(1), game_indices: Array(20), …}, este caso es de bolbasor
+                        //console.log(res);//imprime 20 response : Response {type: 'cors', url: 'https://pokeapi.co/api/v2/pokemon/1/', redirected: false, status: 200, ok: true, …}    
+                        
+                        if(!res.ok) throw { status: res.status, statusText: res.statusText} //si alguna de las rptas sale error mandame una exception
+                        
+                        //si va bien todo... entonces, vamos agregando cada pokemos al $template
+                        //alt, es texto cuando no sale la img
+                        //dentro de la variable json hay arreglo de 20, donde cada uno de ello tiene un name y el url; 0: {name: 'bulbasaur', url: 'https://pokeapi.co/api/v2/pokemon/1/'}
+                        $template += ` 
+                        <figure>
+                            <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}"> 
+                            <figcaption>${pokemon.name}</figcaption>
+                        </figure>
+                        `;
+
+                    } catch (err) {
+                        //comentamos ....
+                        //console.log(err);//el statusText y status son propiedades del obj. "err"
+                        let message = err.statusText || "Ocurrió un error";//imptime: {status: 404, statusText: ''} y el statusText es una propiedad de err 
+                        //si algo falla de los pokemos que estamos iterando, vamos agregando el error al $template
+                        $template += ` 
+                        <figure> 
+                            <figcaption>Error ${err.status}: ${message}</figcaption>
+                        </figure>
+                        `;
+                    }
+                }
+                //por todo los pokemos que a guardado en $template, lo guardamos dentro de etiqueta $main
+                $main.innerHTML = $template;
+                
+                //llenamos la variable $prevLink y $nextLink
+                $prevLink = json.previous ?`<a href="${json.previous}">◀️</a>` : ""; //si el contenido json.previous trae algo ponemos ``, caso contrario
+                $nextLink = json.next ? `<a href="${json.next}">▶️</a>` : ""; //si el contenido json.previous trae algo ponemos el url(json.next) que manda a los siguientes 20 pokemones, caso contrario
+                //ponemos los botones del link en variable $link
+                $link.innerHTML = $prevLink+ " " + $nextLink; 
+               // $link.innerHTML = `${$prevLink} ${$nextLink}`;//puede escribirse asi tmb
+
+            } catch (err) {
+                //comentamos ....
+                console.log(err);
+                let message = err.statusText || "Ocurrió un error";//imptime: {status: 404, statusText: ''} y el statusText es una propiedad de err 
+                $main.innerHTML = `<p>Error ${err.status}: ${message}</p>`;//imprime: Undefined: Ocurrió un error, dentro del html por el innerHTML, undefined es porque  en la variable err: no tienen configurado statusText
+
+            }
+        }
+
+        d.addEventListener("DOMContentLoaded",e=>loadPokemons(pokeAPI)); //a la carga del html:DOMContentLoaded, ejecutamos la f. loadPokemons() y dentro le pasamo el URL
+
+        //cuando dea click en boton de next y prev
+        d.addEventListener("click",e=>{
+            
+            if (e.target.matches(".link a")) { //si el obj. q origino el evento es igual:matches a etiqeta nav con class: ".link" y a su vez dentro de ello que sea etiqueta <a>
+                e.preventDefault();//prevenimos la accion 
+                //lamamos a la funcion loadPokemons
+                loadPokemons(e.target.getAttribute("href"));//la url va ser el href del etiqueta a creada dinamicamente con js en este caso vas ser href de $nextLink o $prevLink
+            }
+        });
+
+    </script>
+
+</body>
+</html>
