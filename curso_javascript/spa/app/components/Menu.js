@@ -8,8 +8,9 @@ export function Menu(){
             <span>-</span>
             <a href="#/search">Búsqueda</a>
             <span>-</span>
-            <a href="https://aprendejavascript.org/" target="_blank" rel="noopener">Aprende JS</a>
+            <a href="#/contacto">Contacto</a>
             <span>-</span>
+            <a href="https://aprendejavascript.org/" target="_blank" rel="noopener">Aprende JS</a>
         `;
     //`<h2>Menú</h2>`
     return $menu;

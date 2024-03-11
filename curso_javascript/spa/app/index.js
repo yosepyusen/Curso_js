@@ -5,3 +5,10 @@ import {App} from "./App.js";
 
 //si ejecuto aqui App, ahi si necesitaria parentesis App()
 document.addEventListener("DOMContentLoaded", App);//pero como estoy ejecutando en manejador de eventos solo ponemos App, si ponemos parentesis significaria invocacion inmediata
+
+//en consola escribimos:location.hash imprime: '#/search', siempre y cuando el link es: http://127.0.0.1:5501/curso_javascript/spa/index.html#/search
+//en consola escribimos:location.hash imprime:'#/', con link: http://127.0.0.1:5501/curso_javascript/spa/index.html#/
+//hash es lo q viene despues de # 
+
+//cuando la ventana detecte cambio de la parte q represente el hash en la url lo va hacer
+window.addEventListener("hashchange",App);

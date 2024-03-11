@@ -12,12 +12,16 @@ export function ajax(props){
     .catch(err=>{
 
         console.log(err);
+        //ahora el error se mostrara en etiqueta con id "posts" 
         let message = err.statusText || "Ocurrió un error al acceder al API"; //si el statusText viene vacio Ó ponemos el mensaje Ocurrio un error
-        document.getElementById("root").innerHTML = `
+        document.getElementById("posts").innerHTML = `
             <div class="error">
                 <p>Error ${err.status}: ${message}</p>
             </div>
             `;//recordamos que xhr.status: es cod. de exito o error
+        
+        //ocultamos el loader
+        document.querySelector(".loader").style.display = "none";
 
     })
 }
