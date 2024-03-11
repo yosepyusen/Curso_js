@@ -3,12 +3,13 @@
 
 //para las pc es mas faciles procesar una funcion q clase por eso usa react
 //ponemos api es nombre q damos, hace referencia a los end points q vamos usar es decir peticiones 
-import api from "./helpers/wp_api.js"; //en vanilla js si es poner extension .js pero en react y otros no es necesario
+//en vanilla js si es poner extension .js pero en react y otros no es necesario
 
 //entre {} es para destructuracion ya q no se exporto por defecto
-import {ajax} from "./helpers/ajax.js";
 import { Header } from "./components/Header.js";
+import { Posts } from "./components/Posts.js";
 import { Loader } from "./components/Loader.js";
+import { Roouter } from "./components/Roouter.js";
 
 export function App(){
 
@@ -16,7 +17,11 @@ export function App(){
         $root = d.getElementById("root");
 
         $root.appendChild(Header());//agregamos un nodo por eso usamos appendChild y dentro ponemos la f. Title() de Title.js
-        $root.appendChild(Loader());
+        $root.appendChild(Posts());//agregamos etiqueta posts
+        $root.appendChild(Loader());//agregamos el loader
+
+        //invocamos la funcionalidad del router
+        Roouter();
 
         //-------------- ara ver si funciona el catch --------
         // ajax({
