@@ -31,14 +31,6 @@ img{
     height: auto;
 }
 
-.loader{ /*del tail-spin.svg*/
-    margin: 1rem auto; /*margin arriba y abajo de 1 rem y automatico a los lados para centrar*/
-    display: block;/*en bloques*/
-    width: 4rem;
-    height: 4rem;
-    background-color: black;
-}
-
 .error{
     padding: 1rem;
     font-size: 150%;
@@ -46,4 +38,34 @@ img{
     text-align: center;
     color: #fff;
     background-color: #dc3554;
+}
+.form-search{
+    margin: auto;
+    text-align: center;
+}
+.form-search input{ /* dentro del formulario hay input */
+    display: block; /*convirtimos en bloque el elemento*/
+    margin: auto;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+}
+.header{
+    padding: 0.5rem;
+    position: sticky; /* cuando el header llegue a la posicion de cero al margen de top, se va comportar como si estuviera fija */
+    top: 0; /*cero para q qde fijo el header*/
+    text-align: center;
+    background-color: #fff;
+}
+
+.header > *{ /* mayor:> en css es el selector de hijos y asterisco:* dice no me importa el tpo de etiqueta, for, nav, asaide mientras sea hija en primer nivel del elemento que tiene la clase header */
+     margin: 1rem auto; /* margin de arriba y abajo de 1rem y a los costados un margin auto */
+}
+
+.loader{ /*del tail-spin.svg*/
+    margin: 1rem auto; /*margin arriba y abajo de 1 rem y automatico a los lados para centrar*/
+    display: block;/*en bloques*/
+    width: 4rem;
+    height: 4rem;
+    background-color: black;
 }
