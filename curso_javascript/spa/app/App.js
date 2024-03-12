@@ -7,17 +7,21 @@
 
 //entre {} es para destructuracion ya q no se exporto por defecto
 import { Header } from "./components/Header.js";
-import { Posts } from "./components/Posts.js";
+import { Main } from "./components/Main.js";
 import { Loader } from "./components/Loader.js";
 import { Roouter } from "./components/Roouter.js";
 
 export function App(){
 
     const d = document,
-        $root = d.getElementById("root");
+        $root = d.getElementById("root"); //etiqueta main q se obtiene su id de index.html
+
+        //spa: no son paginas simplemente son vistas, tenemos q limpiar el contenido
+        //asi no se crea el contenido adicional de headers, loadaer, etc.
+        $root.innerHTML = null;//limpiamos antes q carga el contenido html lo va limpiar 
 
         $root.appendChild(Header());//agregamos un nodo por eso usamos appendChild y dentro ponemos la f. Title() de Title.js
-        $root.appendChild(Posts());//agregamos etiqueta posts
+        $root.appendChild(Main());//agregamos etiqueta main
         $root.appendChild(Loader());//agregamos el loader
 
         //invocamos la funcionalidad del router

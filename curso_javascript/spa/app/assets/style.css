@@ -39,11 +39,11 @@ img{
     color: #fff;
     background-color: #dc3554;
 }
-.form-search{
+.search-form{
     margin: auto;
     text-align: center;
 }
-.form-search input{ /* dentro del formulario hay input */
+.search-form input{ /* dentro del formulario hay input */
     display: block; /*convirtimos en bloque el elemento*/
     margin: auto;
     padding: 0.25rem;
