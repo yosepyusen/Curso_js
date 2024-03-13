@@ -28,7 +28,7 @@ export async function Roouter(){
             url:api.POSTS,
             cbSucces: (posts)=>{ //el posts es como json
                 
-                console.log(posts);
+                //console.log(posts); //imprime un array de 10, pero puede q imprime 5, ...
                 
                 let html = ""; //para ir almacenando el contenido html que viene de PostCard.js
 
@@ -44,7 +44,7 @@ export async function Roouter(){
             // hash === "#/search?query=valor", query:variable de consulta, este = al usuario que busca, no me combiene comparar de este modo
             //es mejor cuando el cuando incluya #/search y despues de cualquier otra cosa derivado de la busqueda
             // includes: lo q hace es que dentro de una cadena de texto busca lo q le pases y si encuentra valida a true 
-            $main.innerHTML = `<h2>Sección del Buscador</h2>`; 
+            
          
         }else if(hash === "#/contacto"){
             
@@ -61,7 +61,7 @@ export async function Roouter(){
                 url:`${api.POST}/${localStorage.getItem("wpPostId")}`,
                 cbSucces: (post)=>{ //el posts es como json
                     
-                    console.log(post); //imprime info de unsa sola posts al q damos click esto puede variar: {id: 2177, date: '2021-05-10T07:00:41', date_gmt: '2021-05-10T12:00:41', guid: {…}, modified: '2021-05-09T15:36:13', …}
+                    //console.log(post); //imprime info de unsa sola posts al q damos click esto puede variar: {id: 2177, date: '2021-05-10T07:00:41', date_gmt: '2021-05-10T12:00:41', guid: {…}, modified: '2021-05-09T15:36:13', …}
                     
                     $main.innerHTML = Post(post); // en content html del main pon la funcion Post(), de Post.js y le pasamos como dato lo que hay en post
 
