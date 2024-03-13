@@ -14,6 +14,21 @@ export function SearchForm(){
 
         $form.appendChild($input);//ponemos el input dentro del formulario
     
+    //location:es un objeto o url
+    if(location.hash.includes("#/search")) {//si en el hash de la url se incluye la palabra #/search: es cuando hacemos una busqda
+        //entoces...
+        //ejem. si en la caja de busqueda escribimmos css, este palabra se va quedar gracias al sig. cod.
+        $input.value = localStorage.getItem("wpSearch"); //al valor del input se le quede el valor q esta en localStorage, q tinen como llave "wpSearch"
+
+    }
+
+    d.addEventListener("search", e=>{
+        if(!e.target.matches("input[type=search]")) return false; //cuando no sea el obj. q origino el evento q debe ser un input de tipo:type = search, entonces no hagas nada 
+        
+        //!e.target.value: es decir la caja de busqueda este vacio, o no tenga nada el input de tipo search
+        if(!e.target.value) localStorage.removeItem("wpSearch"); //entonces cuando es input de tipo search entonces verifica que el valor del input este limpio con: !e.target.value
+    });
+    
     d.addEventListener("submit",e=>{ //como el btn search se creo dentro de un formulario al dar enter en ese btn activa el evento sumbit
         
         if(!e.target.matches(".search-form")) return false;//el obj, q origino el evento: e.target, no es ".search-form", entonces no hagas nada 

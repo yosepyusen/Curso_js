@@ -3,7 +3,7 @@
 // https://developer.wordpress.org/rest-api/reference/posts/ : dentro de posts
 
 //tener disponibles mediante SPA el buscador que ya nos proporciona wordpres
-const NAME = "lucylara",
+const NAME = "css-tricks",
     DOMAIN = `https://${NAME}.com`,
     SITE = `${DOMAIN}/wp-json`,
     API_WP = `${SITE}/wp/v2`,

@@ -45,7 +45,21 @@ export async function Roouter(){
             //es mejor cuando el cuando incluya #/search y despues de cualquier otra cosa derivado de la busqueda
             // includes: lo q hace es que dentro de una cadena de texto busca lo q le pases y si encuentra valida a true 
             
-         
+            //query es el termino q el usuario selecciono en el input
+            let query = localStorage.getItem("wpSearch");//obtenmos lo q se guardo en localStorage con getItem con key:wpSearch en SearchForm.js
+            
+            //cuando no se proceso ninguna busqueda
+            if(!query) return false; //cuando no haya nada en query 
+                
+            await ajax({
+                url:`${api.SEARCH}${query}`, //no ponemos barra diagonal porque api.SEARCH: termina en igual, entonces se iguala a query implicitamente  
+                cbSucces: (search)=>{ //search es un api que se obtiene del anterior cod. que es url
+
+                    console.log("el sig. consoles es infor del search");
+                    console.log(search);//imprime array de 10
+                }
+            });
+        
         }else if(hash === "#/contacto"){
             
             $main.innerHTML = `<h2>Sección de Contacto</h2>`; 
