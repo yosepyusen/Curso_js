@@ -10,5 +10,5 @@ document.addEventListener("DOMContentLoaded", App);//pero como estoy ejecutando 
 //en consola escribimos:location.hash imprime:'#/', con link: http://127.0.0.1:5501/curso_javascript/spa/index.html#/
 //hash es lo q viene despues de # 
 
-//cuando la ventana detecte cambio de la parte q represente el hash en la url lo va hacer
+//cuando la ventana detecte cambio de la parte q represente el hash en la url lo va hacer, renderiza la aplicacion 
 window.addEventListener("hashchange",App);

@@ -91,3 +91,38 @@ img{
     display: flex; /* para q se contaren los elementos html  */
     justify-content: space-between; /* dentro de: .post-card p, hay etiqueta time y a, hace q el espacio se divide en dos en cada extremo */
 }
+
+.post-page{
+    margin: 1rem auto;
+    padding: 1rem;
+    width: 80%;
+    background-color: #eceff1;
+}
+.post-page > aside{/* mayor(>), mayor de hijos de la clase .post-page q es aside( q es un pequeño cuadro donde se guarda el title y la fecha) */
+    margin: auto;
+    width: 60%;
+    text-align: center;
+}
+
+.post-page > hr{
+    border: thin solid #4a92b1; /*thin: delgado*/
+    margin: 2rem auto;
+    width: 80%;
+}
+.post-page time{
+    margin: 1rem auto;
+    display: block;
+}
+.post-page > article{ /*> mayor hijo de la clase, espaciado al contenido del posts*/
+    padding: 0 2rem;
+}
+
+.post-page img,
+.post-page figure,
+.post-page audio,
+.post-page iframe,
+.post-page video { /* todo los img, figure, audio, iframe, video aplicamos los estilos siguientes */
+    margin: auto;
+    display: block;
+    max-width: 100%;
+}

@@ -18,13 +18,13 @@ export default function darkTheme(btn, classDark){ //se puede aplicar el modo os
         $themeBtn.textContent = moon;
         //aparte de cambiar modos a los elementos de html y cambiar icono sol a luna 
         //tambien tendriamos para que se almacene el ultimo cambio en local storage
-        ls.setItem("theme","light");//establecemos el key con su valor de light 
+        ls.setItem("theme","light");//establecemos el key que es theme con su valor de light 
     }
     const darkMode = ()=>{
         $selectors.forEach(element => element.classList.add(classDark)); //por cada selector que tenga ese atributo($selectors), y vas a entrar a cada elemento por el forEach y vas a entrar a su lista de clases y le vas agregar la classDark
         //adicional cambiamos el boton a sol
         $themeBtn.textContent = sun;
-        ls.setItem("theme","dark");//establecemos el key con su valor de light 
+        ls.setItem("theme","dark");//establecemos el key que es theme, con su valor de light 
     }
     //--------- fin clase 89 -----------
 
