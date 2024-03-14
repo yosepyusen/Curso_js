@@ -4,6 +4,7 @@ import api from "../helpers/wp_api.js"; // este api es necesario para poner las 
 import { ajax } from "../helpers/ajax.js"; //
 import { PostCard } from "./PostsCard.js";//PostCard se llama dentro f. ajax
 import { Post } from "./Post.js";
+import { SearchCard } from "./searchCard.js";
 
 export async function Roouter(){
 
@@ -49,14 +50,40 @@ export async function Roouter(){
             let query = localStorage.getItem("wpSearch");//obtenmos lo q se guardo en localStorage con getItem con key:wpSearch en SearchForm.js
             
             //cuando no se proceso ninguna busqueda
-            if(!query) return false; //cuando no haya nada en query 
-                
+            if(!query) {  //cuando no haya nada en query no hagas nada
+
+                //entonces...
+                d.querySelector(".loader").style.display= "none"; //ocultamos el loader con estilo display none
+                return false; //en el momento q encuentre un return sale de la f.Roouter() y ya no sigue leendo
+            }
+            
+            //en caso que query no viene vacio el ajax
             await ajax({
                 url:`${api.SEARCH}${query}`, //no ponemos barra diagonal porque api.SEARCH: termina en igual, entonces se iguala a query implicitamente  
                 cbSucces: (search)=>{ //search es un api que se obtiene del anterior cod. que es url
 
                     console.log("el sig. consoles es infor del search");
                     console.log(search);//imprime array de 10
+                
+                    let html = "";//creamos una variable html vacia para donde guardar el contenido dinamico
+                    
+                    //cuando la busqueda no trae registro, es decir cuando la palabra a buscar no se encuentra en el api
+                    if(search.length === 0){ //cuando el tamaño de variable : search, trae en su arreglo vacio
+                        //el query: es donde esta el termino de busqueda 
+                        html = `
+                            <p class="error">
+                                No existen resultado de búsqueda para el termino
+                                <mark>${query}</mark>
+                            </p>
+                        `;
+                    }else{ //caso contrario cuando haya encontrado la busqueda
+                        
+                        //post es un el
+                        search.forEach(post =>html += SearchCard(post)) //la variable search, por cada busqueda q encuentre; entonces en variable:html inserta el contenido de lo que viene post en funcion SearchCard, pero para ejecutar esta funcion tenemos q importar el SearchCard.js 
+                    }
+                    
+                    $main.innerHTML = html  //algunas cosas del info de busqueda:search vamos a insertar en la etiqueta $main, q ha sido insertada al nodo $root en App.js  
+                    
                 }
             });
         

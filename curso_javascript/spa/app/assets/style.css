@@ -39,6 +39,15 @@ img{
     color: #fff;
     background-color: #dc3554;
 }
+
+.error mark{
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    display: inline-block; /* en bloques pero en linea hasta completar la linea y si hay mas elementos mas lineas debajo  */
+    color: #fff;
+    background-color: #01579b;
+}
+
 .search-form{
     margin: auto;
     text-align: center;
@@ -51,7 +60,7 @@ img{
     font-size: 1rem;
 }
 
-.grid-fluid{
+.grid-fluid{ /* donde va estar los card post y dentro de la etiqueta main hay esta clase */
     margin: 1rem auto;
     max-width: 90%;
     display: grid; /* para responsive desing con display grid */
