@@ -533,7 +533,8 @@
         //"^", indica que no puede haber nada antes y "$" y no puede haber nada despues, + para que evalue por cada caracter que tiene la cadena de texto
         //A-Za-z, todo el abecedario tanto mayuscula y minuscula A-Z y a-z, ÑñÁáÉéÍíÓóÚúÜü, todo lo vocales acentuadas y los dieresis, "\s" es para que contempla espacios en blanco 
         // "\s", para contenpla espacios en blanco ::: "g", para que no se detenga al evaluar en un caracter de una cadena 
-      
+        // \\s , es para poder cargar formulario dinamicamente, ya q si es una sola contra barra js: cree q es un caracter especial, por eso se pone doble contrabarra y con eso le decimos q exista esta contra barra, ver class 157 
+
         return (expReg)
         ? console.info(`"${nombre}", es un nombre válido`)
         : console.info(`"${nombre}", No es un nombre válido`)

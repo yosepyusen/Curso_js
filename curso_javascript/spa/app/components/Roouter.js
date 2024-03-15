@@ -5,6 +5,7 @@ import { ajax } from "../helpers/ajax.js"; //
 import { PostCard } from "./PostsCard.js";//PostCard se llama dentro f. ajax
 import { Post } from "./Post.js";
 import { SearchCard } from "./searchCard.js";
+import { ContactForm } from "./ContactForm.js";
 
 export async function Roouter(){
 
@@ -25,7 +26,8 @@ export async function Roouter(){
         //sencillo q fue estruturar un router para nuestro app, por cada vista q tengan van agregar un if y else
         if(!hash || hash === "#/"){ //cuando no existe el hash o es = #/, quiere decir que estamos en el home o inicio
         
-        
+        //const $form = d.getElementById("formulario").style.display = "none";
+        //console.log($form);
         
         await ajax({ //hasta q termine d ejecutar este ajax va ocultarse el loader, puesto en la linea 56
             url:api.POSTS,
@@ -91,7 +93,7 @@ export async function Roouter(){
         
         }else if(hash === "#/contacto"){
             
-            $main.innerHTML = `<h2>Sección de Contacto</h2>`; 
+            $main.appendChild(ContactForm()); //appendChild por q es un nodo lo q retorna el ContactForm
             
         }else{ //aqui no programamos para secion:"Aprende JS" que esta en la barra de nav creada en Menu.js, es por que es un enlace externo puesto y el hash no se imprime al dar click en este enlace
             

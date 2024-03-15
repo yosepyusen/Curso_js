@@ -9,6 +9,7 @@ const $figure = document.createElement("figure"),//creamos una etiqueta <figure>
     $cards = document.querySelector(".cards");
 
 //para incorporar al arbol del dom hacemos: se agrega desde al mas adentro hasta al mas afuera
+//el appendChild se usa para insetar nodo de etiqueta html
 $figcaption.appendChild($figcaptionText);//figcaption, esta mas adentro de todos y le agregamos a $figcaption el valor de un texto con $figcaptionText="Carne", este valor le pasamos con appendChild()
 $img.setAttribute("src","https://baconmockup.com/300/200");//con esto le pasamos el url de la img, como el url esta dentro de la etiqueta img, se añade primero
 $img.setAttribute("alt","Carne");//Configuramos el atributo 

@@ -11,6 +11,7 @@ export function SearchForm(){
         $input.type = "search"; 
         $input.placeholder = "Buscar...";
         $input.autocomplete = "off";//desabilitms el auto completado de btn de search
+        //$input.id = "formulario"
 
         $form.appendChild($input);//ponemos el input dentro del formulario
     
@@ -42,6 +43,6 @@ export function SearchForm(){
     }); 
 
     //`<h2>Formulario de busqueda</h2>`
-    return $form;
+    return $form; //este funcion importamos en Header.js 
 
 }
