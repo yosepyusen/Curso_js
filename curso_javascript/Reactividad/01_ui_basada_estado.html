@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI-estado</title>
+</head>
+<body>
+    
+    <h1>Interfaz basada en el Estado</h1>
+    <form action="" id="todo-form">
+        <input type="text" id="todo-item" placeholder="Tarea por hacer">
+        <input type="submit" value="Agregar">
+    </form> 
+
+    <h2>Lista de tareas</h2>
+    <ul id="todo-list"></ul>
+    <script>
+
+        //UA: users interface
+        const d = document,
+            $item = d.getElementById("todo-item"),
+            $list = d.getElementById("todo-list");
+
+        //El STATE
+        const state = { // state va ser un obj donde por cada atributo q tenga este obj, es cada uno de los estados q quisieramos controlar
+            //lista de tareas
+            todoList:[] //valor inicial arreglo vacio, por cada lista de tareas q le agregams al <ul>, en el dom se va ir generando un elemento de este arreglo
+        }
+        //TEMPLATE  UI
+        const template = () =>{
+            if(state.todoList.length<1){ //si tiene menos de 1 elemento el todoList q es propiedad de state
+                return `<p><em>Lista sin tareas por hacer</em></p>`;
+            }
+
+            //pero si tiene mas de un elemento, es renderizar uno de esos todoList:list. tareas
+            //MAP(), es como un iterador que se puede usar para array casi como el ciclo for
+            let todos = state.todoList.map(item => `<li>${item}</li>`); //accedemos al todoList
+        }
+
+        d.addEventListener("submit",e=>{
+            //cuando este coincide simple mente se va salir de la prog.
+            if(!e.target.matches("#todo-form")) return false; //no coincide, porque estamos negando; con id="todo-form", no haga nada 
+           
+            e.preventDefault();//prevenimos la accion del formulario
+            let $li = d.createElement("li"); //creams una lista
+            $li.textContent = $item.value;//en su contenido:textContent ponemos el valor de la caja del input q tiene id="todo-item"
+            //despues de ello agrega el nodo $li al $list
+            $list.appendChild($li);
+
+            console.log($list);
+            //limpiamos el input q es el $item
+            $item.value = "";
+            $item.focus(); //este focus es para que el maus vaya implicitamente da click en la caja del input o el cursor se posicione en el input 
+
+        });
+    </script>
+
+</body>
+</html>
