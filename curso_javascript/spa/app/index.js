@@ -1,6 +1,7 @@
 //App.js se escribio asi pq es un componente 
 //en cambio index.js es file normal
 
+import api from "./helpers/wp_api.js";
 import {App} from "./App.js";
 
 //si ejecuto aqui App, ahi si necesitaria parentesis App()
@@ -11,4 +12,11 @@ document.addEventListener("DOMContentLoaded", App);//pero como estoy ejecutando 
 //hash es lo q viene despues de # 
 
 //cuando la ventana detecte cambio de la parte q represente el hash en la url lo va hacer, renderiza la aplicacion 
-window.addEventListener("hashchange",App);
+window.addEventListener("hashchange", e=>{
+    //cada vez que hay cambios en el hash inicializa pagina de wp_api.js en 1
+    api.page = 1;
+    //console.log(api.page);//imprime: 1
+
+    //tambien ejecuta f. App()
+    App();
+});

@@ -52,7 +52,7 @@ let $contenidoCard = `
 const $newcard2 = document.createElement("figure");
 $newcard2.classList.add("card");//añdimos la clase .card, dentro de la etiqueta figure
 
-$newcard2.insertAdjacentHTML("beforeend",$contenCard);//primero tomamos refrencia clase $newcard2, y con insertAdjacentHTML porque el $contenCard es cod. html y puede ser afterbegin o beforeend, daria lo mismo porque el elemento esta vacio ; cambio afterend ó beforebegin: no aparece la img 
+$newcard2.insertAdjacentHTML("beforeend",$contenidoCard);//primero tomamos refrencia clase $newcard2, y con insertAdjacentHTML porque el $contenCard es cod. html y puede ser afterbegin o beforeend, daria lo mismo porque el elemento esta vacio ; cambio afterend ó beforebegin: no aparece la img 
 $newcard2.querySelector("figcaption").insertAdjacentText("afterbegin","Fotos1");//como la figcaption esta vacia daria lo mismo si pongo afterbegin, beforeend, dentro de () de insertAdjacent y ponemos el texto de figcaption, tomamos referencia la $newcard1 y seleccionamos con querySelector la etiqueta figcaption
 
 //usando similar METODOS DE JQUERY 

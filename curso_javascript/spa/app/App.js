@@ -10,6 +10,7 @@ import { Header } from "./components/Header.js";
 import { Main } from "./components/Main.js";
 import { Loader } from "./components/Loader.js";
 import { Roouter } from "./components/Roouter.js";
+import { InfiniteScroll } from "./helpers/infinite_scroll.js";
 
 export function App(){
 
@@ -26,6 +27,9 @@ export function App(){
 
         //invocamos la funcionalidad del router
         Roouter();
+
+        //importamos la funcion infinito scroll
+        InfiniteScroll();
 
         //-------------- ara ver si funciona el catch --------
         // ajax({

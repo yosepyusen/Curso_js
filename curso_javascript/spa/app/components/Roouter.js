@@ -24,7 +24,9 @@ export async function Roouter(){
         
         //sencillo q fue estruturar un router para nuestro app, por cada vista q tengan van agregar un if y else
         if(!hash || hash === "#/"){ //cuando no existe el hash o es = #/, quiere decir que estamos en el home o inicio
-            
+        
+        
+        
         await ajax({ //hasta q termine d ejecutar este ajax va ocultarse el loader, puesto en la linea 56
             url:api.POSTS,
             cbSucces: (posts)=>{ //el posts es como json
@@ -62,8 +64,8 @@ export async function Roouter(){
                 url:`${api.SEARCH}${query}`, //no ponemos barra diagonal porque api.SEARCH: termina en igual, entonces se iguala a query implicitamente  
                 cbSucces: (search)=>{ //search es un api que se obtiene del anterior cod. que es url
 
-                    console.log("el sig. consoles es infor del search");
-                    console.log(search);//imprime array de 10
+                    //console.log("el sig. consoles es infor del search");
+                    //console.log(search);//imprime array de 10
                 
                     let html = "";//creamos una variable html vacia para donde guardar el contenido dinamico
                     
