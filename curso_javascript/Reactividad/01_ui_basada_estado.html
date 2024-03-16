@@ -19,16 +19,17 @@
     <script>
 
         //UA: users interface
-        const d = document,
-            $item = d.getElementById("todo-item"),
-            $list = d.getElementById("todo-list");
+        const d = document;
+        
+        //si el estado sea realmente reactivo y no se puede acceder directamente al estado como: state.todoList.push($item.value);, seria mala practica 
+        //el estado es inmutable:No mudable, que no puede ni se puede cambiar.
 
         //El STATE
         const state = { // state va ser un obj donde por cada atributo q tenga este obj, es cada uno de los estados q quisieramos controlar
             //lista de tareas
             todoList:[] //valor inicial arreglo vacio, por cada lista de tareas q le agregams al <ul>, en el dom se va ir generando un elemento de este arreglo
         }
-        //TEMPLATE  UI
+        //TEMPLATE  UI: funcion q renderiza la interfaz depediendo de la modificacion del state 
         const template = () =>{
             if(state.todoList.length<1){ //si tiene menos de 1 elemento el todoList q es propiedad de state
                 return `<p><em>Lista sin tareas por hacer</em></p>`;
@@ -36,20 +37,53 @@
 
             //pero si tiene mas de un elemento, es renderizar uno de esos todoList:list. tareas
             //MAP(), es como un iterador que se puede usar para array casi como el ciclo for
-            let todos = state.todoList.map(item => `<li>${item}</li>`); //accedemos al todoList
+            //accedemos al todoList y por cada elemento agregamos es una cadena de texto por eso sale coma 
+            //con join(""): todo estos elementos de arreglo les una en una cadena d texto
+            let todos = state.todoList.map(item => `<li>${item}</li>`).join(""); 
+
+            return todos; //
         }
+
+        //Render UI : q pinta o inserta en el dom
+        //render es arrow function, pero tbm se puede tener en funciones normalitas
+        const render =()=>{ //render va pintar la interfas en base a los cambios de estado
+            //f. expresada no puedes usar hasta q, este definida, evitamos el joisting de las funciones, la mayoria prefiere arrow function
+            
+            //mostramos el estado actual
+            console.log(state);//imprime inicialmente: {todoList: Array(0)},
+            const $list = d.getElementById("todo-list");
+            if(!$list) return; //si no existe el $list en el dom no hagas nada y salte de la funcion
+
+            //si existe
+            $list.innerHTML = template(); //inserta contenido lo q tenemos en nuestra funcion template()
+        }
+        //carga el render cuando cuando carga el dom
+        d.addEventListener("DOMContentLoaded",render);
+
+
 
         d.addEventListener("submit",e=>{
             //cuando este coincide simple mente se va salir de la prog.
             if(!e.target.matches("#todo-form")) return false; //no coincide, porque estamos negando; con id="todo-form", no haga nada 
-           
             e.preventDefault();//prevenimos la accion del formulario
-            let $li = d.createElement("li"); //creams una lista
-            $li.textContent = $item.value;//en su contenido:textContent ponemos el valor de la caja del input q tiene id="todo-item"
-            //despues de ello agrega el nodo $li al $list
-            $list.appendChild($li);
 
-            console.log($list);
+            const $item = d.getElementById("todo-item"); //obtenemos el input "todo-item" en $item 
+            if(!$item) return; //si no existe el $item en el dom no hagas nada y salte de la funcion
+
+            // let $li = d.createElement("li"); //creams una lista
+            // $li.textContent = $item.value;//en su contenido:textContent ponemos el valor de la caja del input q tiene id="todo-item"
+            // //despues de ello agrega el nodo $li al $list
+            // $list.appendChild($li); //esta parte se conoce como renderizado o pintado de la interfaz
+
+            //Actualizar el State y la UI: agregar lista de tareas
+            //push(): metodo q agrega elementos al array
+            //modificamos el todoList y agregamos un new elemento con method. push q se obtien del input $item.value
+            state.todoList.push($item.value);
+            //inerfaz se recargue usamos la f. render()
+            render();
+
+            //console.log($list);
+            
             //limpiamos el input q es el $item
             $item.value = "";
             $item.focus(); //este focus es para que el maus vaya implicitamente da click en la caja del input o el cursor se posicione en el input 
