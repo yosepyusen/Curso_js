@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Componentes con Estado</title>
+</head>
+<body>
+    
+    <h1>Componentes con Estado</h1><!-- evitar manipular directamente el estado -->
+    <form action="" id="todo-form">
+        <input type="text" id="todo-item" placeholder="Tarea por hacer">
+        <input type="submit" value="Agregar">
+    </form> 
+
+    <h2>Lista de tareas</h2>
+    <ul id="todo-list"></ul> <!-- ul: es nuestro componente -->
+    <script>
+        //cada componente puede tener su propio estado, para manejar ciertas cuestiones 
+
+        //UA: users interface
+        const d = document;
+        
+        //si el estado sea realmente reactivo y no se puede acceder directamente al estado como: state.todoList.push($item.value);, seria mala practica 
+        //el estado es inmutable:No mudable, que no puede ni se puede cambiar.
+
+        //El STATE - GLOBAL: inmutable que no culquier persona lo puede modificar
+        const state = { // state va ser un obj donde por cada atributo q tenga este obj, es cada uno de los estados q quisieramos controlar
+            //lista de tareas
+            todoList:[], //valor inicial arreglo vacio, por cada lista de tareas q le agregams al <ul>, en el dom se va ir generando un elemento de este arreglo
+            nombre:"" //si ponemos esta propiedad nombre ahora si va agregar en setState
+        }
+
+        //TEMPLATE  UI: funcion q renderiza la interfaz depediendo de la modificacion del state = "template.data"
+        const template = () =>{ 
+            if(template.data.todoList.length<1){ //si tiene menos de 1 elemento el todoList q es propiedad de "template.data"
+                return `<p><em>Lista sin tareas por hacer</em></p>`;
+            }
+
+            //pero si tiene mas de un elemento, es renderizar uno de esos todoList:list. tareas
+            //MAP(), es como un iterador que se puede usar para array casi como el ciclo for
+            //accedemos al todoList y por cada elemento agregamos es una cadena de texto por eso sale coma 
+            //con join(""): todo estos elementos de arreglo les una en una cadena d texto
+            let todos = template.data.todoList.map(item => `<li>${item}</li>`).join(""); 
+
+            return todos; //
+        }
+
+        //creamos un ESTADO LOCAL
+        // Para poder agregar al state al componente, se lo voy a pegar directamente a la funcion template
+        //Agregar State al "template" que genera el Componenete de UI (Satate Local)
+        template.data = { // agregamos al template.data y no confundir con state como componente global le damos nombre de data 
+            //la data de este template va tener..
+            todoList:[] //esta propiedad donde va ir almacenando cada una de las tareas a ejecutar
+            //como no se va usar el STATE GLOBAL, entonces meternos a nuestras funciones y donde estaba "state" a cambio ponemos template.data 
+        }
+
+        //Render UI : q pinta o inserta en el dom
+        //render es arrow function, pero tbm se puede tener en funciones normalitas
+        const render =()=>{ //render va pintar la interfas en base a los cambios de estado
+            //f. expresada no puedes usar hasta q, este definida, evitamos el joisting de las funciones, la mayoria prefiere arrow function
+            
+            //mostramos el estado actual
+            console.log("Estado Global",state);//imprime inicialmente: {todoList: Array(0), nombre: ''}
+            console.log("Estado Local",template.data);//imprime inicialmente: {todoList: Array(3)},
+            //despues de haver imprimido los dos anteriores consoles imprime otra vez mas los dos consoles porque el render() es llamado del setState()
+
+            const $list = d.getElementById("todo-list");
+            if(!$list) return; //si no existe el $list en el dom no hagas nada y salte de la funcion
+
+            //si existe
+            $list.innerHTML = template(); //inserta contenido lo q tenemos en nuestra funcion template()
+        }
+        
+        //Actualizar el State de forma Reactiva, 
+        //con esto no vamos actualicemos directamente ese obj.state si no q se hace a travez de intermediario de setState
+        const setState = obj =>{//recibe un obj. y va recorrer con cada una de las llaves de este obj. y la q coincida con alguna llave del state=template.data, original, alli es donde donde la va asignar
+            
+            for(let key in obj){// obj: es un objeto o array q le estamos pasando y dentro de este tenemos propiedad que esta definido por "key"
+                
+                //hasOwnProperty: evalua q una llave existe dentro de un obj.
+                //si template.data.hasOwnProperty tiene alguna propiedad q coincida con los q estamos iterando del "obj" q recibe la f. setState
+                if(template.data.hasOwnProperty(key)) {
+                    //cuando eso se cumpla
+                    //vamos a reemplazar la propiedad original del template.data, por uno new q viene de "obj" y este  a su vez esta dentro de setState
+                    template.data[key] = obj[key];//al "template.data" original en esa llave quiero q reemplces su valor por el "obj" q esta recibiendo la funcion setState en esa llave
+                }
+            }
+            //al final de este for ejecutamos...
+            render();
+        } 
+
+        //Obtenemos una copia inmutable del State= template.data(ESTADO LOCAL)
+        //const getState = () => state ;//para obtener una copia del state, simplemnete ponemos el arrow function de getState y igualamos al state y nos devuelva el estado en ese momento pero no...
+        const getState = () => JSON.parse(JSON.stringify(template.data)) //como quiero una copia quiero q este desvinculado del "template.data"
+        //JSON.parse(JSON.stringify(template.data)) : es un obj. total mente diferente al "template.data"
+        //el metodo parse(): permite si una cadena de texto esta en formato json lo convierte a obj. javascript
+        //stringify(): hace lo contrario; de un obj. javascript, lo convierte a una cadena de texto en formato json 
+        //y este obj. a convertir en cadena de texto es "template.data"
+
+        //carga el render cuando cuando carga el dom
+        d.addEventListener("DOMContentLoaded",render);
+
+        //Estableciendo valores por defecto al STATE
+        setState({
+            todoList:["Tarea 1" ,"Tarea 2","Tarea 3"], //este propiedad y sus valores si va agregar porque este misma propieda tiene la funcion "state"
+            //nombre: "Jon" //a menos que esta propiedad de "nombre" existe en la func. state, se va agregar
+        });
+
+        //ESTADO MUTABLE: permite modificar el estado directamente creando una copia del obj. y agregando otro elemento 
+        // const items = state.todoList; //entramos a la propiedad:todoList de state y lo guardamos en items
+        // items.push("Tarea 4");//con push insertamos un new elemento a la porpiedad items
+        // console.log("Estado mutable", state); //imprime: {todoList: Array(4), nombre: 'Jon'}
+
+        //ESTADO INMUTABLE
+        // const items = getState();
+        // items.todoList.push("Tarea 4"); //no va insertar la Tarea 4, porque f.getState una copia del f.state
+        // console.log("Estado inmutable", state);
+
+        d.addEventListener("submit",e=>{
+            //cuando este coincide simple mente se va salir de la prog.
+            if(!e.target.matches("#todo-form")) return false; //no coincide, porque estamos negando; con id="todo-form", no haga nada 
+            e.preventDefault();//prevenimos la accion del formulario
+
+            const $item = d.getElementById("todo-item"); //obtenemos el input "todo-item" en $item 
+            if(!$item) return; //si no existe el $item en el dom no hagas nada y salte de la funcion
+
+            // let $li = d.createElement("li"); //creams una lista
+            // $li.textContent = $item.value;//en su contenido:textContent ponemos el valor de la caja del input q tiene id="todo-item"
+            // //despues de ello agrega el nodo $li al $list
+            // $list.appendChild($li); //esta parte se conoce como renderizado o pintado de la interfaz
+
+            // //Actualizar el State y la UI: agregar lista de tareas
+            // //push(): metodo q agrega elementos al array
+            // //modificamos el todoList y agregamos un new elemento con method. push q se obtien del input $item.value
+            // state.todoList.push($item.value);
+            // //inerfaz se recargue usamos la f. render()
+            // render();
+
+            //Actualizar el state de forma reactiva
+            const lastState = getState(); //mandamos a llamar al "getState", y "lastState:ultimo estado" ahora es la copia del "state=template.data" anterior
+            lastState.todoList.push($item.value); // de la propiedad:todoList de "lastState", agregamos:push(), lo q viene el valor(value) del input($item) 
+            setState({ todoList:lastState.todoList}) //ejecutamos el metodo "setState", y este metodo devuelve un arreglo y modificamos la propiedad "todoList" dando el valor de "lastState"(q es copia del estado anterior), que esta dentro de su propiedad de todoList
+            //ya no se ejecuta el render(), porque el "getState", internamente al final del ciclo for tiene ese render() 
+
+            //console.log($list);
+            
+            $item.value = "";//limpiamos el input q es el $item
+            $item.focus(); //este focus es para que el maus vaya implicitamente da click en la caja del input o el cursor se posicione en el input 
+
+        });
+    </script>
+
+</body>
+</html>
