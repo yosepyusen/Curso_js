@@ -93,7 +93,7 @@
 
         //Obtenemos una copia inmutable del State= template.data(ESTADO LOCAL)
         //const getState = () => state ;//para obtener una copia del state, simplemnete ponemos el arrow function de getState y igualamos al state y nos devuelva el estado en ese momento pero no...
-        const getState = () => JSON.parse(JSON.stringify(template.data)) //como quiero una copia quiero q este desvinculado del "template.data"
+        const getState = () => JSON.parse(JSON.stringify(template.data)); //como quiero una copia quiero q este desvinculado del "this.data"
         //JSON.parse(JSON.stringify(template.data)) : es un obj. total mente diferente al "template.data"
         //el metodo parse(): permite si una cadena de texto esta en formato json lo convierte a obj. javascript
         //stringify(): hace lo contrario; de un obj. javascript, lo convierte a una cadena de texto en formato json 
