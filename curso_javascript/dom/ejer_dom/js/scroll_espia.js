@@ -5,7 +5,7 @@ export default function scrollSpy(){
     
     const cb = (entries)=>{//creamos el callback con nombre cb y recibe este callback, entradas:entries, que estan vizualizando al view port
         
-        //la sig. linea de cod. comentamos a modo aprendizaje
+        // entries: son estradas q recibe cd que viene de IntersectionObserver
         //console.log("entries", entries);//con esto imprime:(15) [IntersectionObserverEntry... , imprime cuando pasas a otra seccion:entries [IntersectionObserverEntry], IntersectionObserverEntry(este tiene sus propiedades, la cual nos interesa el "target:section#seccion9.section)"
         //tambien nos interesa "isIntersecting:true", con esto dice que ya esta interactuando en la seccion
         //"isVisible:false", es cuando el panel de navegacion esta en otra seccion, es decir es falso o que ya habia interactuado en dicha seccion
