@@ -27,6 +27,10 @@ console.log(history.length);//nos dice cuantas paginas hemos visitado, este nume
 //history.back(3);//es para retroceder tres navegaciones atras en una misma ventana del navegador
 //history.forward(1);//es para ir cuantas paginas quieres ir adelante, cuando ya hayas a vuelto con history.back
 
+//El método replaceState() de la interfaz History modifica el método actual history, reemplazándola con el objeto de estado y URL pasada en los parámetros del método. Este método es particularmente útil cuando desee actualizar el objeto de estado o la dirección URL de la entrada del historial actual en respuesta a alguna acción del usuario.
+//replaceState(state, unused, url)
+//history.replaceState(null, null, window.location.pathname); sino le pasas nada pones null, null, tercer param es la url, ver mas...
+
 //los de ir hacia atras seria valores negativos y positivos cuando vas adelante, asi usa go
 //history.go(-3);//con esto le decimos tre paginas hacia atras, desde el mismo navegacion, usamos # positivo para ir en adelante del historial del mismo ventana abierto o ir atras con numeros negativos
 
